@@ -10,29 +10,33 @@ const Sidebar = () => {
             <h2>CCUN</h2>
         </div> */}
         <div className='menu-list'>
-            <a href='#' className='item'>
+            <a href='/admin' className='item'>
                 <BiHome className='icon'/>
                 Dashboard
             </a>
-            <a href='#' className='item'>
+            <a href='/admin/course' className='item'>
                 <BiTask className='icon'/>
-                Course
+                Courses
             </a>
-            <a href='#' className='item'>
+            <a href='/admin/training' className='item'>
                 <BiStats className='icon'/>
-                Training
+                Trainings
             </a>
-            <a href='#' className='item'>
+            <a href='/admin/workshop' className='item'>
                 <BiHome className='icon'/>
-                Workshop
+                Workshops
             </a>
-            <a href='#' className='item'>
+            <a href='/admin/event' className='item'>
                 <BiHome className='icon'/>
-                Workshop
+                Events
             </a>
-            <a href='#' className='item'>
+            <a href='/admin/major' className='item'>
                 <BiHome className='icon'/>
-                Workshop
+                Majors
+            </a>
+            <a href='/admin/partner' className='item'>
+                <BiHome className='icon'/>
+                Partner
             </a>
         </div>
     </div>
