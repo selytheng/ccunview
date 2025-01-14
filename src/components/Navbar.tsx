@@ -51,9 +51,10 @@ const Navbar = () => {
           <Link to="/contact" style={{ color: '#fff' }}>Contact</Link>
           <a href="/login" style={{ color: '#fff' }}>
             <button className="primary-button" style={{ margin: 0, height: '35px', width: '100px', textAlign: 'center' }}>
-              <div style={{ marginTop: '-6px' }}>Login</div>
+              <div style={{ marginTop: '-6px', color: 'black' }}>Login</div>
             </button>
           </a>
+          <Link to="/admin" style={{ color: '#fff' }}>Admin</Link>
         </div>
       </div>
 
