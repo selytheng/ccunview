@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* background-color: gray; */
+    /* background-color: red; */
 }
 .header-title {
     color: #526d82;
@@ -17,20 +17,22 @@
 }
 .search-box {
     background-color: #fff;
-    padding: 8px 10px;
+    padding: 6px 10px;
     border-radius: 10px;
     display: flex;
     align-items: center;
+    gap: 100px;
 }
 .search-box input {
     border: none;
     outline: none;
     background: transparent;
-    padding: 5px;
+    border-color: black;
+    font-size: 14px;
 }
 .search-box .icon {
     color: #959393;
-    font-size: 22px;
+    font-size: 25px;
     cursor: pointer;
     transition: 0.5s ease-in-out;
 }

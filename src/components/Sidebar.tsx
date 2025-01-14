@@ -1,46 +1,75 @@
 import React from 'react';
-import '../assets/css/admin.css'
-import { BiHome, BiStats, BiTask } from 'react-icons/bi';
+import { NavLink } from 'react-router-dom';
+import '../assets/css/admin.css';
+import { BiStats, BiBookOpen, BiClipboard, BiCategory, BiCalendar, BiGroup, BiSidebar, BiCommentDetail } from 'react-icons/bi';
 
 const Sidebar = () => {
   return (
     <div className='menu'>
         {/* <div className='logo'>
-            <BiBookAlt className='logo-icon'/>
+            <BiBookOpenAlt className='logo-icon'/>
             <h2>CCUN</h2>
         </div> */}
         <div className='menu-list'>
-            <a href='/admin' className='item'>
-                <BiHome className='icon'/>
+            <NavLink 
+              to="/admin/dashboard" 
+              className={({ isActive }) => isActive ? 'item active' : 'item'}
+            >
+                <BiCategory className="icon" />
                 Dashboard
-            </a>
-            <a href='/admin/course' className='item'>
-                <BiTask className='icon'/>
+            </NavLink>
+            <NavLink 
+              to="/admin/course" 
+              className={({ isActive }) => isActive ? 'item active' : 'item'}
+            >
+                <BiBookOpen className="icon" />
                 Courses
-            </a>
-            <a href='/admin/training' className='item'>
+            </NavLink>
+            <NavLink 
+              to="/admin/major" 
+              className={({ isActive }) => isActive ? 'item active' : 'item'}
+            >
+                <BiClipboard className='icon'/>
+                Majors
+            </NavLink>
+            <NavLink 
+              to="/admin/training" 
+              className={({ isActive }) => isActive ? 'item active' : 'item'}
+            >
                 <BiStats className='icon'/>
                 Trainings
-            </a>
-            <a href='/admin/workshop' className='item'>
-                <BiHome className='icon'/>
+            </NavLink>
+            <NavLink 
+              to="/admin/workshop" 
+              className={({ isActive }) => isActive ? 'item active' : 'item'}
+            >
+                <BiSidebar className='icon'/>
                 Workshops
-            </a>
-            <a href='/admin/event' className='item'>
-                <BiHome className='icon'/>
+            </NavLink>
+            <NavLink 
+              to="/admin/event" 
+              className={({ isActive }) => isActive ? 'item active' : 'item'}
+            >
+                <BiCalendar className='icon'/>
                 Events
-            </a>
-            <a href='/admin/major' className='item'>
-                <BiHome className='icon'/>
-                Majors
-            </a>
-            <a href='/admin/partner' className='item'>
-                <BiHome className='icon'/>
+            </NavLink>
+            <NavLink 
+              to="/admin/partner" 
+              className={({ isActive }) => isActive ? 'item active' : 'item'}
+            >
+                <BiGroup className='icon'/>
                 Partner
-            </a>
+            </NavLink>
+            <NavLink 
+              to="/admin/feedback" 
+              className={({ isActive }) => isActive ? 'item active' : 'item'}
+            >
+                <BiCommentDetail className='icon'/>
+                Feedback
+            </NavLink>
         </div>
     </div>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
