@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* background-color: gray; */
+    /* background-color: red; */
 }
 .header-title {
     color: #526d82;
@@ -13,42 +13,58 @@
 .header-activity {
     display: flex;
     align-items: center;
-    /* gap: 20px; */
+    gap: 20px;
 }
 .search-box {
     background-color: #fff;
-    padding: 8px 10px;
-    border-radius: 10px;
+    padding: 6px 10px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
+    gap: 100px;
 }
+/* .search-box:hover {
+    background-color: #ebe5e5;
+    border-color: 1px solid black;
+} */
 .search-box input {
     border: none;
     outline: none;
     background: transparent;
-    padding: 5px;
+    border-color: black;
+    font-size: 14px;
 }
 .search-box .icon {
     color: #959393;
-    font-size: 22px;
+    font-size: 25px;
     cursor: pointer;
     transition: 0.5s ease-in-out;
 }
-.notify {
-    background-color: #fff;
-    padding: 12px;
-    border-radius: 10px;
-    color: #969393;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.5s ease-in-out;
-}
-.notify .icon {
-    font-size: 20px;
-    transition: 0.5 ease-in-out;
-}
+
+
 .icon:hover {
     transform: scale(1.3);
     cursor: pointer;
 }
+.course-title {
+    white-space: nowrap; 
+    overflow: hidden;    
+    text-overflow: ellipsis; 
+    width: 100%; 
+}
+.course-title:hover {
+    color: #526d82;
+    text-decoration: underline;
+}
+.course-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    text-align: justify; 
+    font-size: 15px;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  
+  

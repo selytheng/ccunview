@@ -54,7 +54,7 @@ const Navbar = () => {
               <div style={{ marginTop: '-9px', color: 'black' }} >Login</div>
             </button>
           </a>
-          <Link to="/admin" style={{ color: '#fff' }}>Admin</Link>
+          <Link to="/admin/dashboard" style={{ color: '#fff' }}>Admin</Link>
         </div>
       </div>
 
