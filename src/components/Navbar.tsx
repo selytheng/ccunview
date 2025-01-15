@@ -42,7 +42,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="nav-logo-container" style={{ backgroundColor: '#0C4CA3', marginLeft: '0px', width: '100vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="nav-logo-container p-3" style={{ backgroundColor: '#071952', marginLeft: '0px', width: '100vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <img src={Logo} alt="" style={{ width: '550px', marginLeft: '-0px' }} />
         <div className="navbar-links-container">
           <Link to="/home" style={{ color: '#fff' }}>Home</Link>
@@ -51,7 +51,7 @@ const Navbar = () => {
           <Link to="/contact" style={{ color: '#fff' }}>Contact</Link>
           <a href="/login" style={{ color: '#fff' }}>
             <button className="primary-button" style={{ margin: 0, height: '35px', width: '100px', textAlign: 'center' }}>
-              <div style={{ marginTop: '-6px', color: 'black' }}>Login</div>
+              <div style={{ marginTop: '-9px', color: 'black' }} >Login</div>
             </button>
           </a>
           <Link to="/admin" style={{ color: '#fff' }}>Admin</Link>
