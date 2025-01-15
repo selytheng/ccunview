@@ -37,7 +37,9 @@ const App = () => {
           <Route path="/admin/partner" element={<AdminPartner />} />
           <Route path="/admin/feedback" element={<Feedback />} />
 
-          <Route path="/course/:id" element={<CourseDetail />} /> 
+          <Route path="/admin/course/:id" element={<CourseDetail />} />
+
+
         </Routes>
       </BrowserRouter>
     </div>

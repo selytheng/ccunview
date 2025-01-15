@@ -22,7 +22,7 @@ const courses = [
   {
     id: 3,
     title: "Cyber Security",
-    description: "Learn the fundamentals of web development using HTML and CSS, the building blocks of the web.Learn the fundamentals of web development using HTML and CSS, the building blocks of the web.",
+    description: "Learn the fundamentals of web development using HTML and CSS, the building blocks of the web.",
     image: "/public/cyber-security.jpeg",
   },
   {
@@ -75,8 +75,8 @@ const AdminCourse = () => {
                   <CardMedia sx={{ height: 170 }} image={course.image} title={course.title} />
                   <CardContent>
                     <Typography gutterBottom variant="h6" component="div">
-                      {/* Wrap the course title in a Link component to make it clickable */}
-                      <Link to={`/course/${course.id}`} style={{ textDecoration: 'none', color: '#000' }}>
+                      {/* Link updated to use "/admin/course/:id" */}
+                      <Link to={`/admin/course/${course.id}`} style={{ textDecoration: 'none', color: '#000' }}>
                         <div className="course-title">{course.title}</div>
                       </Link>
                     </Typography>
