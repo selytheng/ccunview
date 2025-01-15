@@ -65,9 +65,20 @@ body {
     background-color: #dde6ed;
     flex: 1;
     /* border-radius: 10px; */
-    padding: 20px;
+    padding: 20px 20px;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     /* justify-content: space-between; */
+}
+.box-container {
+    /* background-color: #fff; */
+    padding: 10px 0;
+    display: flex;
+    gap: 20px;
+    /* display: flex; */
+    /* margin-left: -100px; */
+    /* flex-direction: row; */
+    /* justify-content: space-between; */
+    /* gap: 100px; */
 }

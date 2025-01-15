@@ -7,17 +7,18 @@ import Login from './Pages/Login';
 import About from './Pages/About';
 import Contact from './Pages/Contact';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
-import AdminCourse from './Pages/Admin/AdminCourse';
+import AdminCourse from './Pages/Admin/Course/AdminCourse';
 import AdminTraining from './Pages/Admin/AdminTraining';
 import AdminWorkshop from './Pages/Admin/AdminWorkshop';
 import AdminEvent from './Pages/Admin/AdminEvent';
 import AdminMajor from './Pages/Admin/AdminMajor';
 import AdminPartner from './Pages/Admin/AdminPartner';
 import Feedback from './Pages/Admin/Feedback';
+import CourseDetail from './Pages/Admin/Course/CourseDetail';
 
 const App = () => {
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />
@@ -27,7 +28,6 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
 
-          {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/course" element={<AdminCourse />} />
           <Route path="/admin/training" element={<AdminTraining />} />
@@ -36,6 +36,8 @@ const App = () => {
           <Route path="/admin/major" element={<AdminMajor />} />
           <Route path="/admin/partner" element={<AdminPartner />} />
           <Route path="/admin/feedback" element={<Feedback />} />
+
+          <Route path="/course/:id" element={<CourseDetail />} /> 
         </Routes>
       </BrowserRouter>
     </div>
