@@ -1,24 +1,86 @@
-import backgroundImage from '../assets/images/background.png';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import backgroundImage from "../assets/images/background.png";
 import Navbar_HomePage from "../components/Navbar_HomePage.tsx";
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+
+    const navigate = useNavigate(); // Initialize useNavigate
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
+        setSuccessMessage("");
+
+        try {
+            const response = await fetch("http://localhost:8000/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Extract `access_token` and `partner_id` from the response
+                const access_token = data.access_token;
+                const partner_id = data.user.partner_id;
+
+                setSuccessMessage("Login successful!");
+
+                // Save these values to localStorage or manage them as needed
+                localStorage.setItem("access_token", access_token);
+                localStorage.setItem("partner_id", String(partner_id));
+
+                // Redirect to /admin/dashboard
+                navigate("/admin/dashboard");
+            } else {
+                // Handle errors
+                setError(data.message || "Login failed");
+            }
+        } catch (err) {
+            console.error("Error during login:", err);
+            setError("An error occurred. Please try again later.");
+        }
+    };
+
     return (
         <>
             <div
-                className="flex min-h-screen flex-1 flex-col justify-center "
+                className="flex min-h-screen flex-1 flex-col justify-center"
                 style={{
                     backgroundImage: `url(${backgroundImage})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundColor: 'rgba(0, 0, 0, 1)',
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundColor: "rgba(0, 0, 0, 1)",
                 }}
             >
-                <Navbar_HomePage/>
+                <Navbar_HomePage />
                 <div className="flex min-h-full flex-1 flex-col justify-center mb-28 px-6 py-12 lg:px-8">
-                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm  border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
-                        <form action="#" method="POST" className="space-y-6">
+                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
+                        <form
+                            action="#"
+                            method="POST"
+                            className="space-y-6"
+                            onSubmit={handleSubmit}
+                        >
+                            {error && (
+                                <div className="text-red-500 text-sm">{error}</div>
+                            )}
+                            {successMessage && (
+                                <div className="text-green-500 text-sm">{successMessage}</div>
+                            )}
                             <div>
-                                <label htmlFor="email" className="block text-sm/6 font-bold text-gray-900 ">
+                                <label
+                                    htmlFor="email"
+                                    className="block text-sm/6 font-bold text-gray-900"
+                                >
                                     Email
                                 </label>
                                 <div className="mt-2">
@@ -26,6 +88,8 @@ const Login = () => {
                                         id="email"
                                         name="email"
                                         type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         required
                                         autoComplete="email"
                                         placeholder="Email"
@@ -36,7 +100,10 @@ const Login = () => {
 
                             <div>
                                 <div className="flex items-center justify-between">
-                                    <label htmlFor="password" className="block text-sm/6 font-bold text-gray-900">
+                                    <label
+                                        htmlFor="password"
+                                        className="block text-sm/6 font-bold text-gray-900"
+                                    >
                                         Password
                                     </label>
                                 </div>
@@ -45,6 +112,8 @@ const Login = () => {
                                         id="password"
                                         name="password"
                                         type="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         required
                                         autoComplete="current-password"
                                         placeholder="Password"
@@ -65,7 +134,7 @@ const Login = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Login;
