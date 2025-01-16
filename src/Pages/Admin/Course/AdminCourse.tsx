@@ -1,27 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import NavbarHomePage from '../../../components/Navbar_HomePage';
 import Sidebar from '../../../components/Sidebar';
-import { Button, Card, CardContent, Typography, Grid } from '@mui/material';
+import { BiSearch, BiArchive } from 'react-icons/bi';
+import { Button, Card, CardContent, Typography, Grid, CircularProgress, CardMedia, Alert } from '@mui/material';
 import { AddOutlined } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import CourseCreate from './CourseCreate';
+import CourseCreate from './CourseCreate';  // Import the CourseCreate modal
+import { Course } from '../../../types/interface';
 
 const AdminCourse: React.FC = () => {
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [successAlertVisible, setSuccessAlertVisible] = useState(false); // Manage success alert visibility
 
   const fetchCourses = async () => {
     const access_token = localStorage.getItem('access_token');
-    const response = await fetch(`http://localhost:8000/api/courses`, {
+    const partnerId = localStorage.getItem('partner_id');
+    const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/courses`, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const data = await response.json();
     setCourses(data);
+    setLoading(false);  // Set loading to false once data is fetched
   };
 
   useEffect(() => {
     fetchCourses();
   }, []);
+
+  const filteredCourses = courses.filter(course =>
+    course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    course.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleOpen = () => setIsDialogOpen(true);
+  const handleClose = () => setIsDialogOpen(false);
+
+  const handleCourseCreate = () => {
+    fetchCourses();  // Fetch the latest course list after creating a new course
+    setSuccessAlertVisible(true);  // Show the success alert
+    setTimeout(() => {
+      setSuccessAlertVisible(false);  // Hide the alert after 2 seconds
+      handleClose();  // Close the modal
+    }, 2000);
+  };
 
   return (
     <div>
@@ -31,53 +55,96 @@ const AdminCourse: React.FC = () => {
         <div className="dashboard-content">
           <div className="course-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Courses</h1>
-            <Button variant="contained" startIcon={<AddOutlined />} onClick={() => setIsDialogOpen(true)}>
-              Create
-            </Button>
+            <div className="header-activity">
+              <div className="search-box" style={{ display: 'flex', alignItems: 'center' }}>
+                <input
+                  type="text"
+                  placeholder="Search anything here...."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ marginRight: '10px' }}
+                />
+                <BiSearch className="icon" />
+              </div>
+              <Button variant="contained" startIcon={<AddOutlined />} onClick={handleOpen}>
+                Create
+              </Button>
+            </div>
           </div>
 
-          <Grid container spacing={3}>
-            {courses.map((course) => (
-              <Grid item xs={12} sm={6} md={3} key={course.id}>
-                <Link to={`/admin/course/${course.id}`} style={{ textDecoration: 'none' }}>
-                  <Card
-                    sx={{
-                      maxWidth: 345,
-                      transition: 'transform 0.3s, box-shadow 0.3s',
-                      '&:hover': {
-                        transform: 'scale(1.01)',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-                      },
-                    }}
-                  >
-                    <CardContent>
-                      <Typography gutterBottom variant="h6" component="div">
-                        {course.name}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: 'text.secondary',
-                          display: '-webkit-box',
-                          WebkitBoxOrient: 'vertical',
-                          overflow: 'hidden',
-                          WebkitLineClamp: 3,
-                          textAlign: 'justify',
-                        }}
-                      >
-                        {course.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
+          {/* Success Alert */}
+          {successAlertVisible && (
+            <Alert variant="filled" severity="success" sx={{ marginBottom: 2 }}>
+              Course created successfully!
+            </Alert>
+          )}
+
+          {/* Loading indicator */}
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+              <CircularProgress />
+            </div>
+          ) : filteredCourses.length === 0 ? (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '50px' }}>
+              <BiArchive size={50} />
+              <Typography variant="h6" style={{ marginTop: '20px', textAlign: 'center' }}>
+                No Data Available
+              </Typography>
+            </div>
+          ) : (
+            <Grid container spacing={3}>
+              {filteredCourses.map((course) => (
+                <Grid item xs={12} sm={6} md={3} key={course.id}>
+                  <Link to={`/admin/course/${course.id}`} style={{ textDecoration: 'none' }}>
+                    <Card
+                      sx={{
+                        maxWidth: 345,
+                        transition: 'transform 0.3s, box-shadow 0.3s',
+                        '&:hover': {
+                          transform: 'scale(1.01)',
+                          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                        },
+                      }}
+                    >
+                      {course.image && (
+                        <CardMedia
+                          sx={{ height: 170 }}
+                          image={`http://localhost:8000/${course.image}`}
+                          title={course.name}
+                        />
+                      )}
+
+                      <CardContent>
+                        <Typography gutterBottom variant="h6" component="div">
+                          <div className='course-title'>{course.name}</div>
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: 'text.secondary',
+                            display: '-webkit-box',
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            WebkitLineClamp: 2,
+                            textAlign: 'justify',
+                            minHeight: '3.2em',
+                            lineHeight: '1.5em',
+                          }}
+                        >
+                          {course.description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </div>
       </div>
 
-      {/* Course Create Dialog */}
-      <CourseCreate open={isDialogOpen} onClose={() => setIsDialogOpen(false)} onSubmit={fetchCourses} />
+      {/* Course Create Modal */}
+      <CourseCreate open={isDialogOpen} onClose={handleClose} onSubmit={handleCourseCreate} />
     </div>
   );
 };
