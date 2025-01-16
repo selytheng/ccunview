@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import backgroundImage from "../assets/images/background.png";
 import Navbar_HomePage from "../components/Navbar_HomePage.tsx";
+import {IoArrowBack} from "react-icons/io5";
+import {Link} from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -61,6 +63,7 @@ const Login = () => {
                     backgroundColor: "rgba(0, 0, 0, 1)",
                 }}
             >
+<<<<<<< HEAD
                 <Navbar_HomePage />
                 <div className="flex min-h-full flex-1 flex-col justify-center mb-28 px-6 py-12 lg:px-8">
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
@@ -76,6 +79,12 @@ const Login = () => {
                             {successMessage && (
                                 <div className="text-green-500 text-sm">{successMessage}</div>
                             )}
+=======
+                <Navbar_HomePage/>
+                <div className="flex min-h-full flex-1 flex-col justify-center mb-12 px-6 py-12 lg:px-8">
+                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
+                        <form action="#" method="POST" className="space-y-6">
+>>>>>>> 4189c83e49ea06b39e9894519959eaa5fda86efb
                             <div>
                                 <label
                                     htmlFor="email"
@@ -124,11 +133,17 @@ const Login = () => {
                             <div>
                                 <button
                                     type="submit"
-                                    className="flex w-full justify-center mt-8 rounded-md bg-[#071952] px-3 py-1.5 mb-20 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    className="flex w-full justify-center mt-8 rounded-md bg-[#071952] px-3 py-1.5 mb-5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Log in
                                 </button>
+                                <Link to="/home">
+                                    <div className="flex items-center gap-2 mb-10"><IoArrowBack className='icon'/>
+                                        <div className="text-xs font-bold">Back home</div>
+                                    </div>
+                                </Link>
                             </div>
+
                         </form>
                     </div>
                 </div>
