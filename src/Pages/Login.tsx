@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import backgroundImage from "../assets/images/background.png";
 import Navbar_HomePage from "../components/Navbar_HomePage.tsx";
-import {IoArrowBack} from "react-icons/io5";
-import {Link} from "react-router-dom";
+import { IoArrowBack } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ const Login = () => {
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,20 +30,14 @@ const Login = () => {
             const data = await response.json();
 
             if (response.ok) {
-                // Extract `access_token` and `partner_id` from the response
                 const access_token = data.access_token;
                 const partner_id = data.user.partner_id;
 
                 setSuccessMessage("Login successful!");
-
-                // Save these values to localStorage or manage them as needed
                 localStorage.setItem("access_token", access_token);
                 localStorage.setItem("partner_id", String(partner_id));
-
-                // Redirect to /admin/dashboard
                 navigate("/admin/dashboard");
             } else {
-                // Handle errors
                 setError(data.message || "Login failed");
             }
         } catch (err) {
@@ -63,7 +57,6 @@ const Login = () => {
                     backgroundColor: "rgba(0, 0, 0, 1)",
                 }}
             >
-<<<<<<< HEAD
                 <Navbar_HomePage />
                 <div className="flex min-h-full flex-1 flex-col justify-center mb-28 px-6 py-12 lg:px-8">
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
@@ -73,18 +66,10 @@ const Login = () => {
                             className="space-y-6"
                             onSubmit={handleSubmit}
                         >
-                            {error && (
-                                <div className="text-red-500 text-sm">{error}</div>
-                            )}
+                            {error && <div className="text-red-500 text-sm">{error}</div>}
                             {successMessage && (
                                 <div className="text-green-500 text-sm">{successMessage}</div>
                             )}
-=======
-                <Navbar_HomePage/>
-                <div className="flex min-h-full flex-1 flex-col justify-center mb-12 px-6 py-12 lg:px-8">
-                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
-                        <form action="#" method="POST" className="space-y-6">
->>>>>>> 4189c83e49ea06b39e9894519959eaa5fda86efb
                             <div>
                                 <label
                                     htmlFor="email"
@@ -108,14 +93,12 @@ const Login = () => {
                             </div>
 
                             <div>
-                                <div className="flex items-center justify-between">
-                                    <label
-                                        htmlFor="password"
-                                        className="block text-sm/6 font-bold text-gray-900"
-                                    >
-                                        Password
-                                    </label>
-                                </div>
+                                <label
+                                    htmlFor="password"
+                                    className="block text-sm/6 font-bold text-gray-900"
+                                >
+                                    Password
+                                </label>
                                 <div className="mt-2">
                                     <input
                                         id="password"
@@ -138,12 +121,12 @@ const Login = () => {
                                     Log in
                                 </button>
                                 <Link to="/home">
-                                    <div className="flex items-center gap-2 mb-10"><IoArrowBack className='icon'/>
+                                    <div className="flex items-center gap-2 mb-10">
+                                        <IoArrowBack className="icon" />
                                         <div className="text-xs font-bold">Back home</div>
                                     </div>
                                 </Link>
                             </div>
-
                         </form>
                     </div>
                 </div>
