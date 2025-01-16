@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import image1 from "../assets/images/image1.jpg"; // Ensure this path is correct
-import image2 from "../assets/images/HH1.png";    // Ensure this path is correct
-import image3 from "../assets/images/HH2.png";   // Ensure this path is correct
+import image1 from "../../public/Philosophy.jpg"; // Ensure this path is correct
+import image2 from "../../public/AI.jpg";    // Ensure this path is correct
+import image3 from "../../public/Telecommunication.jpg";   // Ensure this path is correct
 
 const Carousel = () => {
     const [activeIndex, setActiveIndex] = useState(0);

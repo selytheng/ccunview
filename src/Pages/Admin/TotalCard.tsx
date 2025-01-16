@@ -1,5 +1,4 @@
 import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
-import React from 'react';
 import { BiBook, BiTask, BiUser } from 'react-icons/bi';
 
 // Define the card data for reuse
@@ -18,7 +17,7 @@ const TotalCard = () => {
       <Grid container spacing={3}>
         {cardData.map((data, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-            <Card sx={{ display: 'flex', alignItems: '', padding: 2, backgroundColor: '', flexDirection: 'column', width: '250px', height: '130px' }}>
+            <Card sx={{ display: 'flex', alignItems: '', padding: 2, backgroundColor: '', flexDirection: 'column', width: '270px', height: '150px' }}>
                 <Typography variant="h6" style={{borderBottom: '1px solid black'}}>{data.title}</Typography>
               {/* <div style={{ marginRight: 16, color: data.color, backgroundColor: 'green' }}>
                 {data.icon}

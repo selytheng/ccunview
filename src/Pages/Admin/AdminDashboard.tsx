@@ -1,4 +1,3 @@
-import React from 'react';
 import Sidebar from '../../components/Sidebar';
 import '../../assets/css/admin.css';
 import NavbarHomePage from '../../components/Navbar_HomePage';
@@ -16,13 +15,9 @@ const AdminDashboard = () => {
           <ContentHeader />
           <div className="box-container">
             <TotalCard />
-            
             {/* <div style={{width: 740, height: 300, padding: 2, backgroundColor: 'pink'}}>
-
             </div> */}
           </div>
-         
-          
         </div>
       </div>
     </div>

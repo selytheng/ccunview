@@ -1,4 +1,3 @@
-import React from 'react';
 import NavbarHomePage from '../../../components/Navbar_HomePage';
 import Sidebar from '../../../components/Sidebar';
 import { BiSearch } from 'react-icons/bi';

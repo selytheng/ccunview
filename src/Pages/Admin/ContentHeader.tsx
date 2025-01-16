@@ -1,4 +1,3 @@
-import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { BiSearch } from 'react-icons/bi'
 import '../../assets/css/content.css'

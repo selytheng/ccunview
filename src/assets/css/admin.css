@@ -70,9 +70,18 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     /* justify-content: space-between; */
+}.dashboard-content-home {
+    /*background-color: #dde6ed;*/
+    flex: 1;
+    /* border-radius: 10px; */
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    /* justify-content: space-between; */
 }
 .box-container {
-    /* background-color: #fff; */
+    /*background-color: #fff;*/
     padding: 10px 0;
     display: flex;
     gap: 20px;

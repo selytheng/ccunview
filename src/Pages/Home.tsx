@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar';
 import DepartmentBtn from "../components/Buttons/DepartmentBtn.tsx";
 import YearBtn from "../components/Buttons/YearBtn.tsx";
 import Carousel from "../components/SliderImage.tsx";
+import Course from "../components/HomeComponent/CourseComponent.tsx";
+import Trainging from "../components/HomeComponent/TrainingComponent.tsx";
 
 const Home = () => {
     const [activeDropdown, setActiveDropdown] = useState<null | 'department' | 'year'>(null);
@@ -23,8 +25,16 @@ const Home = () => {
                     <DepartmentBtn isOpen={activeDropdown === 'department'} onToggle={() => handleDropdownToggle('department')} />
                     <YearBtn isOpen={activeDropdown === 'year'} onToggle={() => handleDropdownToggle('year')} />
                 </div>
-                <div className="border-2 border-black h-96 ">
-                    {/*<CourseComponent/>*/}
+                <div className="">
+                    <Course/>
+                </div>
+            </section>
+            <section className='home-container p-4'>
+                <div className='home-container text-lg font-semibold mb-5'>
+                    Training
+                </div>
+                <div className="">
+                    <Trainging/>
                 </div>
             </section>
         </div>
