@@ -62,9 +62,8 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
       });
 
       if (response.ok) {
-        alert('Course created successfully!');
         onSubmit(); // Trigger course list refresh
-        onClose(); // Close the dialog
+        onClose();  // Close modal after successful creation
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
