@@ -18,6 +18,7 @@ import Feedback from './Pages/Admin/Feedback';
 import CourseDetail from './Pages/Admin/Course/CourseDetail';
 import AdminRoute from '../src/components/AdminRoute'
 import AdminProfile from "./Pages/Admin/AdminProfile";
+import News from "./Pages/News.tsx";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/news" element={<News />} />
           <Route path="/course" element={<Courses />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

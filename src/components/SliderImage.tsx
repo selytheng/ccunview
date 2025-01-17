@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import image1 from "../../public/Philosophy.jpg"; // Ensure this path is correct
-import image2 from "../../public/AI.jpg";    // Ensure this path is correct
-import image3 from "../../public/Telecommunication.jpg";   // Ensure this path is correct
+import image1 from "../../public/image1.jpg";
+import image2 from "../../public/image2.jpg";
+import image3 from "../../public/image3.jpg";
+import image4 from "../../public/image4.jpg";
+import image5 from "../../public/image5.jpg";
 
 const Carousel = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -20,6 +22,16 @@ const Carousel = () => {
             src: image3,
             alt: "Third Slide",
             label: "Third Slide"
+        },
+        {
+            src: image4,
+            alt: "Fourth Slide",
+            label: "Fourth Slide"
+        },
+        {
+            src: image5,
+            alt: "Fifth Slide",
+            label: "Fifth Slide"
         }
     ];
 
