@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import '../../../assets/css/admin.css';
 import NavbarHomePage from '../../../components/Navbar_HomePage';
 import Sidebar from '../../../components/Sidebar';
-import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Alert } from '@mui/material';
+import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Alert, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import CourseEdit from './CourseEdit';
 import { BiBookOpen, BiFlag, BiPencil, BiSignal1, BiSolidMapPin, BiSolidShareAlt, BiTrash } from 'react-icons/bi';
 
@@ -14,7 +14,9 @@ const CourseDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [majors, setMajors] = useState<any[]>([]);
-  const [successAlertVisible, setSuccessAlertVisible] = useState(false); // Add state for success alert
+  const [successAlertVisible, setSuccessAlertVisible] = useState(false); 
+  const [deleteSuccessAlertVisible, setDeleteSuccessAlertVisible] = useState(false); 
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false); // New state for delete confirmation dialog
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,9 +62,12 @@ const CourseDetail: React.FC = () => {
           Authorization: `Bearer ${access_token}`,
         },
       });
-
+  
       if (response.ok) {
-        alert('Course deleted successfully!');
+        setDeleteSuccessAlertVisible(true); // Show success alert
+        setTimeout(() => {
+          setDeleteSuccessAlertVisible(false); // Hide after 2 seconds
+        }, 2000);
         window.location.href = '/admin/course'; // Redirect to course list
       } else {
         const errorData = await response.json();
@@ -71,7 +76,13 @@ const CourseDetail: React.FC = () => {
     } catch (error) {
       console.error('Error occurred while deleting the course:', error);
       alert('An error occurred while deleting the course.');
+    } finally {
+      setOpenDeleteDialog(false); // Close delete confirmation dialog after deletion attempt
     }
+  };
+
+  const handleDeleteClick = () => {
+    setOpenDeleteDialog(true); // Open the delete confirmation dialog when delete button is clicked
   };
 
   const getMajorName = (majorId: number) => {
@@ -91,7 +102,13 @@ const CourseDetail: React.FC = () => {
   };
 
   const handleCourseUpdate = () => {
-    setSuccessAlertVisible(true); // Show the success alert after the course update
+    // First, reload the page after a short delay
+    setTimeout(() => {
+      window.location.reload(); // Reload the page to reflect updated course details
+    }, 500); // Adding a small delay to ensure that the page reload happens first
+
+    // Show the success alert after the page reload
+    setSuccessAlertVisible(true);
     setTimeout(() => {
       setSuccessAlertVisible(false); // Hide the alert after 2 seconds
     }, 2000);
@@ -138,9 +155,7 @@ const CourseDetail: React.FC = () => {
             <div style={{ display: 'flex' }}>
               <Link to="/admin/course" style={{ textDecoration: 'none', color: '#526d82', fontWeight: 'bold', display: 'flex' }}>
                 <BiBookOpen className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} /> Courses
-              </Link>{' '}
-              {' /  '}
-              <span> {course.name}</span>
+              </Link>{' '}{' /  '}<span> {course.name}</span>
             </div>
 
             {/* Action Buttons */}
@@ -159,7 +174,7 @@ const CourseDetail: React.FC = () => {
                 startIcon={<BiTrash style={{ fontSize: 18, backgroundColor: '' }} />}
                 className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
                 style={{ backgroundColor: 'rgb(220 38 38)' }}
-                onClick={handleDelete}
+                onClick={handleDeleteClick} // Trigger the confirmation modal
               >
                 Delete
               </Button>
@@ -170,6 +185,13 @@ const CourseDetail: React.FC = () => {
           {successAlertVisible && (
             <Alert variant="filled" severity="success" sx={{ marginBottom: 2 }}>
               Course updated successfully!
+            </Alert>
+          )}
+
+          {/* Delete Success Alert */}
+          {deleteSuccessAlertVisible && (
+            <Alert variant="filled" severity="success" sx={{ marginBottom: 2 }}>
+              Course deleted successfully!
             </Alert>
           )}
 
@@ -247,6 +269,26 @@ const CourseDetail: React.FC = () => {
               />
             )}
           </Card>
+
+          {/* Delete Confirmation Dialog */}
+          <Dialog
+            open={openDeleteDialog}
+            onClose={() => setOpenDeleteDialog(false)}
+          >
+            <DialogTitle>Are you sure you want to delete this course?</DialogTitle>
+            <DialogActions>
+              <Button onClick={() => setOpenDeleteDialog(false)} color="secondary">
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleDelete} 
+                sx={{ backgroundColor: 'rgb(220, 38, 38)', '&:hover': { backgroundColor: 'rgb(185, 28, 28)' } }} 
+                variant="contained"
+              >
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
 
           {/* Edit Dialog */}
           <CourseEdit

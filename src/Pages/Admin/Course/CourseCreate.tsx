@@ -79,14 +79,14 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a New Course</DialogTitle>
       <DialogContent>
-        <TextField
+        <TextField required
           fullWidth
           label="Course Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           margin="dense"
         />
-        <TextField
+        <TextField required
           fullWidth
           select
           label="Major"
@@ -100,7 +100,7 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
             </MenuItem>
           ))}
         </TextField>
-        <TextField
+        <TextField required
           fullWidth
           select
           label="Year"
@@ -114,7 +114,7 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
           <MenuItem value="4">Year 4</MenuItem>
           <MenuItem value="5">Year 5</MenuItem>
         </TextField>
-        <TextField
+        <TextField required
           fullWidth
           label="Description"
           value={description}
@@ -123,7 +123,7 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
           multiline
           rows={4}
         />
-        <TextField
+        <TextField required
           fullWidth
           type="file"
           margin="dense"
@@ -132,7 +132,7 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
             shrink: true,
           }}
         />
-        <TextField
+        <TextField required
           fullWidth
           label="Link"
           value={link}
