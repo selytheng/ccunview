@@ -32,6 +32,7 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
       const data = await response.json();
       setMajors(data);
     } catch (error) {
+      console.error('Error fetching majors:', error);  
       alert('Failed to fetch majors.');
     }
   };
@@ -69,6 +70,7 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
         alert(`Error: ${errorData.message}`);
       }
     } catch (error) {
+      console.error('Error occurred while creating the course:', error);
       alert('An error occurred while creating the course.');
     }
   };
