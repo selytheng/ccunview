@@ -2,7 +2,7 @@ import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import "../../assets/css/content.css"
 
-const courses = [
+const training = [
     {
         id: 1,
         title: "Web Design",
@@ -35,14 +35,14 @@ const courses = [
     },
 ];
 
-const Course = () => {
+const Trainging = () => {
     return (
         <div>
             <div className="dashboard">
                 <div className="dashboard-content-home">
                     <Grid container spacing={3}>
-                        {courses.map((course) => (
-                            <Grid item xs={12} sm={6} md={3} key={course.id}>
+                        {training.map((train) => (
+                            <Grid item xs={12} sm={6} md={3} key={train.id}>
                                 <Card
                                     sx={{
                                         maxWidth: 345,
@@ -53,12 +53,12 @@ const Course = () => {
                                         },
                                     }}
                                 >
-                                    <CardMedia sx={{ height: 170 }} image={course.image} title={course.title} />
+                                    <CardMedia sx={{ height: 170 }} image={train.image} title={train.title} />
                                     <CardContent>
                                         <Typography gutterBottom variant="h6" component="div">
                                             {/* Link updated to use "/admin/course/:id" */}
-                                            <Link to={`/admin/course/${course.id}`} style={{ textDecoration: 'none', color: '#000' }}>
-                                                <div className="course-title">{course.title}</div>
+                                            <Link to={`/admin/course/${train.id}`} style={{ textDecoration: 'none', color: '#000' }}>
+                                                <div className="course-title">{train.title}</div>
                                             </Link>
                                         </Typography>
                                         <Typography
@@ -72,7 +72,7 @@ const Course = () => {
                                                 textAlign: 'justify',
                                             }}
                                         >
-                                            <div className="course-description">{course.description}</div>
+                                            <div className="course-description">{train.description}</div>
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -85,4 +85,4 @@ const Course = () => {
     );
 };
 
-export default Course;
+export default Trainging;

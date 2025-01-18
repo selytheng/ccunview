@@ -1,5 +1,3 @@
-import React from 'react';
-import Navbar from "../components/Navbar.tsx";
 
 interface Link {
     name: string;
@@ -25,10 +23,9 @@ const stats: Stat[] = [
     { name: 'Paid time off', value: 'Unlimited' },
 ];
 
-const About: React.FC = () => {
+const AboutComponent: React.FC = () => {
     return (
         <>
-            <Navbar/>
             <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
                 <img
                     alt=""
@@ -93,4 +90,4 @@ const About: React.FC = () => {
     );
 };
 
-export default About;
+export default AboutComponent;
