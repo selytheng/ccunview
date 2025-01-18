@@ -6,7 +6,7 @@ interface CourseEditProps {
   onClose: () => void;
   courseId: string;
   courseData: any;
-  onSubmit: () => void; // Callback to refresh course detail
+  onSubmit: () => void; 
 }
 
 const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, courseData, onSubmit }) => {

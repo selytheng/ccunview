@@ -5,7 +5,7 @@ import NavbarHomePage from '../../../components/Navbar_HomePage';
 import Sidebar from '../../../components/Sidebar';
 import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Alert, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import CourseEdit from './CourseEdit';
-import { BiBookOpen, BiFlag, BiPencil, BiSignal1, BiSolidMapPin, BiSolidShareAlt, BiTrash } from 'react-icons/bi';
+import { BiBookOpen, BiPencil, BiSolidMapPin, BiTrash } from 'react-icons/bi';
 
 const CourseDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,7 +16,7 @@ const CourseDetail: React.FC = () => {
   const [majors, setMajors] = useState<any[]>([]);
   const [successAlertVisible, setSuccessAlertVisible] = useState(false); 
   const [deleteSuccessAlertVisible, setDeleteSuccessAlertVisible] = useState(false); 
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false); // New state for delete confirmation dialog
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,11 +64,11 @@ const CourseDetail: React.FC = () => {
       });
   
       if (response.ok) {
-        setDeleteSuccessAlertVisible(true); // Show success alert
+        setDeleteSuccessAlertVisible(true); 
         setTimeout(() => {
-          setDeleteSuccessAlertVisible(false); // Hide after 2 seconds
+          setDeleteSuccessAlertVisible(false);
         }, 2000);
-        window.location.href = '/admin/course'; // Redirect to course list
+        window.location.href = '/admin/course';
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
@@ -77,12 +77,12 @@ const CourseDetail: React.FC = () => {
       console.error('Error occurred while deleting the course:', error);
       alert('An error occurred while deleting the course.');
     } finally {
-      setOpenDeleteDialog(false); // Close delete confirmation dialog after deletion attempt
+      setOpenDeleteDialog(false); 
     }
   };
 
   const handleDeleteClick = () => {
-    setOpenDeleteDialog(true); // Open the delete confirmation dialog when delete button is clicked
+    setOpenDeleteDialog(true); 
   };
 
   const getMajorName = (majorId: number) => {
@@ -102,15 +102,13 @@ const CourseDetail: React.FC = () => {
   };
 
   const handleCourseUpdate = () => {
-    // First, reload the page after a short delay
     setTimeout(() => {
-      window.location.reload(); // Reload the page to reflect updated course details
-    }, 500); // Adding a small delay to ensure that the page reload happens first
+      window.location.reload(); 
+    }, 500); 
 
-    // Show the success alert after the page reload
     setSuccessAlertVisible(true);
     setTimeout(() => {
-      setSuccessAlertVisible(false); // Hide the alert after 2 seconds
+      setSuccessAlertVisible(false); 
     }, 2000);
   };
 
@@ -174,7 +172,7 @@ const CourseDetail: React.FC = () => {
                 startIcon={<BiTrash style={{ fontSize: 18, backgroundColor: '' }} />}
                 className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
                 style={{ backgroundColor: 'rgb(220 38 38)' }}
-                onClick={handleDeleteClick} // Trigger the confirmation modal
+                onClick={handleDeleteClick} 
               >
                 Delete
               </Button>
@@ -215,11 +213,7 @@ const CourseDetail: React.FC = () => {
                     <BiSolidMapPin style={{ marginTop: 3 }} /> {getYearName(course.year_id)}
                   </p>
 
-                  <p
-                    style={{
-                      marginBottom: 10,
-                      display: 'flex',
-                      gap: 5,
+                  <p style={{ marginBottom: 10, display: 'flex', gap: 5,
                       textTransform: 'uppercase',
                       fontFamily: 'Arial',
                       fontSize: 15,
@@ -296,7 +290,7 @@ const CourseDetail: React.FC = () => {
             onClose={() => setEditDialogOpen(false)}
             courseId={id as string}
             courseData={course}
-            onSubmit={handleCourseUpdate} // Trigger success alert after update
+            onSubmit={handleCourseUpdate} 
           />
         </div>
       </div>
