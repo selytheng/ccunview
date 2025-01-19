@@ -12,3 +12,8 @@ export interface Partner {
     description: string;
 }
   
+export interface Major {
+  id: number;
+  name: string;
+  description: string;
+}

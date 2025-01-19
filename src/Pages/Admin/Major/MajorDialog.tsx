@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Major } from '../../../types/interface'; // Import your Major type if necessary
 
-const MajorDialog = ({ major, onClose }) => {
+interface MajorDialogProps {
+  major: Major | null;
+  onClose: () => void;
+  onCreateSuccess: (action: 'create' | 'update') => void;
+}
+
+const MajorDialog: React.FC<MajorDialogProps> = ({ major, onClose, onCreateSuccess }) => {
   const [name, setName] = useState(major?.name || '');
   const partnerId = localStorage.getItem('partner_id');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const access_token = localStorage.getItem('access_token');
     const url = major
@@ -25,6 +32,7 @@ const MajorDialog = ({ major, onClose }) => {
       body: JSON.stringify(body),
     });
 
+    onCreateSuccess(major ? 'update' : 'create');
     onClose();
   };
 
