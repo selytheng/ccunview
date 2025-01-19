@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Alert, Dialog, DialogActions, DialogTitle } from '@mui/material';
+import { Button, Alert, Dialog, DialogActions, DialogTitle, Typography } from '@mui/material';
 import PartnerTable from './PartnerTable';
 import PartnerDialog from './PartnerDialog';
 import { BiSearch } from 'react-icons/bi';
 import { AddOutlined } from '@mui/icons-material';
-import '../../../types/interface'
+import '../../../types/interface';
 import { Partner } from '../../../types/interface';
 import NavbarHomePage from '../../../components/Navbar_HomePage';
 import Sidebar from '../../../components/Sidebar';
 
 const AdminPartner = () => {
-  const [partners, setPartners] = useState<Partner[]>([]); 
+  const [partners, setPartners] = useState<Partner[]>([]);
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false); 
-  const [searchQuery, setSearchQuery] = useState(''); 
-  const [successMessage, setSuccessMessage] = useState(''); 
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false); 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const fetchPartners = async () => {
     const access_token = localStorage.getItem('access_token');
@@ -34,21 +34,21 @@ const AdminPartner = () => {
   const handleDialogClose = () => {
     setSelectedPartner(null);
     setIsDialogOpen(false);
-    fetchPartners(); 
+    fetchPartners();
   };
 
   const handlePartnerCreationSuccess = (action: 'create' | 'update') => {
     if (action === 'create') {
-      setSuccessMessage('Partner created successfully!'); 
+      setSuccessMessage('Partner created successfully!');
     } else if (action === 'update') {
-      setSuccessMessage('Partner updated successfully!'); 
+      setSuccessMessage('Partner updated successfully!');
     }
-    setTimeout(() => setSuccessMessage(''), 3000); 
+    setTimeout(() => setSuccessMessage(''), 3000);
   };
 
   const handleDeleteClick = (partner: Partner) => {
-    setSelectedPartner(partner); 
-    setOpenDeleteDialog(true); 
+    setSelectedPartner(partner);
+    setOpenDeleteDialog(true);
   };
 
   const handleDeleteConfirm = async () => {
@@ -64,24 +64,29 @@ const AdminPartner = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage('Partner deleted successfully!');  
-        setTimeout(() => setSuccessMessage(''), 3000); 
-        fetchPartners(); 
+        setSuccessMessage('Partner deleted successfully!');
+        setTimeout(() => setSuccessMessage(''), 3000);
+        fetchPartners();
       } else {
         alert('Failed to delete partner');
       }
     }
 
-    setOpenDeleteDialog(false); 
+    setOpenDeleteDialog(false);
   };
 
   const handleDeleteCancel = () => {
-    setOpenDeleteDialog(false); 
+    setOpenDeleteDialog(false);
   };
 
   useEffect(() => {
-    fetchPartners(); 
+    fetchPartners();
   }, []);
+
+  const filteredPartners = partners.filter(partner =>
+    partner.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    partner.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div>
@@ -92,6 +97,9 @@ const AdminPartner = () => {
           <div className="course-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Partners</h1>
             <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>
+              <Typography variant="h6" sx={{ marginLeft: '15px', fontSize: '16px', color: '#526d82' }}>
+                Total Partners: {filteredPartners.length}
+              </Typography>
               <div className="search-box" style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="text"
@@ -105,7 +113,7 @@ const AdminPartner = () => {
               <Button
                 variant="contained"
                 startIcon={<AddOutlined />}
-                onClick={() => handleDialogOpen()} 
+                onClick={() => handleDialogOpen()}
               >
                 Create
               </Button>
@@ -119,11 +127,11 @@ const AdminPartner = () => {
             </Alert>
           )}
 
-          {/* Render Partner Cards */}
+          {/* Render Partner Table */}
           <PartnerTable
-            partners={partners}
-            onEdit={(partner: Partner) => handleDialogOpen(partner)} 
-            onDelete={handleDeleteClick} 
+            partners={filteredPartners}
+            onEdit={(partner: Partner) => handleDialogOpen(partner)}
+            onDelete={handleDeleteClick}
           />
         </div>
       </div>
@@ -146,7 +154,7 @@ const AdminPartner = () => {
         <PartnerDialog
           partner={selectedPartner}
           onClose={handleDialogClose}
-          onCreateSuccess={handlePartnerCreationSuccess} 
+          onCreateSuccess={handlePartnerCreationSuccess}
         />
       )}
     </div>

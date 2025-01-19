@@ -23,7 +23,7 @@ const AdminCourse: React.FC = () => {
     });
     const data = await response.json();
     setCourses(data);
-    setLoading(false);  // Set loading to false once data is fetched
+    setLoading(false); 
   };
 
   useEffect(() => {
@@ -39,11 +39,11 @@ const AdminCourse: React.FC = () => {
   const handleClose = () => setIsDialogOpen(false);
 
   const handleCourseCreate = () => {
-    fetchCourses();  // Fetch the latest course list after creating a new course
-    setSuccessAlertVisible(true);  // Show the success alert
+    fetchCourses();  
+    setSuccessAlertVisible(true);  
     setTimeout(() => {
-      setSuccessAlertVisible(false);  // Hide the alert after 2 seconds
-      handleClose();  // Close the modal
+      setSuccessAlertVisible(false);
+      handleClose();  
     }, 2000);
   };
 
@@ -55,7 +55,10 @@ const AdminCourse: React.FC = () => {
         <div className="dashboard-content">
           <div className="course-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Courses</h1>
-            <div className="header-activity">
+            <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>
+              <Typography variant="h6" sx={{ marginLeft: '15px', fontSize: '16px', color: '#526d82' }}>
+                Total Courses: {filteredCourses.length}
+              </Typography>
               <div className="search-box" style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="text"
@@ -116,8 +119,8 @@ const AdminCourse: React.FC = () => {
 
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="div">
-                          <div className='course-title' style={{display: '', justifyContent: 'space-between', gap: 20}}>{course.name}
-                            {/* <button>jdfdghlk</button> */}
+                          <div className="course-title" style={{ display: '', justifyContent: 'space-between', gap: 20 }}>
+                            {course.name}
                           </div>
                         </Typography>
                         <Typography
@@ -145,7 +148,6 @@ const AdminCourse: React.FC = () => {
         </div>
       </div>
 
-      {/* Course Create Modal */}
       <CourseCreate open={isDialogOpen} onClose={handleClose} onSubmit={handleCourseCreate} />
     </div>
   );

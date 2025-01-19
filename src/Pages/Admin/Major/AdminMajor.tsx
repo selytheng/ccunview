@@ -4,7 +4,7 @@ import MajorTable from './MajorTable';
 import MajorDialog from './MajorDialog';
 import { BiSearch, BiArchive } from 'react-icons/bi';
 import { AddOutlined } from '@mui/icons-material';
-import { Major } from '../../../types/interface';  // Adjust import path as needed
+import { Major } from '../../../types/interface';
 import NavbarHomePage from '../../../components/Navbar_HomePage';
 import Sidebar from '../../../components/Sidebar';
 
@@ -15,12 +15,12 @@ const AdminMajor = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [loading, setLoading] = useState(true);  // For loading state
+  const [loading, setLoading] = useState(true);
 
   const partnerId = localStorage.getItem('partner_id');
 
   const fetchMajors = async () => {
-    setLoading(true);  // Set loading to true before fetching data
+    setLoading(true);
     const access_token = localStorage.getItem('access_token');
     const response = await fetch(
       `http://localhost:8000/api/partners/${partnerId}/majors`,
@@ -30,7 +30,7 @@ const AdminMajor = () => {
     );
     const data = await response.json();
     setMajors(data);
-    setLoading(false);  // Set loading to false after fetching data
+    setLoading(false);
   };
 
   const handleDialogOpen = (major: Major | null = null) => {
@@ -41,7 +41,7 @@ const AdminMajor = () => {
   const handleDialogClose = () => {
     setSelectedMajor(null);
     setIsDialogOpen(false);
-    fetchMajors();  // Re-fetch majors after closing the dialog
+    fetchMajors();
   };
 
   const handleMajorCreationSuccess = (action: 'create' | 'update') => {
@@ -103,6 +103,9 @@ const AdminMajor = () => {
           <div className="major-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Majors</h1>
             <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>
+              <Typography variant="h6" sx={{ marginLeft: '15px', fontSize: '16px', color: '#526d82' }}>
+                Total Majors: {filteredMajors.length}
+              </Typography>
               <div className="search-box" style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="text"
@@ -116,7 +119,7 @@ const AdminMajor = () => {
               <Button
                 variant="contained"
                 startIcon={<AddOutlined />}
-                onClick={() => handleDialogOpen()} // Open dialog to create major
+                onClick={() => handleDialogOpen()}
                 style={{ marginLeft: '10px' }}
               >
                 Create
@@ -146,8 +149,8 @@ const AdminMajor = () => {
           ) : (
             <MajorTable
               majors={filteredMajors}
-              onEdit={(major: Major) => handleDialogOpen(major)} // Open dialog to edit major
-              onDelete={handleDeleteClick} // Open delete dialog for major
+              onEdit={(major: Major) => handleDialogOpen(major)}
+              onDelete={handleDeleteClick}
             />
           )}
         </div>
@@ -171,7 +174,7 @@ const AdminMajor = () => {
         <MajorDialog
           major={selectedMajor}
           onClose={handleDialogClose}
-          onCreateSuccess={handleMajorCreationSuccess} // Pass success handler here
+          onCreateSuccess={handleMajorCreationSuccess}
         />
       )}
     </div>
