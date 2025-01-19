@@ -1,41 +1,78 @@
 import React from 'react';
-import logo from "../../../public/logo_ccun.png";
 
 const FooterComponent: React.FC = () => {
     return (
-        <footer className="bg-gray-100 from-gray-100 via-[#bce1ff] to-gray-100">
-            <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-                    <div>
-                        <img src={logo} className="mr-5 h-52 sm:h-24" alt="logo" />
-                        <p className="max-w-xs mt-4 text-sm text-gray-600">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, accusantium.
-                        </p>
-                    </div>
-                    <div className="grid grid-cols-1 gap-8 lg:col-span-2 sm:grid-cols-2 lg:grid-cols-4">
-                        <FooterColumn title="Company" links={['About', 'Meet the Team', 'History', 'Careers']} />
-                        <FooterColumn title="Services" links={['1on1 Coaching', 'Company Review', 'Accounts Review', 'HR Consulting', 'SEO Optimisation']} />
-                        <FooterColumn title="Helpful Links" links={['Contact', 'FAQs', 'Live Chat']} />
-                        <FooterColumn title="Legal" links={['Privacy Policy', 'Terms & Conditions', 'Returns Policy', 'Accessibility']} />
+        <div className="bg-[#071952] text-white py-12 p-20">
+            <div className="container mx-auto grid md:grid-cols-3 gap-8 pb-10 border-b ">
+                {/* ITC e-Learning */}
+                <div>
+                    <h2 className="text-2xl font-bold mb-4">CCUN Website</h2>
+                    <ul className="space-y-4">
+                        <li>
+                            <strong>ITC e-Learning Center</strong> was selected by <strong>ASEAN Cyber University (ACU)</strong> project, which was first proposed at the ASEAN – South Korea Summit in 2009.
+                        </li>
+                        <li>
+                            <strong>Cambodian Cyber University Network (CCUN)</strong> project, ITC provides technical support to the 5 High Education Institutes (HEI) in Cambodia to create e-learning contents and operation on learning management system (LMS). This CCUN project aims to utilize the digital platform to deliver eLearning contents so that students can access from anywhere at anytime.
+                        </li>
+                    </ul>
+                </div>
+
+                {/* Contact Info */}
+                <div>
+                    <h2 className="text-2xl font-bold mb-4">Contact Info</h2>
+                    <ul className="space-y-2">
+                        <li>
+                            <span className="font-semibold">Phone: </span> (855) 12 818 830 / (855) 11 685 685
+                        </li>
+                        <li>
+                            <span className="font-semibold">Address: </span> Room 220B, Building B, PO Box 86, Russian Conf. Blvd., Phnom Penh, Cambodia
+                        </li>
+                        <li>
+                            <span className="font-semibold">Email: </span>
+                            <a href="mailto:info.itcelearning@gmail.com" className="underline">info.itcelearning@gmail.com</a>
+                        </li>
+                        <li>
+                            <span className="font-semibold">Website: </span>
+                            <a href="https://elearning.itc.edu.kh" target="_blank" rel="noopener noreferrer" className="underline">elearning.itc.edu.kh</a>
+                        </li>
+                        <li>
+                            <span className="font-semibold">Moodle: </span>
+                            <a href="https://moodle.ccun.edu.kh" target="_blank" rel="noopener noreferrer" className="underline">moodle.ccun.edu.kh</a>
+                        </li>
+                    </ul>
+
+                    <div className="mt-4">
+                        <h3 className="font-bold">Social</h3>
+                        <div className="flex space-x-4 mt-2">
+                            <a href="#" aria-label="Facebook" className="text-2xl">
+                                <i className="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" aria-label="Telegram" className="text-2xl">
+                                <i className="fab fa-telegram"></i>
+                            </a>
+                            <a href="#" aria-label="YouTube" className="text-2xl">
+                                <i className="fab fa-youtube"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <p className="mt-8 text-xs text-gray-800">© 2025 Cambodia Cyber Univercity Network (CCUN) </p>
+
+                {/* Location */}
+                <div>
+                    <h2 className="text-2xl font-bold mb-4">Location</h2>
+                    <div className="w-full h-64">
+                        <iframe
+                            title="ITC e-Learning Location"
+                            src="https://maps.google.com/maps?q=Phnom%20Penh&amp;output=embed"
+                            className="w-full h-full rounded shadow-lg"
+                            allowFullScreen
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+                </div>
             </div>
-        </footer>
+        </div>
     );
 };
-
-const FooterColumn: React.FC<{ title: string; links: string[] }> = ({ title, links }) => (
-    <div>
-        <p className="font-medium">{title}</p>
-        <nav className="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
-            {links.map((link, index) => (
-                <a key={index} className="hover:opacity-75" href="#">
-                    {link}
-                </a>
-            ))}
-        </nav>
-    </div>
-);
 
 export default FooterComponent;
