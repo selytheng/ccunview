@@ -1,38 +1,60 @@
 import React from 'react';
 import { Partner } from '../../../types/interface';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, IconButton } from '@mui/material';
+import { BiSolidEditAlt, BiTrash } from 'react-icons/bi';
 
 const PartnerTable = ({ partners, onEdit, onDelete }: { partners: Partner[], onEdit: (partner: Partner) => void, onDelete: (partner: Partner) => void }) => (
-  <table className="table-auto w-full border-collapse border border-gray-300">
-    <thead>
-      <tr>
-        <th className="border border-gray-300 px-4 py-2">ID</th>
-        <th className="border border-gray-300 px-4 py-2">Name</th>
-        <th className="border border-gray-300 px-4 py-2">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {partners.map((partner) => (
-        <tr key={partner.id}>
-          <td className="border border-gray-300 px-4 py-2">{partner.id}</td>
-          <td className="border border-gray-300 px-4 py-2">{partner.name}</td>
-          <td className="border border-gray-300 px-4 py-2">
-            <button
-              onClick={() => onEdit(partner)}
-              className="mr-2 px-4 py-2 text-white bg-yellow-500 hover:bg-yellow-600 rounded"
+  <div className="partner-cards" style={{ display: 'flex', flexWrap: 'wrap', gap: '22px' }}>
+    {partners.map((partner) => (
+      <Card
+        sx={{
+          maxWidth: 400,
+          marginBottom: '5px',
+          width: 240,
+          height: 315,
+          display: 'flex',
+          transition: 'transform 0.3s, box-shadow 0.3s',
+          '&:hover': {
+            transform: 'scale(1.01)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+          },
+        }}
+        key={partner.id}
+      >
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="140"
+            image="../../../../public/ITC.png"
+            style={{
+              padding: 2,
+              backgroundColor: '',
+              width: '100%',
+              height: '250px',
+              borderBottom: '1px solid #c3baba',
+            }}
+            alt={partner.name}
+          />
+          <CardContent style={{ display: 'flex', justifyContent: 'space-between'}}>
+            <Typography gutterBottom variant="h5" component="div" style={{ whiteSpace: 'nowrap',  overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {partner.name}
+            </Typography>
+            <div
+              className="card-actions"
+              style={{ display: 'flex', marginTop: '-10px', marginLeft: 20 }}
             >
-              Edit
-            </button>
-            <button
-              onClick={() => onDelete(partner)} // Trigger delete confirmation
-              className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
+              <IconButton aria-label="edit" onClick={() => onEdit(partner)} color="primary">
+                <BiSolidEditAlt style={{ fontSize: 20 }} />
+              </IconButton>
+              <IconButton aria-label="delete" onClick={() => onDelete(partner)} color="error">
+                <BiTrash style={{ fontSize: 20 }} />
+              </IconButton>
+            </div>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    ))}
+  </div>
 );
 
 export default PartnerTable;

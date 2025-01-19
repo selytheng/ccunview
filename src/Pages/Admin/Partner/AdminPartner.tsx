@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import NavbarHomePage from '../../../components/Navbar_HomePage';
-import Sidebar from '../../../components/Sidebar';
 import { Button, Alert, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import PartnerTable from './PartnerTable';
 import PartnerDialog from './PartnerDialog';
 import { BiSearch } from 'react-icons/bi';
 import { AddOutlined } from '@mui/icons-material';
-import '../../../types/interface';
+import '../../../types/interface'
 import { Partner } from '../../../types/interface';
+import NavbarHomePage from '../../../components/Navbar_HomePage';
+import Sidebar from '../../../components/Sidebar';
 
 const AdminPartner = () => {
   const [partners, setPartners] = useState<Partner[]>([]); 
-  const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null); 
+  const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false); 
   const [searchQuery, setSearchQuery] = useState(''); 
   const [successMessage, setSuccessMessage] = useState(''); 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false); 
 
-  // Fetch partners from API
   const fetchPartners = async () => {
     const access_token = localStorage.getItem('access_token');
     const response = await fetch('http://localhost:8000/api/partners', {
@@ -44,7 +43,7 @@ const AdminPartner = () => {
     } else if (action === 'update') {
       setSuccessMessage('Partner updated successfully!'); 
     }
-    setTimeout(() => setSuccessMessage(''), 3000);
+    setTimeout(() => setSuccessMessage(''), 3000); 
   };
 
   const handleDeleteClick = (partner: Partner) => {
@@ -120,6 +119,7 @@ const AdminPartner = () => {
             </Alert>
           )}
 
+          {/* Render Partner Cards */}
           <PartnerTable
             partners={partners}
             onEdit={(partner: Partner) => handleDialogOpen(partner)} 
@@ -146,7 +146,7 @@ const AdminPartner = () => {
         <PartnerDialog
           partner={selectedPartner}
           onClose={handleDialogClose}
-          onCreateSuccess={handlePartnerCreationSuccess} // Pass success handler to dialog
+          onCreateSuccess={handlePartnerCreationSuccess} 
         />
       )}
     </div>

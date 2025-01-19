@@ -12,13 +12,13 @@ import CourseCreate from './Pages/Admin/Course/CourseCreate';
 import AdminTraining from './Pages/Admin/AdminTraining';
 import AdminWorkshop from './Pages/Admin/AdminWorkshop';
 import AdminEvent from './Pages/Admin/AdminEvent';
-import AdminMajor from './Pages/Admin/AdminMajor';
 import AdminPartner from './Pages/Admin/Partner/AdminPartner.tsx';
 import Feedback from './Pages/Admin/Feedback';
 import CourseDetail from './Pages/Admin/Course/CourseDetail';
 import AdminRoute from '../src/components/AdminRoute'
 import AdminProfile from "./Pages/Admin/AdminProfile";
 import News from "./Pages/News.tsx";
+import AdminMajor from './Pages/Admin/Major/AdminMajor.tsx';
 
 const App = () => {
   return (
