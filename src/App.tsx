@@ -1,24 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import Home from './Pages/Home';
-import Courses from './Pages/Courses';
-import Login from './Pages/Login';
-import About from './Pages/About';
-import Contact from './Pages/Contact';
-import AdminDashboard from './Pages/Admin/AdminDashboard';
-import AdminCourse from './Pages/Admin/Course/AdminCourse';
-import CourseEdit from './Pages/Admin/Course/CourseEdit';
-import CourseCreate from './Pages/Admin/Course/CourseCreate';
-import AdminTraining from './Pages/Admin/AdminTraining';
-import AdminWorkshop from './Pages/Admin/AdminWorkshop';
-import AdminEvent from './Pages/Admin/AdminEvent';
-import AdminPartner from './Pages/Admin/Partner/AdminPartner.tsx';
-import Feedback from './Pages/Admin/Feedback';
-import CourseDetail from './Pages/Admin/Course/CourseDetail';
-import AdminRoute from '../src/components/AdminRoute'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Home from "./Pages/Home";
+import Courses from "./Pages/Courses";
+import Login from "./Pages/Login";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
+import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import AdminCourse from "./Pages/Admin/Course/AdminCourse";
+import CourseEdit from "./Pages/Admin/Course/CourseEdit";
+import CourseCreate from "./Pages/Admin/Course/CourseCreate";
+import AdminTraining from "./Pages/Admin/AdminTraining";
+import AdminWorkshop from "./Pages/Admin/AdminWorkshop";
+import AdminEvent from "./Pages/Admin/AdminEvent";
+import AdminPartner from "./Pages/Admin/Partner/AdminPartner.tsx";
+import Feedback from "./Pages/Admin/Feedback";
+import CourseDetail from "./Pages/Admin/Course/CourseDetail";
+import AdminRoute from "../src/components/AdminRoute";
 import AdminProfile from "./Pages/Admin/AdminProfile";
 import News from "./Pages/News.tsx";
-import AdminMajor from './Pages/Admin/Major/AdminMajor.tsx';
+import AdminMajor from "./Pages/Admin/Major/AdminMajor";
+import Users from "./Pages/SuperAdmin/Users";
 
 const App = () => {
   return (
@@ -33,6 +34,15 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
 
+          {/* SuperAdmin and Admin Routes */}
+          <Route
+            path="/superadmin/users"
+            element={
+              <AdminRoute>
+                <Users />
+              </AdminRoute>
+            }
+          />
           <Route
             path="/admin/dashboard"
             element={
@@ -43,14 +53,6 @@ const App = () => {
           />
           <Route
             path="/admin/course"
-            element={
-              <AdminRoute>
-                <AdminCourse />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/courses"
             element={
               <AdminRoute>
                 <AdminCourse />
@@ -129,7 +131,7 @@ const App = () => {
               </AdminRoute>
             }
           />
-            <Route
+          <Route
             path="/admin/profile"
             element={
               <AdminRoute>
@@ -138,7 +140,6 @@ const App = () => {
             }
           />
         </Routes>
-
       </BrowserRouter>
     </div>
   );
