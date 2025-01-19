@@ -5,4 +5,10 @@ export interface Course {
     description: string;
     image: string; 
   }
+
+export interface Partner {
+    id: number | string;
+    name: string;
+    description: string;
+}
   

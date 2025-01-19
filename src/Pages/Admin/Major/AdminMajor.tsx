@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import NavbarHomePage from '../../components/Navbar_HomePage';
-import Sidebar from '../../components/Sidebar';
-import ContentHeader from './ContentHeader';
-import MajorTable from './MajorTable';
+import NavbarHomePage from '../../../components/Navbar_HomePage';
+import Sidebar from '../../../components/Sidebar';
+import ContentHeader from '../ContentHeader';
 import MajorDialog from './MajorDialog';
+import MajorTable from './MajorTable';
 
 const AdminMajor = () => {
   const [majors, setMajors] = useState([]);

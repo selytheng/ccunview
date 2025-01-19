@@ -91,6 +91,15 @@ body {
     /* justify-content: space-between; */
     /* gap: 100px; */
 }
+.link {
+    color: #0C4CA3;
+    text-decoration: underline;
+  }
+
+  .link:hover {
+    color: #3a65a1;
+  }
+
 .navbar-links-container {
     position: relative;
 }

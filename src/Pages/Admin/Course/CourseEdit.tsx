@@ -6,7 +6,7 @@ interface CourseEditProps {
   onClose: () => void;
   courseId: string;
   courseData: any;
-  onSubmit: () => void; // Callback to refresh course detail
+  onSubmit: () => void; 
 }
 
 const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, courseData, onSubmit }) => {
@@ -49,7 +49,7 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
 
   const handleSubmit = async () => {
     const formData = new FormData();
-
+  
     if (name) formData.append('name', name);
     if (majorId) formData.append('major_id', majorId.toString());
     if (yearId) formData.append('year_id', yearId.toString());
@@ -57,7 +57,7 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
     if (image) formData.append('image', image);
     if (link) formData.append('link', link);
     formData.append('_method', 'PUT');
-
+  
     try {
       const access_token = localStorage.getItem('access_token');
       const response = await fetch(`http://localhost:8000/api/courses/${courseId}`, {
@@ -67,19 +67,20 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
         },
         body: formData,
       });
-
+  
       if (response.ok) {
-        alert('Course updated successfully!');
-        onSubmit();
+        onSubmit();  
         onClose();
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
       }
     } catch (error) {
+      console.error('Error occurred while updating the course:', error);
       alert('An error occurred while updating the course.');
     }
   };
+  
 
 
   return (
@@ -93,7 +94,7 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
           onChange={(e) => setName(e.target.value)}
           margin="dense"
         />
-        <TextField
+        <TextField required
           fullWidth
           select
           label="Major"
@@ -139,7 +140,7 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
             shrink: true,
           }}
         />
-        <TextField
+        <TextField required
           fullWidth
           label="Link"
           value={link}

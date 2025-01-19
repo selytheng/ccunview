@@ -2,12 +2,9 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../assets/css/admin.css';
 import { BiStats, BiBookOpen, BiClipboard, BiCategory, BiCalendar, BiGroup, BiSidebar, BiCommentDetail } from 'react-icons/bi';
-import { FaUserCircle } from 'react-icons/fa'; // Icon for user logo
-
+import { FaUserCircle } from 'react-icons/fa'; 
 const Sidebar = () => {
-  const [partnerName, setPartnerName] = useState(null); // State to store partner name
-
-  // Fetch user data and partner name
+  const [partnerName, setPartnerName] = useState(null); 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -23,7 +20,6 @@ const Sidebar = () => {
           const userData = await userResponse.json();
           const partnerId = userData.partner_id;
 
-          // Fetch partner name using partner ID
           const partnersResponse = await fetch('http://localhost:8000/api/partners', {
             method: 'GET',
             headers: {
@@ -110,7 +106,6 @@ const Sidebar = () => {
                 Feedback
             </NavLink>
         </div>
-        {/* User logo with partner name */}
         <div className="user-info">
           <NavLink to="/admin/profile" className="profile-link">
             <FaUserCircle className="user-icon" />

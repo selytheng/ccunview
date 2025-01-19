@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
-const PartnerDialog = ({ partner, onClose }) => {
+interface PartnerDialogProps {
+  partner: { id: string | number; name: string } | null;
+  onClose: () => void;
+  onCreateSuccess: (action: 'create' | 'update') => void;
+}
+
+const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreateSuccess }) => {
   const [name, setName] = useState(partner?.name || '');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const access_token = localStorage.getItem('access_token');
     const url = partner
@@ -11,7 +17,7 @@ const PartnerDialog = ({ partner, onClose }) => {
       : `http://localhost:8000/api/partners`;
     const method = partner ? 'PATCH' : 'POST';
 
-    await fetch(url, {
+    const response = await fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +26,12 @@ const PartnerDialog = ({ partner, onClose }) => {
       body: JSON.stringify({ name }),
     });
 
-    onClose();
+    if (response.ok) {
+      onCreateSuccess(partner ? 'update' : 'create');
+      onClose();
+    } else {
+      alert('Failed to create or update partner');
+    }
   };
 
   return (

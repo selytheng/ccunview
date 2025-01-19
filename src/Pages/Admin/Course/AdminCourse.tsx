@@ -5,7 +5,7 @@ import { BiSearch, BiArchive } from 'react-icons/bi';
 import { Button, Card, CardContent, Typography, Grid, CircularProgress, CardMedia, Alert } from '@mui/material';
 import { AddOutlined } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import CourseCreate from './CourseCreate';  // Import the CourseCreate modal
+import CourseCreate from './CourseCreate';  
 import { Course } from '../../../types/interface';
 
 const AdminCourse: React.FC = () => {
@@ -13,7 +13,7 @@ const AdminCourse: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
-  const [successAlertVisible, setSuccessAlertVisible] = useState(false); // Manage success alert visibility
+  const [successAlertVisible, setSuccessAlertVisible] = useState(false); 
 
   const fetchCourses = async () => {
     const access_token = localStorage.getItem('access_token');
@@ -116,7 +116,9 @@ const AdminCourse: React.FC = () => {
 
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="div">
-                          <div className='course-title'>{course.name}</div>
+                          <div className='course-title' style={{display: '', justifyContent: 'space-between', gap: 20}}>{course.name}
+                            {/* <button>jdfdghlk</button> */}
+                          </div>
                         </Typography>
                         <Typography
                           variant="body2"
