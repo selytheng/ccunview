@@ -95,8 +95,59 @@ body {
     color: #0C4CA3;
     text-decoration: underline;
   }
-  
+
   .link:hover {
-    color: #3a65a1; 
+    color: #3a65a1;
   }
-  
+
+.navbar-links-container {
+    position: relative;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown link */
+.dropdown > a {
+    text-decoration: none;
+    color: darkgrey; /* Change to your desired color */
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none; /* Hide by default */
+    position: absolute;
+    background-color: #fff; /* Background color of the dropdown */
+    min-width: 160px; /* Minimum width of the dropdown */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    z-index: 1;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
+    display: block; /* Show on hover */
+}
+
+/* Dropdown item */
+.dropdown-item {
+    color: darkgrey; /* Text color for dropdown items */
+    padding: 12px 16px; /* Padding for dropdown items */
+    text-decoration: none; /* Remove underline */
+    display: block; /* Make items block level */
+}
+
+/* Dropdown item hover effect */
+.dropdown-item:hover {
+    color: #071952;
+}
+
+/* Optional: Add transition for smooth appearance */
+.dropdown-menu {
+    transition: all 0.3s ease; /* Smooth transition */
+}
