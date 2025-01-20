@@ -8,12 +8,16 @@ import { Link } from 'react-router-dom';
 import CourseCreate from './CourseCreate';  
 import { Course } from '../../../types/interface';
 
-const AdminCourse: React.FC = () => {
+interface AdminCourseProps {
+  setTotalCourses: (total: number) => void; // Prop to update the total courses count in the parent
+}
+
+const AdminCourse: React.FC<AdminCourseProps> = ({ setTotalCourses }) => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
-  const [successAlertVisible, setSuccessAlertVisible] = useState(false); 
+  const [successAlertVisible, setSuccessAlertVisible] = useState(false);
 
   const fetchCourses = async () => {
     const access_token = localStorage.getItem('access_token');
@@ -23,7 +27,10 @@ const AdminCourse: React.FC = () => {
     });
     const data = await response.json();
     setCourses(data);
-    setLoading(false);  // Set loading to false once data is fetched
+    setLoading(false);
+
+    // Update the total number of courses in the parent component
+    setTotalCourses(data.length);
   };
 
   useEffect(() => {
@@ -39,11 +46,11 @@ const AdminCourse: React.FC = () => {
   const handleClose = () => setIsDialogOpen(false);
 
   const handleCourseCreate = () => {
-    fetchCourses();  // Fetch the latest course list after creating a new course
-    setSuccessAlertVisible(true);  // Show the success alert
+    fetchCourses();  
+    setSuccessAlertVisible(true);  
     setTimeout(() => {
-      setSuccessAlertVisible(false);  // Hide the alert after 2 seconds
-      handleClose();  // Close the modal
+      setSuccessAlertVisible(false);
+      handleClose();  
     }, 2000);
   };
 
@@ -55,7 +62,10 @@ const AdminCourse: React.FC = () => {
         <div className="dashboard-content">
           <div className="course-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Courses</h1>
-            <div className="header-activity">
+            <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>
+              <Typography variant="h6" sx={{ marginLeft: '15px', fontSize: '16px', color: '#526d82' }}>
+                Total Courses: {filteredCourses.length} {/* Displaying the filtered courses count */}
+              </Typography>
               <div className="search-box" style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="text"
@@ -116,8 +126,8 @@ const AdminCourse: React.FC = () => {
 
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="div">
-                          <div className='course-title' style={{display: '', justifyContent: 'space-between', gap: 20}}>{course.name}
-                            {/* <button>jdfdghlk</button> */}
+                          <div className="course-title" style={{ display: '', justifyContent: 'space-between', gap: 20 }}>
+                            {course.name}
                           </div>
                         </Typography>
                         <Typography
@@ -145,7 +155,6 @@ const AdminCourse: React.FC = () => {
         </div>
       </div>
 
-      {/* Course Create Modal */}
       <CourseCreate open={isDialogOpen} onClose={handleClose} onSubmit={handleCourseCreate} />
     </div>
   );

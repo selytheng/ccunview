@@ -1,48 +1,60 @@
 import React from 'react';
+import { Major } from '../../../types/interface';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, IconButton } from '@mui/material';
+import { BiSolidEditAlt, BiTrash } from 'react-icons/bi';
 
-const MajorTable = ({ majors, onEdit, onDelete }) => {
-  const handleDelete = async (id) => {
-    const access_token = localStorage.getItem('access_token');
-    await fetch(`http://localhost:8000/api/majors/${id}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${access_token}` },
-    });
-    onDelete();
-  };
-
-  return (
-    <table className="table-auto w-full border-collapse border border-gray-300">
-      <thead>
-        <tr>
-          <th className="border border-gray-300 px-4 py-2">ID</th>
-          <th className="border border-gray-300 px-4 py-2">Name</th>
-          <th className="border border-gray-300 px-4 py-2">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {majors.map((major) => (
-          <tr key={major.id}>
-            <td className="border border-gray-300 px-4 py-2">{major.id}</td>
-            <td className="border border-gray-300 px-4 py-2">{major.name}</td>
-            <td className="border border-gray-300 px-4 py-2">
-              <button
-                onClick={() => onEdit(major)}
-                className="mr-2 px-4 py-2 text-white bg-yellow-500 hover:bg-yellow-600 rounded"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(major.id)}
-                className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
+const MajorTable = ({ majors, onEdit, onDelete }: { majors: Major[], onEdit: (major: Major) => void, onDelete: (major: Major) => void }) => (
+  <div className="major-cards" style={{ display: 'flex', flexWrap: 'wrap', gap: '22px' }}>
+    {majors.map((major) => (
+      <Card
+        sx={{
+          maxWidth: 400,
+          marginBottom: '5px',
+          width: 240,
+          height: 260,
+          display: 'flex',
+          transition: 'transform 0.3s, box-shadow 0.3s',
+          '&:hover': {
+            transform: 'scale(1.01)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+          },
+        }}
+        key={major.id}
+      >
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            image="../../../../public/GIC-logo.png" // Update this image path as needed
+            alt={major.name}
+            style={{
+              padding: 5,
+              width: '100%', // Make the image take up the full width of the card
+              height: '200px', // Specify the height of the image
+              objectFit: 'cover', // Ensures the image fills the area without distortion
+              borderBottom: '1px solid #c3baba',
+              borderBottomColor: '1px solid #c3baba', // Adds a red border around the image
+            }}
+          />
+          <CardContent style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography gutterBottom variant="h5" component="div" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {major.name}
+            </Typography>
+            <div
+              className="card-actions"
+              style={{ display: 'flex', marginTop: '-10px', marginLeft: 20 }}
+            >
+              <IconButton aria-label="edit" onClick={() => onEdit(major)} color="primary">
+                <BiSolidEditAlt style={{ fontSize: 20 }} />
+              </IconButton>
+              <IconButton aria-label="delete" onClick={() => onDelete(major)} color="error">
+                <BiTrash style={{ fontSize: 20 }} />
+              </IconButton>
+            </div>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    ))}
+  </div>
+);
 
 export default MajorTable;
