@@ -11,8 +11,9 @@ import CourseEdit from "./Pages/Admin/Course/CourseEdit";
 import CourseCreate from "./Pages/Admin/Course/CourseCreate";
 import AdminTraining from "./Pages/Admin/AdminTraining";
 import AdminWorkshop from "./Pages/Admin/AdminWorkshop";
-import AdminEvent from "./Pages/Admin/AdminEvent";
-import AdminPartner from "./Pages/Admin/Partner/AdminPartner.tsx";
+import AdminEvent from "./Pages/Admin/Event/AdminEvent";
+import AdminEventDetail from "./Pages/Admin/Event/AdminEventDetail";
+import AdminPartner from "./Pages/Admin/Partner/AdminPartner";
 import Feedback from "./Pages/Admin/Feedback";
 import CourseDetail from "./Pages/Admin/Course/CourseDetail";
 import AdminRoute from "../src/components/AdminRoute";
@@ -104,6 +105,14 @@ const App = () => {
             element={
               <AdminRoute>
                 <AdminEvent />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/events/:id"
+            element={
+              <AdminRoute>
+                <AdminEventDetail />
               </AdminRoute>
             }
           />
