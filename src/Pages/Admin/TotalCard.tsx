@@ -16,7 +16,7 @@ const TotalCard: React.FC<TotalCardProps> = ({ totalCourses, totalPartners, tota
   ];
 
   return (
-    <Container style={{ backgroundColor: 'green', padding: 2, display: 'flex', justifyContent: 'space-between', gap: 50 }}>
+    <Container style={{ backgroundColor: '', padding: 2, display: 'flex', justifyContent: 'space-between', gap: 50 }}>
       <Grid container spacing={3}>
         {cardData.map((data, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>

@@ -81,24 +81,27 @@ body {
 .total {
     width: 70%;
     /* height: 100px; */
-    background-color: #3a65a1;
+    /* background-color: #3a65a1; */
     padding: 4;
     display: flex;
-    gap: 0;
+    gap: 10;
     flex-direction: column;
     /* justify-content: space-between; */
 }
     .total-card {
         width: 100%;
-        height: 135px;
-        padding: 2;
-        background-color: antiquewhite;
+        /* height: 135px; */
+        padding: 4;
+        /* background-color: antiquewhite; */
+        margin-bottom: 20px;
     }
     .chart-box {
         width: 100%;
-        height: 200px;
+        /* height: 200px; */
         padding: 2;
-        background-color: rgb(152, 97, 24);
+        display: flex;
+        gap: 100;
+        /* background-color: rgb(152, 97, 24); */
     }
 
 .calendar-box {
