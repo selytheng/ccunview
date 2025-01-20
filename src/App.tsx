@@ -33,7 +33,7 @@ const App = () => {
           <Route path="/user/course" element={<Courses />} />
           <Route path="/user/about" element={<About />} />
           <Route path="/user/contact" element={<Contact />} />
-          <Route path="/user/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
 
           {/* SuperAdmin and Admin Routes */}
           <Route
