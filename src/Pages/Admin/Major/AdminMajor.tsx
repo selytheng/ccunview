@@ -33,6 +33,10 @@ const AdminMajor = () => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    fetchMajors();
+  }, []);
+
   const handleDialogOpen = (major: Major | null = null) => {
     setSelectedMajor(major);
     setIsDialogOpen(true);
@@ -86,10 +90,6 @@ const AdminMajor = () => {
     setOpenDeleteDialog(false);
   };
 
-  useEffect(() => {
-    fetchMajors();
-  }, []);
-
   const filteredMajors = majors.filter((major) =>
     major.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -134,7 +134,7 @@ const AdminMajor = () => {
             </Alert>
           )}
 
-          {/* Loading indicator */}
+          {/* Loading Indicator or Table */}
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
               <CircularProgress />

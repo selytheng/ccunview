@@ -8,12 +8,16 @@ import { Link } from 'react-router-dom';
 import CourseCreate from './CourseCreate';  
 import { Course } from '../../../types/interface';
 
-const AdminCourse: React.FC = () => {
+interface AdminCourseProps {
+  setTotalCourses: (total: number) => void; // Prop to update the total courses count in the parent
+}
+
+const AdminCourse: React.FC<AdminCourseProps> = ({ setTotalCourses }) => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
-  const [successAlertVisible, setSuccessAlertVisible] = useState(false); 
+  const [successAlertVisible, setSuccessAlertVisible] = useState(false);
 
   const fetchCourses = async () => {
     const access_token = localStorage.getItem('access_token');
@@ -23,7 +27,10 @@ const AdminCourse: React.FC = () => {
     });
     const data = await response.json();
     setCourses(data);
-    setLoading(false); 
+    setLoading(false);
+
+    // Update the total number of courses in the parent component
+    setTotalCourses(data.length);
   };
 
   useEffect(() => {
@@ -57,7 +64,7 @@ const AdminCourse: React.FC = () => {
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Courses</h1>
             <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>
               <Typography variant="h6" sx={{ marginLeft: '15px', fontSize: '16px', color: '#526d82' }}>
-                Total Courses: {filteredCourses.length}
+                Total Courses: {filteredCourses.length} {/* Displaying the filtered courses count */}
               </Typography>
               <div className="search-box" style={{ display: 'flex', alignItems: 'center' }}>
                 <input

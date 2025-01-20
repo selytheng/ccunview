@@ -4,6 +4,7 @@ import PartnerTable from './PartnerTable';
 import PartnerDialog from './PartnerDialog';
 import { BiSearch } from 'react-icons/bi';
 import { AddOutlined } from '@mui/icons-material';
+import '../../Admin/TotalCard';
 import '../../../types/interface';
 import { Partner } from '../../../types/interface';
 import NavbarHomePage from '../../../components/Navbar_HomePage';
@@ -127,7 +128,6 @@ const AdminPartner = () => {
             </Alert>
           )}
 
-          {/* Render Partner Table */}
           <PartnerTable
             partners={filteredPartners}
             onEdit={(partner: Partner) => handleDialogOpen(partner)}

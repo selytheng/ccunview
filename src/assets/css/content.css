@@ -23,10 +23,6 @@
     align-items: center;
     gap: 100px;
 }
-/* .search-box:hover {
-    background-color: #ebe5e5;
-    border-color: 1px solid black;
-} */
 .search-box input {
     border: none;
     outline: none;
