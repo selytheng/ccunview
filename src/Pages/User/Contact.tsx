@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Navbar from "../components/Navbar.tsx";
+import Navbar from "../../components/Navbar.tsx";
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
