@@ -1,19 +1,21 @@
-import Navbar from '../components/Navbar';
-import DepartmentBtn from "../components/Buttons/DepartmentBtn.tsx";
-import YearBtn from "../components/Buttons/YearBtn.tsx";
-import Carousel from "../components/SliderImage.tsx";
-import Course from "../components/HomeComponent/CourseComponent.tsx";
-import Trainging from "../components/HomeComponent/TrainingComponent.tsx";
-import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
-import WorkshopComponent from "../components/HomeComponent/WorkshopComponent.tsx";
-import TeamComponent from "../components/HomeComponent/TeamComponent.tsx";
-import "../../src/assets/css/HomePage.css"
+import Navbar from '../../components/Navbar.tsx';
+import DepartmentBtn from "../../components/Buttons/DepartmentBtn.tsx";
+import YearBtn from "../../components/Buttons/YearBtn.tsx";
+import Carousel from "../../components/SliderImage.tsx";
+import Course from "../../components/HomeComponent/CourseComponent.tsx";
+import FooterComponent from "../../components/HomeComponent/FooterComponent.tsx";
+import WorkshopComponent from "../../components/HomeComponent/WorkshopComponent.tsx";
+import TeamComponent from "../../components/HomeComponent/TeamComponent.tsx";
+import "../../assets/css/HomePage.css"
+import NavbarLink from "../../components/NavbarLink.tsx";
+import Training from "../../components/HomeComponent/TrainingComponent.tsx";
 
 const Home = () => {
     return (
         <div className='home-container'>
             <Navbar />
-            <div className="pt-28"><Carousel /></div>
+            <div className="mt-[100px]"><NavbarLink/></div>
+            <div className="pt-[130px]"><Carousel /></div>
             <section className='course-section p-4'>
                 <div className="flex items-center gap-3 mt-6 mb-4 ml-5">
                     <div className='course-container text-2xl font-semibold pr-10'>
@@ -31,7 +33,7 @@ const Home = () => {
                     Training
                 </div>
                 <div>
-                    <Trainging/>
+                    <Training/>
                 </div>
             </section>
             <section className='team-container p-4'>

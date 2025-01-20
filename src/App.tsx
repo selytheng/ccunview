@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Home from './Pages/Home';
-import Courses from './Pages/Courses';
-import Login from './Pages/Login';
-import About from './Pages/About';
-import Contact from './Pages/Contact';
+import Home from './Pages/User/Home.tsx';
+import Courses from './Pages/User/Courses.tsx';
+import Login from './Pages/Login.tsx';
+import About from './Pages/User/About.tsx';
+import Contact from './Pages/User/Contact.tsx';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 import AdminCourse from './Pages/Admin/Course/AdminCourse';
 import CourseEdit from './Pages/Admin/Course/CourseEdit';
@@ -17,7 +17,7 @@ import Feedback from './Pages/Admin/Feedback';
 import CourseDetail from './Pages/Admin/Course/CourseDetail';
 import AdminRoute from '../src/components/AdminRoute'
 import AdminProfile from "./Pages/Admin/AdminProfile";
-import News from "./Pages/News.tsx";
+import News from "./Pages/User/News.tsx";
 import AdminMajor from './Pages/Admin/Major/AdminMajor.tsx';
 
 const App = () => {
@@ -26,11 +26,12 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/course" element={<Courses />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/user/home" element={<Home />} />
+          <Route path="/user/news" element={<News />} />
+          <Route path="/user/course" element={<Courses />} />
+          <Route path="/user/about" element={<About />} />
+          <Route path="/user/training" element={<About />} />
+          <Route path="/user/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
 
           <Route

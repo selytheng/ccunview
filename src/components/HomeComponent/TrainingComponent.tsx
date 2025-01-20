@@ -35,7 +35,7 @@ const training = [
     },
 ];
 
-const Trainging = () => {
+const Training = () => {
     return (
         <div>
             <div className="dashboard">
@@ -85,4 +85,4 @@ const Trainging = () => {
     );
 };
 
-export default Trainging;
+export default Training;
