@@ -25,20 +25,20 @@ const NavbarLink = () => {
         {
             text: "Home",
             icon: <HomeIcon />,
-            to: "/user/home",
+            to: "/home",
         },
         {
             text: "News",
             icon: <BiNews />,
-            to: "/user/news",
+            to: "/news",
         },
         {
             text: "Courses",
             icon: <BiBookOpen />,
             to: "#", // Placeholder for dropdown
             dropdown: [
-                { text: "ITC Course", to: "/user/course/1" },
-                { text: "RUPP Course", to: "/user/course/2" },
+                { text: "ITC Course", to: "/course/1" },
+                { text: "RUPP Course", to: "/course/2" },
             ],
         },
         {
@@ -46,9 +46,9 @@ const NavbarLink = () => {
             icon: <InfoIcon />,
             to: "#", // Placeholder for dropdown
             dropdown: [
-                { text: "Contact Us", icon: <InfoIcon />, to: "/user/about/contact" },
-                { text: "Our Team", icon: <InfoIcon />, to: "/user/about/team" },
-                { text: "Our Story", icon: <InfoIcon />, to: "/user/about/story" },
+                { text: "Contact Us", icon: <InfoIcon />, to: "/about/contact" },
+                { text: "Our Team", icon: <InfoIcon />, to: "/about/team" },
+                { text: "Our Story", icon: <InfoIcon />, to: "/about/story" },
             ],
         },
         {
@@ -56,27 +56,27 @@ const NavbarLink = () => {
             icon: <PhoneRoundedIcon />,
             to: "#",
             dropdown: [
-                { text: "Training", icon: <InfoIcon />, to: "/user/training/contact" },
-                { text: "Work Shop", icon: <InfoIcon />, to: "/user/training/team" },
+                { text: "Training", icon: <InfoIcon />, to: "/training/contact" },
+                { text: "Work Shop", icon: <InfoIcon />, to: "/training/team" },
             ],
         },
     ];
 
     return (
-        <nav className="navbarlink border-b-2 border-[#071952]">
+        <div className=" border-b-2 border-[#071952] flex " style={{position: 'fixed', zIndex: 1000, height: 75, backgroundColor: '#fff', marginTop: 7 }}>
             <div className="nav-logo-container" style={{
-                backgroundColor: 'white',
+                backgroundColor: '',
                 marginLeft: '0px',
                 width: '100vw',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '1rem'
+                padding: '10px 0 0 20px',
+                height:'70px',
             }}>
                 <div className="navbar-links-container flex items-center">
-                    <Link to="/user/home" style={{ color: '#071952' }} className="flex items-center gap-1"><BiHome className='icon' />Home</Link>
-                    <Link to="/user/news" style={{ color: '#071952' }} className="flex items-center gap-1"><BiNews className='icon' />News</Link>
-
+                    <Link to="/home" style={{ color: '#071952' }} className="flex items-center gap-1"><BiHome className='icon' />Home</Link>
+                    <Link to="/news" style={{ color: '#071952' }} className="flex items-center gap-1"><BiNews className='icon' />News</Link>
                     {/* Courses Dropdown */}
                     <div
                         className="dropdown"
@@ -178,7 +178,7 @@ const NavbarLink = () => {
                     <Divider />
                 </Box>
             </Drawer>
-        </nav>
+        </div>
     );
 };
 

@@ -1,7 +1,7 @@
-import Navbar from '../../components/Navbar.tsx'
-import DepartmentBtn from "../../components/Buttons/DepartmentBtn.tsx";
-import YearBtn from "../../components/Buttons/YearBtn.tsx";
-import Course from "../../components/HomeComponent/CourseComponent.tsx";
+import Navbar from '../components/Navbar.tsx'
+import DepartmentBtn from "../components/Buttons/DepartmentBtn.tsx";
+import YearBtn from "../components/Buttons/YearBtn.tsx";
+import Course from "../components/HomeComponent/CourseComponent.tsx";
 import {useState} from "react";
 
 const Courses = () => {

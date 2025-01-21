@@ -120,7 +120,7 @@ const Login = () => {
                                 >
                                     Log in
                                 </button>
-                                <Link to="/home">
+                                <Link to="/user/home">
                                     <div className="flex items-center gap-2 mb-10">
                                         <IoArrowBack className="icon" />
                                         <div className="text-xs font-bold">Back home</div>

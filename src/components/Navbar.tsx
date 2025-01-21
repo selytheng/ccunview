@@ -23,7 +23,7 @@ const Navbar = () => {
                             backgroundColor: 'white',
                             color: '#071952',
                             border: 'none',
-                            borderRadius: '4px',
+                            borderRadius: '40px',
                             cursor: 'pointer',
                         }}
                     >
@@ -34,9 +34,8 @@ const Navbar = () => {
             </div>
         </div>
 
-
-
       </nav>
+
   );
 };
 
