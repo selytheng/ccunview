@@ -42,9 +42,9 @@ const Training = () => {
     return (
         <div>
             <Navbar/>
-            <NavbarLink/>
+            <div className="mt-[110px] "><NavbarLink/></div>
             <section className="">
-                <div className="relative w-full ">
+            <div className="relative w-full ">
                     <div className="absolute inset-0 h-96 w-full bg-pink-950"></div>
                     <div className="relative pt-28 text-center mt-[100px]">
                         <h2 className="block antialiased tracking-normal font-sans font-semibold leading-[1.3] text-white mb-4 text-3xl lg:text-4xl">

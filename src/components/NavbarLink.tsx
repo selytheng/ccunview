@@ -34,7 +34,7 @@ const NavbarLink = () => {
         {
             text: "Home",
             icon: <HomeIcon className="font-bold "/>,
-            to: "/home",
+            to: "",
         },
         {
             text: "News",
@@ -56,15 +56,15 @@ const NavbarLink = () => {
             to: "#", // Placeholder for dropdown
             dropdown: [
                 { text: "Contact Us", icon: <BiSolidContact className="text-[20px]"/>, to: "/contact" },
-                { text: "Our Teams", icon: <BiLogoMicrosoftTeams className="text-[20px]"/>, to: "/team" },
-                { text: "Feedbacks", icon: <BiChat className="text-[20px]"/>, to: "/story" },
-                { text: "Our Partners", icon: <BiGroup  className="text-[20px]"/>, to: "/story" },
+                { text: "Our Teams", icon: <BiLogoMicrosoftTeams className="text-[20px]"/>, to: "#team" },
+                { text: "Feedbacks", icon: <BiChat className="text-[20px]"/>, to: "#feedback" },
+                { text: "Our Partners", icon: <BiGroup  className="text-[20px]"/>, to: "#partners" },
             ],
         },
         {
             text: "Events",
             icon: <PhoneRoundedIcon />,
-            to: "#",
+            to: "",
             dropdown: [
                 { text: "Training", icon: <InfoIcon />, to: "/training" },
                 { text: "Work Shop", icon: <InfoIcon />, to: "/workshop" },
@@ -84,7 +84,7 @@ const NavbarLink = () => {
                 paddingLeft: '20px'
             }}>
                 <div className="navbar-links-container flex items-center ">
-                    <Link to="/home" style={{ color: '#071952'}} className="flex items-center gap-1"><BiHome className='icon text-[18px] ' /><p className="text-[13px]">Home</p></Link>
+                    <Link to="/" style={{ color: '#071952'}} className="flex items-center gap-1"><BiHome className='icon text-[18px] ' /><p className="text-[13px]">Home</p></Link>
                     <Link to="/news" style={{ color: '#071952' }} className="flex items-center gap-1"><BiNews className='icon text-[18px]' /><p className="text-[13px]">News</p></Link>
 
                     {/* Courses Dropdown */}

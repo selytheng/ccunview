@@ -8,14 +8,13 @@ import WorkshopComponent from "../components/HomeComponent/WorkshopComponent.tsx
 import TeamComponent from "../components/HomeComponent/TeamComponent.tsx";
 import "../assets/css/HomePage.css"
 import NavbarLink from "../components/NavbarLink.tsx";
-import Training from "./Training.tsx";
 
 const Home = () => {
     return (
         <div className='home-container'>
             <Navbar />
             <div className="pt-[110px]"><NavbarLink/></div>
-            <div className="pt-[100px]"><Carousel /></div>
+            <div className="pt-[50px]"><Carousel /></div>
             <section className='course-section p-4' id="course">
                 <div className="flex items-center gap-3 mt-6 mb-4 ml-5">
                     <div className='course-container text-2xl font-semibold pr-10'>
@@ -28,26 +27,12 @@ const Home = () => {
                     <Course/>
                 </div>
             </section>
-            <section className='train-container p-4 '>
-                <div className=' text-2xl font-semibold mb-5 ml-5'>
-                    Training
-                </div>
-                <div>
-                    <Training/>
-                </div>
-            </section>
-            <section className='team-container p-4'>
+            <section id="team" className='team-container p-4'>
               <TeamComponent/>
             </section>
             <section className='work-container'>
                 <WorkshopComponent/>
             </section>
-            {/*<section className='about-container'>*/}
-            {/*    <AboutComponent/>*/}
-            {/*</section>*/}
-            {/*<section className='contact-container'>*/}
-            {/*    <ContactComponent/>*/}
-            {/*</section>*/}
             <section className='footer-container'>
                 <FooterComponent/>
             </section>
