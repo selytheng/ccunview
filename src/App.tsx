@@ -1,18 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./Pages/Home";
-import Courses from "./Pages/Courses";
+import Home from "./Pages/Home.tsx";
+import Courses from "./Pages/Courses.tsx";
 import Login from "./Pages/Login";
-import About from "./Pages/About";
-import Contact from "./Pages/Contact";
+import About from "./Pages/About.tsx";
+import Contact from "./Pages/Contact.tsx";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminCourse from "./Pages/Admin/Course/AdminCourse";
 import CourseEdit from "./Pages/Admin/Course/CourseEdit";
 import CourseCreate from "./Pages/Admin/Course/CourseCreate";
 import AdminTraining from "./Pages/Admin/AdminTraining";
 import AdminWorkshop from "./Pages/Admin/AdminWorkshop";
-import AdminEvent from "./Pages/Admin/AdminEvent";
-import AdminPartner from "./Pages/Admin/Partner/AdminPartner.tsx";
+import AdminEvent from "./Pages/Admin/Event/AdminEvent";
+import AdminEventDetail from "./Pages/Admin/Event/AdminEventDetail";
+import AdminPartner from "./Pages/Admin/Partner/AdminPartner";
 import Feedback from "./Pages/Admin/Feedback";
 import CourseDetail from "./Pages/Admin/Course/CourseDetail";
 import AdminRoute from "../src/components/AdminRoute";
@@ -20,19 +21,23 @@ import AdminProfile from "./Pages/Admin/AdminProfile";
 import News from "./Pages/News.tsx";
 import AdminMajor from "./Pages/Admin/Major/AdminMajor";
 import Users from "./Pages/SuperAdmin/Users";
+import Workshop from "./Pages/Workshops.tsx";
+import Training from "./Pages/Training.tsx";
 
 const App = () => {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/course" element={<Courses />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <Routes>
+                    <Route index element={<Home />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/news" element={<News />} />
+                    <Route path="/workshop" element={<Workshop />} />
+                    <Route path="/training" element={<Training />} />
+                    <Route path="/course" element={<Courses />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/login" element={<Login />} />
 
           {/* SuperAdmin and Admin Routes */}
           <Route
@@ -104,6 +109,14 @@ const App = () => {
             element={
               <AdminRoute>
                 <AdminEvent />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/events/:id"
+            element={
+              <AdminRoute>
+                <AdminEventDetail />
               </AdminRoute>
             }
           />
