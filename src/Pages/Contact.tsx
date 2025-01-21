@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Navbar from "../components/Navbar.tsx";
+import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
+import NavbarLink from "../components/NavbarLink.tsx";
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -30,8 +32,9 @@ const ContactForm = () => {
     return (
         <>
             <Navbar/>
-            <div className="isolate bg-white px-6 py-24 sm:py-10 lg:px-8">
-                <div className="mx-auto max-w-2xl text-center ">
+            <div className="mt-[110px] "> <NavbarLink/></div>
+            <div className="isolate bg-white px-6 py-24 sm:py-10 lg:px-8 ">
+                <div className="mx-auto max-w-2xl text-center mt-10">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact</h2>
                     <p className="mt-2 text-lg leading-8 text-gray-600">
                         Text who ever you want where ever you want any time you want enjoy contacting friends and
@@ -178,6 +181,7 @@ const ContactForm = () => {
                     </div>
                 </form>
             </div>
+            <FooterComponent/>
         </>
 
     );
