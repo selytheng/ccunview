@@ -57,7 +57,7 @@ const Course = () => {
                                     <CardContent>
                                         <Typography gutterBottom variant="h6" component="div">
                                             {/* Link updated to use "/admin/course/:id" */}
-                                            <Link to={`/admin/course/${course.id}`} style={{ textDecoration: 'none', color: '#000' }}>
+                                            <Link to={`/user/course/${course.id}`} style={{ textDecoration: 'none', color: '#000' }}>
                                                 <div className="course-title">{course.title}</div>
                                             </Link>
                                         </Typography>

@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar.tsx";
 import NavbarLink from "../components/NavbarLink.tsx";
 import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
 
-const News: React.FC = () => {
+const Workshop: React.FC = () => {
     const cardData = [
         {
             title: "UI/UX Review Check",
@@ -24,9 +24,9 @@ const News: React.FC = () => {
             <section className="">
                 <div className="relative w-full ">
                     <div className="absolute inset-0 h-96 w-full bg-pink-950"></div>
-                    <div className="relative pt-28 text-center mt-[110px] ">
+                    <div className="relative pt-28 text-center mt-[100px]">
                         <h2 className="block antialiased tracking-normal font-sans font-semibold leading-[1.3] text-white mb-4 text-3xl lg:text-4xl">
-                            News
+                            Work Shop
                         </h2>
                         <p className="block antialiased font-sans text-xl font-normal leading-relaxed text-white mb-9 opacity-70">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum
@@ -77,4 +77,4 @@ const News: React.FC = () => {
     );
 };
 
-export default News;
+export default Workshop;

@@ -21,6 +21,8 @@ import AdminProfile from "./Pages/Admin/AdminProfile";
 import News from "./Pages/News.tsx";
 import AdminMajor from "./Pages/Admin/Major/AdminMajor";
 import Users from "./Pages/SuperAdmin/Users";
+import Workshop from "./Pages/Workshops.tsx";
+import Training from "./Pages/Training.tsx";
 
 const App = () => {
     return (
@@ -30,6 +32,8 @@ const App = () => {
                     <Route index element={<Home />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/news" element={<News />} />
+                    <Route path="/workshop" element={<Workshop />} />
+                    <Route path="/training" element={<Training />} />
                     <Route path="/course" element={<Courses />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />

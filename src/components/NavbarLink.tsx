@@ -2,8 +2,17 @@ import { useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import { BiBookOpen, BiCaretDown, BiHome, BiNews } from "react-icons/bi";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import {
+    BiBookOpen,
+    BiCaretDown,
+    BiChat,
+    BiGroup,
+    BiHome,
+    BiLogoMicrosoftTeams,
+    BiNews,
+    BiSolidContact
+} from "react-icons/bi";
+import { Link } from "react-router-dom";
 import '../assets/css/admin.css';
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -24,7 +33,7 @@ const NavbarLink = () => {
     const menuOptions = [
         {
             text: "Home",
-            icon: <HomeIcon />,
+            icon: <HomeIcon className="font-bold "/>,
             to: "/home",
         },
         {
@@ -37,18 +46,19 @@ const NavbarLink = () => {
             icon: <BiBookOpen />,
             to: "#", // Placeholder for dropdown
             dropdown: [
-                { text: "ITC Course", to: "/course/1" },
-                { text: "RUPP Course", to: "/course/2" },
+                { text: "Courses", to: "/user/courses" },
+                { text: "Majors", to: "/user/major" },
             ],
         },
         {
-            text: "About",
+            text: "About Us",
             icon: <InfoIcon />,
             to: "#", // Placeholder for dropdown
             dropdown: [
-                { text: "Contact Us", icon: <InfoIcon />, to: "/about/contact" },
-                { text: "Our Team", icon: <InfoIcon />, to: "/about/team" },
-                { text: "Our Story", icon: <InfoIcon />, to: "/about/story" },
+                { text: "Contact Us", icon: <BiSolidContact className="text-[20px]"/>, to: "/contact" },
+                { text: "Our Teams", icon: <BiLogoMicrosoftTeams className="text-[20px]"/>, to: "/team" },
+                { text: "Feedbacks", icon: <BiChat className="text-[20px]"/>, to: "/story" },
+                { text: "Our Partners", icon: <BiGroup  className="text-[20px]"/>, to: "/story" },
             ],
         },
         {
@@ -56,14 +66,14 @@ const NavbarLink = () => {
             icon: <PhoneRoundedIcon />,
             to: "#",
             dropdown: [
-                { text: "Training", icon: <InfoIcon />, to: "/training/contact" },
-                { text: "Work Shop", icon: <InfoIcon />, to: "/training/team" },
+                { text: "Training", icon: <InfoIcon />, to: "/training" },
+                { text: "Work Shop", icon: <InfoIcon />, to: "/workshop" },
             ],
         },
     ];
 
     return (
-        <div className=" border-b-2 border-[#071952] flex " style={{position: 'fixed', zIndex: 1000, height: 75, backgroundColor: '#fff', marginTop: 7 }}>
+        <div className="border-b-2 border-[#071952] flex " style={{position: 'fixed', zIndex: 1000, height: 45, backgroundColor: '#fff', marginTop:0  }}>
             <div className="nav-logo-container" style={{
                 backgroundColor: '',
                 marginLeft: '0px',
@@ -71,12 +81,12 @@ const NavbarLink = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '10px 0 0 20px',
-                height:'70px',
+                paddingLeft: '20px'
             }}>
-                <div className="navbar-links-container flex items-center">
-                    <Link to="/home" style={{ color: '#071952' }} className="flex items-center gap-1"><BiHome className='icon' />Home</Link>
-                    <Link to="/news" style={{ color: '#071952' }} className="flex items-center gap-1"><BiNews className='icon' />News</Link>
+                <div className="navbar-links-container flex items-center ">
+                    <Link to="/home" style={{ color: '#071952'}} className="flex items-center gap-1"><BiHome className='icon text-[18px] ' /><p className="text-[13px]">Home</p></Link>
+                    <Link to="/news" style={{ color: '#071952' }} className="flex items-center gap-1"><BiNews className='icon text-[18px]' /><p className="text-[13px]">News</p></Link>
+
                     {/* Courses Dropdown */}
                     <div
                         className="dropdown"
@@ -84,14 +94,15 @@ const NavbarLink = () => {
                         onMouseLeave={() => setOpenCourses(false)}
                         style={{ position: 'relative' }}
                     >
-                        <Link to="#" style={{ color: '#071952' }} className="flex items-center gap-1">
-                            <BiBookOpen className='icon' /> My Courses <BiCaretDown className='icon' />
+                        <Link to="#"  style={{color: '#071952'}} className="flex items-center gap-1">
+                            <BiBookOpen className='icon text-[18px]' /> <p className="text-[13px]">My Courses</p> <BiCaretDown
+                            className='icon'/>
                         </Link>
                         {openCourses && (
-                            <div className="dropdown-menu">
+                            <div className="dropdown-menu ">
                                 {menuOptions[2].dropdown?.map((course ) => (
-                                    <Link key={course.text} to={course.to} className="dropdown-item flex items-center gap-2">
-                                        {course.text}
+                                    <Link key={course.text} to={course.to} className="dropdown-item flex items-center gap-2 ">
+                                        <p className="text-[13px]">{course.text}</p>
                                     </Link>
                                 ))}
                             </div>
@@ -106,13 +117,14 @@ const NavbarLink = () => {
                         style={{ position: 'relative' }}
                     >
                         <Link to="#" style={{ color: '#071952' }} className="flex items-center gap-1">
-                            <PhoneRoundedIcon className='icon' /> Events <BiCaretDown className='icon' />
+                            <PhoneRoundedIcon className='icon text-[10px]'/> <p className="text-[13px]">Events</p> <BiCaretDown
+                            className='icon'/>
                         </Link>
                         {openEvents && ( // Check openEvents state
                             <div className="dropdown-menu">
                                 {menuOptions[4].dropdown?.map((event) => ( // Reference the correct dropdown
                                     <Link key={event.text} to={event.to} className="dropdown-item flex items-center gap-2">
-                                        {event.text}
+                                       <p className="text-[13px]">{event.text}</p>
                                     </Link>
                                 ))}
                             </div>
@@ -121,19 +133,21 @@ const NavbarLink = () => {
 
                     {/* About Dropdown */}
                     <div
-                        className="dropdown"
+                        className="dropdown "
                         onMouseEnter={() => setOpenAbout(true)}
                         onMouseLeave={() => setOpenAbout(false)}
                         style={{ position: 'relative' }}
                     >
                         <Link to="#" style={{ color: '#071952' }} className="flex items-center gap-1">
-                            <InfoIcon className='icon' /> About <BiCaretDown className='icon' />
+                            <InfoIcon className='icon text-[16px]' /> <p className="text-[13px]">About</p> <BiCaretDown
+                            className='icon'/>
                         </Link>
                         {openAbout && (
-                            <div className="dropdown-menu">
+                            <div className="dropdown-menu ">
                                 {menuOptions[3].dropdown?.map((about) => (
                                     <Link key={about.text} to={about.to} className="dropdown-item">
-                                        <div className="flex items-center gap-1">{about.text}</div>
+                                        {/*<div className="flex items-center gap-1"></div>*/}
+                                        <p className="text-[13px] flex items-center gap-2">{about.icon}{about.text}</p>
                                     </Link>
                                 ))}
                             </div>
