@@ -10,7 +10,7 @@ const MajorTable = ({ majors, onEdit, onDelete }: { majors: Major[], onEdit: (ma
         sx={{
           maxWidth: 400,
           marginBottom: '5px',
-          width: 240,
+          width: 235,
           height: 260,
           display: 'flex',
           transition: 'transform 0.3s, box-shadow 0.3s',
@@ -35,7 +35,7 @@ const MajorTable = ({ majors, onEdit, onDelete }: { majors: Major[], onEdit: (ma
               borderBottomColor: '1px solid #c3baba', // Adds a red border around the image
             }}
           />
-          <CardContent style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <CardContent style={{ display: 'flex', justifyContent: 'space-between',  }}>
             <Typography gutterBottom variant="h5" component="div" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {major.name}
             </Typography>

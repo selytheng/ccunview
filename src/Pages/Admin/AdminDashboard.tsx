@@ -5,6 +5,8 @@ import ContentHeader from './ContentHeader';
 import TotalCard from './TotalCard';
 import Barchart from './Barchart';
 import Piechart from './Piechart';
+import Calendar from './Calendar'; // Import the Calendar component
+import { Card } from '@mui/material';
 
 // Define Partner type
 interface Partner {
@@ -49,8 +51,6 @@ const AdminDashboard: React.FC = () => {
     const data = await response.json();
     setTotalMajors(data.length);
   };
-
-  // Fetch partner courses data
   const fetchPartnerCoursesData = async () => {
     const access_token = localStorage.getItem('access_token');
     const response = await fetch('http://localhost:8000/api/partners', {
@@ -58,7 +58,6 @@ const AdminDashboard: React.FC = () => {
     });
     const partners: Partner[] = await response.json();
 
-    // Fetch the number of courses for each partner
     const partnerData = await Promise.all(partners.map(async (partner: Partner) => {
       const coursesResponse = await fetch(`http://localhost:8000/api/partners/${partner.id}/courses`, {
         headers: { Authorization: `Bearer ${access_token}` },
@@ -70,7 +69,6 @@ const AdminDashboard: React.FC = () => {
     setPartnerData(partnerData);
   };
 
-  // useEffect hook to fetch data on component mount
   useEffect(() => {
     fetchTotalCourses();
     fetchTotalPartners();
@@ -96,10 +94,12 @@ const AdminDashboard: React.FC = () => {
               </div>
               <div className="chart-box" style={{ display: 'flex', gap: '20px' }}>
                 <Barchart partnerData={partnerData} />
-                <Piechart totalCourses={totalCourses} totalPartners={totalPartners} totalMajors={totalMajors} /> {/* Pass total values to Piechart */}
+                <Piechart totalCourses={totalCourses} totalPartners={totalPartners} totalMajors={totalMajors} />
               </div>
             </div>
-            <div className="calendar-box"></div>
+            <Card className="calendar-box">
+              <Calendar /> 
+            </Card>
           </div>
         </div>
       </div>
