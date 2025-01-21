@@ -22,13 +22,13 @@ const AdminEventAdd: React.FC<AdminEventAddProps> = ({
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [partnerId, setPartnerId] = useState(1); // Assuming partner_id is 1 (adjust accordingly)
+  const partnerId = localStorage.getItem("partner_id") || ""; // Fetch partner_id from localStorage
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("active");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [image, setImage] = useState<File | null>(null);
-  const [gallery, setGallery] = useState<FileList | null>(null);
+  const [gallery, setGallery] = useState<File[]>([]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -38,7 +38,7 @@ const AdminEventAdd: React.FC<AdminEventAddProps> = ({
 
   const handleGalleryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      setGallery(event.target.files);
+      setGallery(Array.from(event.target.files));
     }
   };
 
@@ -46,18 +46,16 @@ const AdminEventAdd: React.FC<AdminEventAddProps> = ({
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("partner_id", String(partnerId));
+    formData.append("partner_id", partnerId);
     formData.append("location", location);
     formData.append("status", status);
     formData.append("start_date", startDate);
     formData.append("end_date", endDate);
 
     if (image) formData.append("image", image);
-    if (gallery) {
-      Array.from(gallery).forEach((file, index) => {
-        formData.append("gallery[]", file);
-      });
-    }
+    gallery.forEach((file) => {
+      formData.append("gallery[]", file);
+    });
 
     // Log FormData to check its contents
     for (let [key, value] of formData.entries()) {
@@ -86,6 +84,7 @@ const AdminEventAdd: React.FC<AdminEventAddProps> = ({
       alert("An error occurred while creating the event.");
     }
   };
+
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -172,7 +171,7 @@ const AdminEventAdd: React.FC<AdminEventAddProps> = ({
           InputLabelProps={{
             shrink: true,
           }}
-          multiple
+          inputProps={{ multiple: true }}
         />
       </DialogContent>
       <DialogActions>

@@ -17,3 +17,10 @@ export interface Major {
   name: string;
   description: string;
 }
+export interface Event {
+  id: number;
+  title: string;
+  description: string;
+  image?: string;
+  date: string; 
+}

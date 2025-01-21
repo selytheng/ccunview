@@ -9,7 +9,7 @@ import CourseCreate from './CourseCreate';
 import { Course } from '../../../types/interface';
 
 interface AdminCourseProps {
-  setTotalCourses: (total: number) => void; // Prop to update the total courses count in the parent
+  setTotalCourses: (total: number) => void; 
 }
 
 const AdminCourse: React.FC<AdminCourseProps> = ({ setTotalCourses }) => {

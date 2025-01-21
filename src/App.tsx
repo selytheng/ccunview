@@ -8,7 +8,7 @@ import Contact from "./Pages/Contact.tsx";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminCourse from "./Pages/Admin/Course/AdminCourse";
 import CourseEdit from "./Pages/Admin/Course/CourseEdit";
-import CourseCreate from "./Pages/Admin/Course/CourseCreate";
+// import CourseCreate from "./Pages/Admin/Course/CourseCreate";
 import AdminTraining from "./Pages/Admin/AdminTraining";
 import AdminWorkshop from "./Pages/Admin/AdminWorkshop";
 import AdminEvent from "./Pages/Admin/Event/AdminEvent";
@@ -23,6 +23,7 @@ import AdminMajor from "./Pages/Admin/Major/AdminMajor";
 import Users from "./Pages/SuperAdmin/Users";
 import Workshop from "./Pages/Workshops.tsx";
 import Training from "./Pages/Training.tsx";
+import CourseCreate from "./Pages/Admin/Course/CourseCreate.tsx";
 
 const App = () => {
     return (
@@ -105,7 +106,7 @@ const App = () => {
             }
           />
           <Route
-            path="/admin/event"
+            path="/admin/events"
             element={
               <AdminRoute>
                 <AdminEvent />

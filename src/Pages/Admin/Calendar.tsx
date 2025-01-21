@@ -13,7 +13,7 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '', height: 350, fontFamily: 'Arial' }}>
+    <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '', fontFamily: 'Arial' }}>
       {/* <h3>Calendar</h3> */}
       <CalendarComponent
         onChange={onChange}

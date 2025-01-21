@@ -116,7 +116,7 @@ const Sidebar = () => {
           Workshops
         </NavLink>
         <NavLink
-          to="/admin/event"
+          to="/admin/events"
           className={({ isActive }) => (isActive ? "item active" : "item")}
         >
           <BiCalendar className="icon" />

@@ -64,7 +64,7 @@ const AdminEventDetail: React.FC = () => {
 
       if (response.ok) {
         alert("Event deleted successfully!");
-        window.location.href = "/admin/event"; // Redirect after deletion
+        window.location.href = "/admin/events"; // Redirect after deletion
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
