@@ -10,6 +10,7 @@ export interface Partner {
     id: number | string;
     name: string;
     description: string;
+    logo: string;
 }
   
 export interface Major {
