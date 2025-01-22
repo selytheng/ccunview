@@ -14,8 +14,9 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Chip,
 } from "@mui/material";
-import { BiBookOpen, BiPencil, BiSolidMapPin, BiTrash } from "react-icons/bi";
+import { BiBookOpen, BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash } from "react-icons/bi";
 import AdminEventEdit from "./AdminEventEdit"; // Assuming the dialog component is in the same folder
 
 const AdminEventDetail: React.FC = () => {
@@ -128,27 +129,13 @@ const AdminEventDetail: React.FC = () => {
       <div className="dashboard">
         <Sidebar />
         <div className="dashboard-content">
-          <div
-            className="breadcrumb"
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <div style={{ display: "flex" }}>
-              <Link
-                to="/admin/event"
-                style={{
-                  textDecoration: "none",
-                  color: "#526d82",
-                  fontWeight: "bold",
-                }}
-              >
-                <BiBookOpen
-                  className="icon"
-                  style={{ fontSize: 16, marginTop: 4, marginRight: 3 }}
-                />{" "}
-                Events
-              </Link>{" "}
-              / <span>{event.title}</span>
+          <div className="breadcrumb" style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", backgroundColor: '' }}>
+              <Link to="/admin/events" style={{ textDecoration: 'none', color: '#526d82', fontWeight: 'bold', display: 'flex' }}>
+                <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} /> Events
+              </Link>{' '}{' /  '}<span> {event.title}</span>
             </div>
+
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
                 variant="contained"
@@ -161,6 +148,7 @@ const AdminEventDetail: React.FC = () => {
               </Button>
               <Button
                 variant="contained"
+                style={{ backgroundColor: 'rgb(220 38 38)' }}
                 startIcon={<BiTrash style={{ fontSize: 18 }} />}
                 className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
                 onClick={handleDeleteClick}
@@ -180,44 +168,31 @@ const AdminEventDetail: React.FC = () => {
           >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <CardContent>
-                <Typography
-                  component="div"
-                  variant="h5"
-                  style={{ marginBottom: 13 }}
-                >
-                  {event.title}
-                </Typography>
-                <div style={{ display: "flex", gap: 50 }}>
-                  <p
-                    style={{
-                      marginBottom: 10,
-                      fontFamily: "Arial",
-                      fontSize: 15,
-                      color: "#868181",
-                    }}
-                  >
-                    <BiSolidMapPin style={{ marginTop: 3 }} /> {event.location}
-                  </p>
-                  <p
-                    style={{
-                      marginBottom: 10,
-                      fontFamily: "Arial",
-                      fontSize: 15,
-                      color: "#868181",
-                    }}
-                  >
-                    Status: {event.status}
-                  </p>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  <Typography component="div" variant="h5" style={{ marginBottom: 13 }}>
+                    {event.title}
+                  </Typography>
+                  <Chip label={event.status} style={{ fontSize: 14, backgroundColor: '#AAB7B7', marginTop: 3, display: 'flex', padding: 2 }} />
                 </div>
+                
                 <Typography
                   variant="subtitle1"
                   component="div"
-                  sx={{ color: "text.secondary", marginBottom: 13 }}
+                  sx={{ color: "text.secondary", marginBottom: 3,   }}
                 >
                   {event.description}
                 </Typography>
-                <p style={{ fontSize: 14, fontFamily: "Arial" }}>
-                  Partner: {event.partner.name}
+                <p 
+                  style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: 'flex'}}>
+                  <BiSolidMapPin style={{ marginTop: 3, marginRight: 5 }} />Location: {event.location}
+                </p>
+                <p 
+                  style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: 'flex'}}>
+                  <BiCalendar style={{ marginTop: 3, marginRight: 5 }} />Date: {event.start_date} - {event.end_date}
+                </p>
+                <p 
+                  style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: 'flex'}}>
+                  <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />Host: {event.partner.name} 
                 </p>
               </CardContent>
             </Box>
@@ -285,8 +260,8 @@ const AdminEventDetail: React.FC = () => {
               eventId={id}
               eventData={event}
               onSubmit={() => {
-                setOpenEditDialog(false); // Close dialog after submitting
-                window.location.reload(); // Optionally reload to fetch updated data
+                setOpenEditDialog(false); 
+                window.location.reload(); 
               }}
             />
           )}
