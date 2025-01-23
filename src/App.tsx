@@ -21,135 +21,65 @@ import AdminProfile from "./Pages/Admin/AdminProfile";
 import News from "./Pages/News.tsx";
 import AdminMajor from "./Pages/Admin/Major/AdminMajor";
 import Users from "./Pages/SuperAdmin/Users";
-import Workshop from "./Pages/Workshops.tsx";
-import Training from "./Pages/Training.tsx";
-import CourseCreate from "./Pages/Admin/Course/CourseCreate.tsx";
+import Workshop from "./Pages/Workshops";
+import Training from "./Pages/Training";
+import CourseCreate from "./Pages/Admin/Course/CourseCreate";
+import SuperAdminRoute from "../src/components/SuperAdminRoute";
 
 const App = () => {
-    return (
-        <div className="App">
-            <BrowserRouter>
-                <Routes>
-                    <Route index element={<Home />} />
-                    <Route path="" element={<Home />} />
-                    <Route path="/news" element={<News />} />
-                    <Route path="/workshop" element={<Workshop />} />
-                    <Route path="/training" element={<Training />} />
-                    <Route path="/course" element={<Courses />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/login" element={<Login />} />
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="" element={<Home />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/workshop" element={<Workshop />} />
+          <Route path="/training" element={<Training />} />
+          <Route path="/course" element={<Courses />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
 
-          {/* SuperAdmin and Admin Routes */}
+          {/* SuperAdmin Routes */}
           <Route
-            path="/superadmin/users"
+            path="superadmin/*"
             element={
-              <AdminRoute>
-                <Users />
-              </AdminRoute>
+              <SuperAdminRoute>
+                <Routes>
+                  <Route path="users" element={<Users />} />
+                  <Route path="partner" element={<AdminPartner />} />
+                  {/* Add more SuperAdmin routes here */}
+                </Routes>
+              </SuperAdminRoute>
             }
           />
           <Route
-            path="/admin/dashboard"
+            path="admin/*"
             element={
               <AdminRoute>
-                <AdminDashboard />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/course"
-            element={
-              <AdminRoute>
-                <AdminCourse />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/course/create"
-            element={
-              <AdminRoute>
-                <CourseCreate />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/course/edit/:courseId"
-            element={
-              <AdminRoute>
-                <CourseEdit />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/course/:id"
-            element={
-              <AdminRoute>
-                <CourseDetail />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/training"
-            element={
-              <AdminRoute>
-                <AdminTraining />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/workshop"
-            element={
-              <AdminRoute>
-                <AdminWorkshop />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/events"
-            element={
-              <AdminRoute>
-                <AdminEvent />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/events/:id"
-            element={
-              <AdminRoute>
-                <AdminEventDetail />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/major"
-            element={
-              <AdminRoute>
-                <AdminMajor />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/partner"
-            element={
-              <AdminRoute>
-                <AdminPartner />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/feedback"
-            element={
-              <AdminRoute>
-                <Feedback />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/profile"
-            element={
-              <AdminRoute>
-                <AdminProfile />
+                <Routes>
+                  <Route path="dashboard" element={<AdminDashboard />} />
+                  <Route
+                    path="course/*"
+                    element={
+                      <Routes>
+                        <Route path="" element={<AdminCourse />} />
+                        <Route path="create" element={<CourseCreate />} />
+                        <Route path="edit/:courseId" element={<CourseEdit />} />
+                        <Route path=":id" element={<CourseDetail />} />
+                      </Routes>
+                    }
+                  />
+                  <Route path="training" element={<AdminTraining />} />
+                  <Route path="workshop" element={<AdminWorkshop />} />
+                  <Route path="events" element={<AdminEvent />} />
+                  <Route path="events/:id" element={<AdminEventDetail />} />
+                  <Route path="major" element={<AdminMajor />} />
+                  <Route path="feedback" element={<Feedback />} />
+                  <Route path="profile" element={<AdminProfile />} />
+                  {/* Add more Admin routes here */}
+                </Routes>
               </AdminRoute>
             }
           />

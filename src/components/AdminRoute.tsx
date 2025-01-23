@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 interface AdminRouteProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
 
   useEffect(() => {
     // Check if the token exists in localStorage (user is authenticated)
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem("access_token");
 
     if (token) {
       // Optionally, you can verify the token's validity (e.g., by checking expiration)
@@ -22,7 +22,8 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
     // Monitor for 401 errors globally (in case the token expires or is invalid)
     const monitorRequests = (response: Response) => {
       if (response.status === 401) {
-        console.error('Unauthorized access detected!');
+        localStorage.clear();
+        console.error("Unauthorized access detected!");
         setIsAuthenticated(false);
       }
     };

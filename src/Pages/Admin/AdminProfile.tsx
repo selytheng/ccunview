@@ -75,7 +75,7 @@ const AdminProfile = () => {
       });
 
       if (response.ok) {
-        localStorage.removeItem("access_token"); // Clear token from local storage
+        localStorage.clear();
         navigate("/login"); // Redirect to login page
       } else {
         console.error("Failed to log out");
