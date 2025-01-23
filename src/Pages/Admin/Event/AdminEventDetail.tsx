@@ -23,9 +23,11 @@ import {
   BiSitemap,
   BiSolidMapPin,
   BiTrash,
+  BiImageAdd,
 } from "react-icons/bi";
-import AdminEventEdit from "./AdminEventEdit"; // Assuming the dialog component is in the same folder
-import AdminEventEditGallery from "./AdminEventEditGallery"; // Import your Edit Gallery dialog
+import AdminEventEdit from "./AdminEventEdit";
+import AdminEventEditGallery from "./AdminEventEditGallery";
+import AdminEventAddGallery from "./AdminEventAddGallery";
 
 const AdminEventDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,7 +36,8 @@ const AdminEventDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [openEditGalleryDialog, setOpenEditGalleryDialog] = useState(false); // State for Edit Gallery dialog
+  const [openEditGalleryDialog, setOpenEditGalleryDialog] = useState(false);
+  const [openAddGalleryDialog, setOpenAddGalleryDialog] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +77,7 @@ const AdminEventDetail: React.FC = () => {
 
       if (response.ok) {
         alert("Event deleted successfully!");
-        window.location.href = "/admin/events"; // Redirect after deletion
+        window.location.href = "/admin/events";
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
@@ -96,7 +99,11 @@ const AdminEventDetail: React.FC = () => {
   };
 
   const handleEditGalleryClick = () => {
-    setOpenEditGalleryDialog(true); // Open the Edit Gallery dialog
+    setOpenEditGalleryDialog(true);
+  };
+
+  const handleAddGalleryClick = () => {
+    setOpenAddGalleryDialog(true);
   };
 
   if (loading) {
@@ -172,7 +179,7 @@ const AdminEventDetail: React.FC = () => {
                 startIcon={<BiPencil style={{ fontSize: 18 }} />}
                 className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-400 rounded"
                 style={{ marginRight: "10px" }}
-                onClick={handleEditClick} // Open Edit Dialog on click
+                onClick={handleEditClick}
               >
                 Edit
               </Button>
@@ -181,9 +188,18 @@ const AdminEventDetail: React.FC = () => {
                 startIcon={<BiSitemap style={{ fontSize: 18 }} />}
                 className="px-4 py-2 text-white bg-green-500 hover:bg-green-400 rounded"
                 style={{ marginRight: "10px" }}
-                onClick={handleEditGalleryClick} // Open Edit Gallery Dialog on click
+                onClick={handleEditGalleryClick}
               >
                 Edit Gallery
+              </Button>
+              <Button
+                variant="contained"
+                startIcon={<BiImageAdd style={{ fontSize: 18 }} />}
+                className="px-4 py-2 text-white bg-purple-500 hover:bg-purple-400 rounded"
+                style={{ marginRight: "10px" }}
+                onClick={handleAddGalleryClick}
+              >
+                Add Images
               </Button>
               <Button
                 variant="contained"
@@ -283,7 +299,6 @@ const AdminEventDetail: React.FC = () => {
             )}
           </Card>
 
-          {/* Gallery with horizontal scroll */}
           {event.gallery && (
             <div
               style={{
@@ -303,7 +318,6 @@ const AdminEventDetail: React.FC = () => {
             </div>
           )}
 
-          {/* Delete Confirmation Dialog */}
           <Dialog
             open={openDeleteDialog}
             onClose={() => setOpenDeleteDialog(false)}
@@ -328,7 +342,6 @@ const AdminEventDetail: React.FC = () => {
             </DialogActions>
           </Dialog>
 
-          {/* Admin Event Edit Dialog */}
           {event && (
             <AdminEventEdit
               open={openEditDialog}
@@ -342,13 +355,25 @@ const AdminEventDetail: React.FC = () => {
             />
           )}
 
-          {/* Admin Event Edit Gallery Dialog */}
           {event && (
             <AdminEventEditGallery
               open={openEditGalleryDialog}
               onClose={() => setOpenEditGalleryDialog(false)}
               eventId={id}
               eventData={event}
+            />
+          )}
+
+          {event && (
+            <AdminEventAddGallery
+              open={openAddGalleryDialog}
+              onClose={() => setOpenAddGalleryDialog(false)}
+              eventId={id}
+              eventData={event}
+              onSubmit={() => {
+                setOpenAddGalleryDialog(false);
+                window.location.reload();
+              }}
             />
           )}
         </div>
