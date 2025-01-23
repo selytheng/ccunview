@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -24,15 +24,13 @@ const AdminEventEdit: React.FC<AdminEventEditProps> = ({
   eventData,
   onSubmit,
 }) => {
-  const [title, setTitle] = useState(eventData.title);
-  const [description, setDescription] = useState(eventData.description);
-  const [location, setLocation] = useState(eventData.location);
-  const [status, setStatus] = useState(eventData.status);
+  const [title, setTitle] = useState(eventData.title || "");
+  const [description, setDescription] = useState(eventData.description || "");
+  const [location, setLocation] = useState(eventData.location || "");
+  const [status, setStatus] = useState(eventData.status || "");
+  const [startDate, setStartDate] = useState(eventData.start_date || "");
+  const [endDate, setEndDate] = useState(eventData.end_date || "");
   const [image, setImage] = useState<File | null>(null);
-  const [gallery, setGallery] = useState<FileList | null>(null);
-  const [removeGallery, setRemoveGallery] = useState<string[]>(
-    eventData.remove_gallery || []
-  );
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -40,35 +38,16 @@ const AdminEventEdit: React.FC<AdminEventEditProps> = ({
     }
   };
 
-  const handleGalleryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setGallery(event.target.files);
-    }
-  };
-
-  const handleRemoveGalleryChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    path: string
-  ) => {
-    if (event.target.checked) {
-      setRemoveGallery((prev) => [...prev, path]);
-    } else {
-      setRemoveGallery((prev) => prev.filter((item) => item !== path));
-    }
-  };
-
   const handleSubmit = async () => {
     const formData = new FormData();
+    formData.append("_method", "PUT");
     if (title) formData.append("title", title);
     if (description) formData.append("description", description);
     if (location) formData.append("location", location);
     if (status) formData.append("status", status);
+    if (startDate) formData.append("start_date", startDate);
+    if (endDate) formData.append("end_date", endDate);
     if (image) formData.append("image", image);
-    if (gallery) {
-      Array.from(gallery).forEach((file) => formData.append("gallery[]", file));
-    }
-    formData.append("remove_gallery", JSON.stringify(removeGallery));
-    formData.append("_method", "PUT");
 
     try {
       const access_token = localStorage.getItem("access_token");
@@ -136,6 +115,24 @@ const AdminEventEdit: React.FC<AdminEventEditProps> = ({
         </TextField>
         <TextField
           fullWidth
+          label="Start Date"
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          margin="dense"
+          InputLabelProps={{ shrink: true }}
+        />
+        <TextField
+          fullWidth
+          label="End Date"
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          margin="dense"
+          InputLabelProps={{ shrink: true }}
+        />
+        <TextField
+          fullWidth
           type="file"
           label="Event Image"
           margin="dense"
@@ -144,41 +141,6 @@ const AdminEventEdit: React.FC<AdminEventEditProps> = ({
             shrink: true,
           }}
         />
-        <TextField
-          fullWidth
-          type="file"
-          label="Gallery (multiple files)"
-          margin="dense"
-          onChange={handleGalleryChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            multiple: true,
-          }}
-        />
-        {eventData.gallery && eventData.gallery.length > 0 && (
-          <div>
-            <h4>Current Gallery</h4>
-            {eventData.gallery.map((imagePath: string, index: number) => (
-              <div key={index}>
-                <img
-                  src={imagePath}
-                  alt={`gallery-item-${index}`}
-                  width={100}
-                  height={100}
-                />
-                <label>
-                  <input
-                    type="checkbox"
-                    onChange={(e) => handleRemoveGalleryChange(e, imagePath)}
-                  />
-                  Remove
-                </label>
-              </div>
-            ))}
-          </div>
-        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="secondary">
