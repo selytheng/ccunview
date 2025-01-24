@@ -33,41 +33,46 @@ const AdminEventAddGallery: React.FC<AdminEventAddGalleryProps> = ({
   };
 
   const handleSubmit = async () => {
-    const formData = new FormData();
-    addgalleries.forEach((file) => {
-      formData.append("addgalleries[]", file);
-    });
+  const formData = new FormData();
 
-    // Log FormData to check its contents
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+  // Add `_method` to FormData
+  formData.append("_method", "PUT");
 
-    try {
-      const access_token = localStorage.getItem("access_token");
-      const response = await fetch(
-        `http://localhost:8000/api/events/${eventId}/addgallery`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-          body: formData,
-        }
-      );
+  // Add the selected files to FormData
+  addgalleries.forEach((file) => {
+    formData.append("addgalleries[]", file);
+  });
 
-      if (response.ok) {
-        onSubmit(); // Trigger event list refresh
-        onClose(); // Close modal after successful creation
-      } else {
-        const errorData = await response.json();
-        alert(`Error: ${errorData.message}`);
+  // Log FormData to check its contents
+  for (let [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
+
+  try {
+    const access_token = localStorage.getItem("access_token");
+    const response = await fetch(
+      `http://localhost:8000/api/events/${eventId}/addgallery`,
+      {
+        method: "POST", // Keep as POST since `_method: PUT` is included
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        body: formData,
       }
-    } catch (error) {
-      console.error("Error occurred while creating the event:", error);
-      alert("An error occurred while creating the event.");
+    );
+
+    if (response.ok) {
+      onSubmit(); // Trigger event list refresh
+      onClose(); // Close modal after successful creation
+    } else {
+      const errorData = await response.json();
+      alert(`Error: ${errorData.message}`);
     }
-  };
+  } catch (error) {
+    console.error("Error occurred while creating the event:", error);
+    alert("An error occurred while creating the event.");
+  }
+};
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
