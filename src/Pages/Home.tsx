@@ -13,7 +13,7 @@ const Home = () => {
     return (
         <div className='home-container'>
             <Navbar />
-            <div className="pt-[110px]"><NavbarLink/></div>
+            {/*<div className="pt-[110px]"><NavbarLink/></div>*/}
             <div className="pt-[50px]"><Carousel /></div>
             <section className='course-section p-4' id="course">
                 <div className="flex items-center gap-3 mt-6 mb-4 ml-5">

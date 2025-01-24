@@ -12,7 +12,6 @@ import {
   BiCommentDetail,
 } from "react-icons/bi";
 import { PiUserList } from "react-icons/pi"; // Correct import for PiUserList
-import { FaUserCircle } from "react-icons/fa";
 
 const Sidebar = () => {
   const [roleId, setRoleId] = useState<number | null>(null);

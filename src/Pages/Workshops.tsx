@@ -20,7 +20,7 @@ const Workshop: React.FC = () => {
     return (
         <div>
             <Navbar />
-            <div className="mt-[110px] "><NavbarLink/></div>
+            {/*<div className="mt-[110px] "><NavbarLink/></div>*/}
             <section className="">
             <div className="relative w-full ">
                     <div className="absolute inset-0 h-96 w-full bg-pink-950"></div>

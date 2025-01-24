@@ -20,7 +20,7 @@ const News: React.FC = () => {
     return (
         <div>
             <Navbar />
-            <NavbarLink />
+            {/*<NavbarLink />*/}
             <section className="">
                 <div className="relative w-full ">
                     <div className="absolute inset-0 h-96 w-full bg-pink-950"></div>
