@@ -26,7 +26,7 @@ import {
   BiImageAdd,
 } from "react-icons/bi";
 import AdminEventEdit from "./AdminEventEdit";
-import AdminEventEditGallery from "./AdminEventEditGallery";
+import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
 import AdminEventAddGallery from "./AdminEventAddGallery";
 
 const AdminEventDetail: React.FC = () => {
@@ -356,7 +356,7 @@ const AdminEventDetail: React.FC = () => {
           )}
 
           {event && (
-            <AdminEventEditGallery
+            <AdminEventDeleteGallery
               open={openEditGalleryDialog}
               onClose={() => setOpenEditGalleryDialog(false)}
               eventId={id}

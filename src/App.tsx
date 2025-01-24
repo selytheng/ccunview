@@ -5,6 +5,7 @@ import Courses from "./Pages/Courses.tsx";
 import Login from "./Pages/Login";
 import About from "./Pages/About.tsx";
 import Contact from "./Pages/Contact.tsx";
+import Feedback from "./Pages/Feedback";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminCourse from "./Pages/Admin/Course/AdminCourse";
 import CourseEdit from "./Pages/Admin/Course/CourseEdit";
@@ -14,7 +15,7 @@ import AdminWorkshop from "./Pages/Admin/AdminWorkshop";
 import AdminEvent from "./Pages/Admin/Event/AdminEvent";
 import AdminEventDetail from "./Pages/Admin/Event/AdminEventDetail";
 import AdminPartner from "./Pages/Admin/Partner/AdminPartner";
-import Feedback from "./Pages/Admin/Feedback";
+import AdminFeedback from "./Pages/Admin/Feedback/AdminFeedback.tsx";
 import CourseDetail from "./Pages/Admin/Course/CourseDetail";
 import AdminRoute from "../src/components/AdminRoute";
 import AdminProfile from "./Pages/Admin/AdminProfile";
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/course" element={<Courses />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/feedback" element={<Feedback />} />
           <Route path="/login" element={<Login />} />
 
           {/* SuperAdmin Routes */}
@@ -76,7 +78,7 @@ const App = () => {
                   <Route path="events" element={<AdminEvent />} />
                   <Route path="events/:id" element={<AdminEventDetail />} />
                   <Route path="major" element={<AdminMajor />} />
-                  <Route path="feedback" element={<Feedback />} />
+                  <Route path="feedback" element={<AdminFeedback />} />
                   <Route path="profile" element={<AdminProfile />} />
                   {/* Add more Admin routes here */}
                 </Routes>

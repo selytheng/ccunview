@@ -14,7 +14,7 @@ interface AdminEventEditGalleryProps {
   eventId: number; // Pass the event ID from AdminEventDetail
 }
 
-const AdminEventEditGallery: React.FC<AdminEventEditGalleryProps> = ({
+const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
   open,
   onClose,
   eventId,
@@ -153,4 +153,4 @@ const AdminEventEditGallery: React.FC<AdminEventEditGalleryProps> = ({
   );
 };
 
-export default AdminEventEditGallery;
+export default AdminEventDeleteGallery;

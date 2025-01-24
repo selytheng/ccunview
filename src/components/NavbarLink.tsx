@@ -57,7 +57,7 @@ const NavbarLink = () => {
             dropdown: [
                 { text: "Contact Us", icon: <BiSolidContact className="text-[20px]"/>, to: "/contact" },
                 { text: "Our Teams", icon: <BiLogoMicrosoftTeams className="text-[20px]"/>, to: "#team" },
-                { text: "Feedbacks", icon: <BiChat className="text-[20px]"/>, to: "#feedback" },
+                { text: "Feedbacks", icon: <BiChat className="text-[20px]"/>, to: "/feedback" },
                 { text: "Our Partners", icon: <BiGroup  className="text-[20px]"/>, to: "#partners" },
             ],
         },
