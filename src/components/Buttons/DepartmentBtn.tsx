@@ -1,31 +1,37 @@
 import { useState, useEffect, useRef } from 'react';
 import { ArrowDropDown } from "@mui/icons-material";
 
-const courses = [
-    'Web Development',
-    'Data Science',
+const departments = [
+    'Computer Science',
+    'Information Technology',
+    'Business Administration',
     'Graphic Design',
-    'Digital Marketing',
+    'Marketing',
     'Cybersecurity',
-    'Mobile App Development',
-    'Cloud Computing',
-    'Machine Learning',
-    'Project Management',
-    'UI/UX Design'
+    'Data Science',
+    'Software Engineering',
+    'Web Development',
+    'Artificial Intelligence'
 ];
 
 const DepartmentBtn = () => {
-    const [isYearsOpen, setIsYearsOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);  // Type added for TypeScript
 
-    const toggleYearsDropdown = () => {
-        setIsYearsOpen(prevState => !prevState);
+    const toggleDropdown = () => {
+        setIsDropdownOpen(prevState => !prevState);
     };
 
     const handleOutsideClick = (event: MouseEvent) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-            setIsYearsOpen(false);
+            setIsDropdownOpen(false);
         }
+    };
+
+    const handleDepartmentSelect = (department: string) => {
+        setSelectedDepartment(department);
+        setIsDropdownOpen(false);
     };
 
     useEffect(() => {
@@ -40,16 +46,20 @@ const DepartmentBtn = () => {
             <div className="relative" ref={dropdownRef}>
                 <button
                     type="button"  // Added for better accessibility and form safety
-                    className="flex items-center gap-3 p-2 bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none"
-                    onClick={toggleYearsDropdown}
+                    className="flex items-center gap-3 p-2  rounded-lg border-[#071952] border-2 hover:bg-gray-400 hover:border-[#fff] focus:outline-none"
+                    onClick={toggleDropdown}
                 >
-                    Year <ArrowDropDown className='icon' />
+                    {selectedDepartment || 'Select Department'} <ArrowDropDown className='icon' />
                 </button>
-                {isYearsOpen && (
+                {isDropdownOpen && (
                     <ul className="absolute w-52 left-0 mt-2 border border-black bg-white shadow-lg rounded-md">
-                        {courses.map((course, index) => (
-                            <li key={index} className="p-2 hover:bg-gray-200 cursor-pointer">
-                                {course}
+                        {departments.map((department, index) => (
+                            <li
+                                key={index}
+                                className="p-2 hover:bg-gray-200 cursor-pointer"
+                                onClick={() => handleDepartmentSelect(department)}
+                            >
+                                {department}
                             </li>
                         ))}
                     </ul>
