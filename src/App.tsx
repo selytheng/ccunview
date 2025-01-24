@@ -18,7 +18,7 @@ import AdminPartner from "./Pages/Admin/Partner/AdminPartner";
 import AdminFeedback from "./Pages/Admin/Feedback/AdminFeedback.tsx";
 import CourseDetail from "./Pages/Admin/Course/CourseDetail";
 import AdminRoute from "../src/components/AdminRoute";
-import AdminProfile from "./Pages/Admin/AdminProfile";
+import AdminProfile from "./Pages/Admin/Profile/AdminProfile";
 import News from "./Pages/News.tsx";
 import AdminMajor from "./Pages/Admin/Major/AdminMajor";
 import Users from "./Pages/SuperAdmin/Users";
