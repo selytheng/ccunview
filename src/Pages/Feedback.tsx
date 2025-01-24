@@ -79,10 +79,10 @@ const Feedback: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="mt-[110px]">
-        <NavbarLink />
-      </div>
-      <div className="isolate bg-white px-6 py-24 sm:py-10 lg:px-8">
+      {/*<div className="mt-[110px]">*/}
+      {/*  <NavbarLink />*/}
+      {/*</div>*/}
+      <div className="mt-[110px] isolate bg-white px-6 py-24 sm:py-10 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Submit Your Feedback
