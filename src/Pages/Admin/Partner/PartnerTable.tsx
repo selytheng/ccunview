@@ -4,18 +4,18 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography, IconButton } 
 import { BiSolidEditAlt, BiTrash } from 'react-icons/bi';
 
 const PartnerTable = ({ partners, onEdit, onDelete }: { partners: Partner[], onEdit: (partner: Partner) => void, onDelete: (partner: Partner) => void }) => {
-  const baseUrl = "http://localhost:8000/"; 
+  const baseUrl = "http://localhost:8000/";  // Define the base URL for images
 
   return (
     <div className="partner-cards" style={{ display: 'flex', flexWrap: 'wrap', gap: '22px' }}>
       {partners.map((partner) => (
         <Card
-          sx={{ 
-            maxWidth: 400, 
-            marginBottom: '5px', 
-            width: 235, 
-            height: 315, 
-            display: 'flex', 
+          sx={{
+            maxWidth: 400,
+            marginBottom: '5px',
+            width: 235,
+            height: 315,
+            display: 'flex',
             transition: 'transform 0.3s, box-shadow 0.3s',
             '&:hover': { transform: 'scale(1.01)', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }
           }}
@@ -25,8 +25,14 @@ const PartnerTable = ({ partners, onEdit, onDelete }: { partners: Partner[], onE
             <CardMedia
               component="img"
               height="140"
-              image={`${baseUrl}${partner.logo}`} 
-              style={{ padding: 2, width: '100%', height: '250px', borderBottom: '1px solid #c3baba', objectFit: 'fill' }}
+              image={`${baseUrl}${partner.logo}`} // Ensure the image URL is correct
+              style={{
+                padding: 2,
+                width: '100%',
+                height: '250px',
+                borderBottom: '1px solid #c3baba',
+                objectFit: 'fill'
+              }}
               alt={partner.name}
             />
             <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
@@ -49,7 +55,6 @@ const PartnerTable = ({ partners, onEdit, onDelete }: { partners: Partner[], onE
                   </IconButton>
                 </div>
               </div>
-
             </CardContent>
           </CardActionArea>
         </Card>

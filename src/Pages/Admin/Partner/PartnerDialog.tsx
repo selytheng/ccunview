@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface PartnerDialogProps {
-  partner: { id: string | number; name: string; description?: string; logo?: string } | null;
+  partner: { id: string | number; name: string } | null;
   onClose: () => void;
   onCreateSuccess: (action: 'create' | 'update') => void;
 }
 
 const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreateSuccess }) => {
   const [name, setName] = useState(partner?.name || '');
-  const [description, setDescription] = useState(partner?.description || '');
-  const [logo, setLogo] = useState<File | null>(null);
-
-  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setLogo(e.target.files[0]);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,17 +17,13 @@ const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreat
       : `http://localhost:8000/api/partners`;
     const method = partner ? 'PATCH' : 'POST';
 
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('description', description);
-    if (logo) formData.append('logo', logo);
-
     const response = await fetch(url, {
       method,
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${access_token}`,
       },
-      body: formData,
+      body: JSON.stringify({ name }),
     });
 
     if (response.ok) {
@@ -45,13 +33,6 @@ const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreat
       alert('Failed to create or update partner');
     }
   };
-
-  useEffect(() => {
-    if (partner) {
-      setName(partner.name);
-      setDescription(partner.description || '');
-    }
-  }, [partner]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -70,27 +51,6 @@ const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreat
               required
             />
           </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">Description</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full border rounded px-3 py-2"
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">Logo</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleLogoChange}
-              className="w-full border rounded px-3 py-2"
-            />
-          </div>
-
           <div className="flex justify-end">
             <button
               type="button"

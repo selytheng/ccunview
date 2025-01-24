@@ -3,31 +3,12 @@ import { useParams, Link } from "react-router-dom";
 import "../../../assets/css/admin.css";
 import NavbarHomePage from "../../../components/Navbar_HomePage";
 import Sidebar from "../../../components/Sidebar";
-import {
-  Button,
-  CircularProgress,
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  CardMedia,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  Chip,
-} from "@mui/material";
-import {
-  BiBookOpen,
-  BiCalendar,
-  BiPencil,
-  BiSitemap,
-  BiSolidMapPin,
-  BiTrash,
-  BiImageAdd,
-} from "react-icons/bi";
+import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Dialog, DialogActions, DialogTitle, Chip } from "@mui/material";
+import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } from "react-icons/bi";
 import AdminEventEdit from "./AdminEventEdit";
 import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
 import AdminEventAddGallery from "./AdminEventAddGallery";
+import moment from "moment";  
 
 const AdminEventDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,12 +24,9 @@ const AdminEventDetail: React.FC = () => {
     const fetchData = async () => {
       try {
         const access_token = localStorage.getItem("access_token");
-        const eventResponse = await fetch(
-          `http://localhost:8000/api/events/${id}`,
-          {
-            headers: { Authorization: `Bearer ${access_token}` },
-          }
-        );
+        const eventResponse = await fetch(`http://localhost:8000/api/events/${id}`, {
+          headers: { Authorization: `Bearer ${access_token}` },
+        });
 
         if (!eventResponse.ok) {
           throw new Error("Failed to fetch event details");
@@ -106,6 +84,17 @@ const AdminEventDetail: React.FC = () => {
     setOpenAddGalleryDialog(true);
   };
 
+  const formatEventDate = (startDate: string, endDate: string) => {
+    const start = moment(startDate);
+    const end = moment(endDate);
+
+    if (start.isSame(end, 'day')) {
+      return `${start.format("MMM Do YYYY, h:mm A")} - ${end.format("h:mm A")}`;
+    } else {
+      return `${start.format("MMM Do YYYY, h:mm A")} - ${end.format("MMM Do YYYY, h:mm A")}`;
+    }
+  };
+
   if (loading) {
     return (
       <div>
@@ -113,14 +102,7 @@ const AdminEventDetail: React.FC = () => {
         <div className="dashboard">
           <Sidebar />
           <div className="dashboard-content">
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "400px",
-              }}
-            >
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "400px" }} >
               <CircularProgress />
             </Box>
           </div>
@@ -154,18 +136,8 @@ const AdminEventDetail: React.FC = () => {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <div style={{ display: "flex", backgroundColor: "" }}>
-              <Link
-                to="/admin/events"
-                style={{
-                  textDecoration: "none",
-                  color: "#526d82",
-                  fontWeight: "bold",
-                  display: "flex",
-                }}
-              >
-                <BiCalendar
-                  className="icon"
-                  style={{ fontSize: 16, marginTop: 4, marginRight: 3 }}
+              <Link to="/admin/events" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
+                <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }}
                 />{" "}
                 Events
               </Link>{" "}
@@ -214,33 +186,16 @@ const AdminEventDetail: React.FC = () => {
           </div>
 
           <Card
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: 3,
-              padding: "0px 0 0 8px",
-            }}
-          >
+            sx={{ display: "flex", justifyContent: "space-between", gap: 3, padding: "0px 0 0 8px" }}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <CardContent>
                 <div style={{ display: "flex", gap: 10 }}>
-                  <Typography
-                    component="div"
-                    variant="h5"
-                    style={{ marginBottom: 13 }}
-                  >
+                  <Typography component="div" variant="h5" style={{ marginBottom: 13 }}>
                     {event.title}
                   </Typography>
                   <Chip
                     label={event.status}
-                    style={{
-                      fontSize: 14,
-                      backgroundColor: "#AAB7B7",
-                      marginTop: 3,
-                      display: "flex",
-                      padding: 2,
-                    }}
-                  />
+                    style={{ fontSize: 14, backgroundColor: "#AAB7B7", marginTop: 3, display: "flex", padding: 2, }} />
                 </div>
 
                 <Typography
@@ -250,41 +205,17 @@ const AdminEventDetail: React.FC = () => {
                 >
                   {event.description}
                 </Typography>
-                <p
-                  style={{
-                    marginBottom: 10,
-                    fontFamily: "Arial",
-                    fontSize: 15,
-                    color: "#868181",
-                    display: "flex",
-                  }}
-                >
+                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
                   <BiSolidMapPin style={{ marginTop: 3, marginRight: 5 }} />
                   Location: {event.location}
                 </p>
                 <p
-                  style={{
-                    marginBottom: 10,
-                    fontFamily: "Arial",
-                    fontSize: 15,
-                    color: "#868181",
-                    display: "flex",
-                  }}
-                >
+                  style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181",  display: "flex", }}>
                   <BiCalendar style={{ marginTop: 3, marginRight: 5 }} />
-                  Date: {event.start_date} - {event.end_date}
+                  Date: {formatEventDate(event.start_date, event.end_date)}
                 </p>
-                <p
-                  style={{
-                    marginBottom: 10,
-                    fontFamily: "Arial",
-                    fontSize: 15,
-                    color: "#868181",
-                    display: "flex",
-                  }}
-                >
-                  <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />
-                  Host: {event.partner.name}
+                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex",}}>
+                  <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />Host: {event.partner.name}
                 </p>
               </CardContent>
             </Box>
@@ -301,12 +232,7 @@ const AdminEventDetail: React.FC = () => {
 
           {event.gallery && (
             <div
-              style={{
-                display: "flex",
-                overflowX: "scroll",
-                padding: "10px 0",
-              }}
-            >
+              style={{ display: "flex", overflowX: "scroll", padding: "10px 0", }}>
               {event.gallery.map((image: string, index: number) => (
                 <img
                   key={index}
