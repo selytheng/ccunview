@@ -4,12 +4,12 @@ const TeamComponent: React.FC = () => {
     return (
         <section>
             <div className="relative w-full h-96 ">
-                <div className="absolute inset-0 h-4/6 w-full bg-[#071952]"></div>
+                <div className="absolute inset-0 h-4/6 w-full"></div>
                 <div className="relative pt-2 text-center">
-                    <h2 className="block antialiased tracking-normal font-sans font-semibold leading-[1.3] text-white mb-4 text-[20px] lg:text-4xl mt-10">
+                    <h2 className="block antialiased tracking-normal font-sans font-semibold leading-[1.3] text-black mb-4 text-[20px] lg:text-4xl mt-10">
                         Our Team
                     </h2>
-                    <p className="block antialiased font-sans text-[14px] font-normal leading-relaxed text-white mb-9 opacity-70">
+                    <p className="block antialiased font-sans text-[14px] font-normal leading-relaxed text-black mb-9 opacity-70">
                         The section appears to be a simple and straightforward way to introduce the team members to the
                         website visitors.<br/>
                         It provides basic information about each person's role and background.
