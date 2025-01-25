@@ -26,6 +26,7 @@ import Workshop from "./Pages/Workshops";
 import Training from "./Pages/Training";
 import CourseCreate from "./Pages/Admin/Course/CourseCreate";
 import SuperAdminRoute from "../src/components/SuperAdminRoute";
+import Major from "./Pages/Major.tsx";
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/course" element={<Courses />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/major" element={<Major />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/login" element={<Login />} />
 

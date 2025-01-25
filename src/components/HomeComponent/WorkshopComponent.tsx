@@ -4,9 +4,9 @@ const WorkShopComponent: React.FC = () => {
     return (
         <section>
             <div className="relative w-full h-96 ">
-                <div className="absolute inset-0 h-4/6 w-full bg-[#071952]"></div>
+                <div className="absolute inset-0 h-4/6 w-full "></div>
                 <div className="relative pt-2 text-center">
-                    <h2 className="block antialiased tracking-normal font-sans font-semibold leading-[1.3] text-white mb-4 text-6xl lg:text-4xl mt-10">
+                    <h2 className="block antialiased tracking-normal font-sans font-semibold leading-[1.3] text- mb-black 4 text-6xl lg:text-4xl mt-10">
                         Work Shop
                     </h2>
                 </div>

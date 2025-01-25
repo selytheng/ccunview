@@ -148,7 +148,7 @@ const Login = () => {
                         onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
                         className="absolute inset-y-0 right-0 flex items-center pr-3"
                     >
-                      {showPassword ? <IoEyeOff /> : <IoEye />} {/* Show eye icon based on state */}
+                      {showPassword ? <IoEye /> : <IoEyeOff />} {/* Show eye icon based on state */}
                     </button>
                   </div>
                 </div>
@@ -159,7 +159,7 @@ const Login = () => {
                   >
                     Log in
                   </button>
-                  <Link to="/user/home">
+                  <Link to="/">
                     <div className="flex items-center gap-2 mb-10">
                       <IoArrowBack className="icon" />
                       <div className="text-xs font-bold">Back home</div>

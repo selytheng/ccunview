@@ -52,7 +52,7 @@ const DepartmentBtn = () => {
                     {selectedDepartment || 'Select Department'} <ArrowDropDown className='icon' />
                 </button>
                 {isDropdownOpen && (
-                    <ul className="absolute w-52 left-0 mt-2 border border-black bg-white shadow-lg rounded-md">
+                    <ul className="absolute w-56 left-0 mt-2 border border-black bg-white shadow-lg rounded-md">
                         {departments.map((department, index) => (
                             <li
                                 key={index}

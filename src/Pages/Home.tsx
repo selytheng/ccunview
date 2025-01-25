@@ -19,7 +19,7 @@ const Home: React.FC = () => {
                     <div className='course-container text-2xl font-semibold pr-10'>
                         All Courses
                     </div>
-                   <div className="flex gap-2 ">
+                   <div className="flex gap-2 z-10" >
                        <DepartmentBtn />
                        <YearBtn />
                    </div>
