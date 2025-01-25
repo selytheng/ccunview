@@ -58,7 +58,7 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ddd', fontFamily: 'Arial', backgroundColor: '' }}>
+    <div style={{ padding: '10px', border: '1px solid #ddd', fontFamily: 'Arial', backgroundColor: '' }}>
       <CalendarComponent
         onChange={onChange}
         value={date}
@@ -66,29 +66,29 @@ const Calendar: React.FC = () => {
         className='calendar'
       />
 
-      <p style={{ marginTop: 15, fontFamily: 'Arial' }}>Event Details</p>
-      <Card
+      <p style={{ marginTop: 10, fontFamily: 'Arial' }}>Event Details</p>
+      <Card sx={{ transition: 'transform 0.3s, box-shadow 0.3s','&:hover': { transform: 'scale(1.01)', boxShadow: '0 4px 20px rgba(0,0,0,0.2)', }, }}
         style={{
           display: 'flex',
           flexDirection: 'column',
-          fontSize: '14px',
+          fontSize: '13px',
           fontFamily: 'Arial',
           marginTop: 10,
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+          // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
           opacity: 0.8,
         }}
       >
         {selectedEvent ? (
-          <Card style={{fontFamily: 'Arial', backgroundColor: '', padding: 4}}>
+          <div style={{fontFamily: 'Arial', backgroundColor: '', padding: '5px 8px'}}>
             <div style={{ backgroundColor: '', padding: 2, display: 'flex', justifyContent: 'space-between' }}>
               <p><strong>Date:</strong> <span style={{fontFamily: 'Arial'}}>{moment(selectedEvent.start_date).format('MMM Do YYYY')}</span></p>
               <BiChevronRight style={{ marginTop: 3, fontSize: 20 }} />
             </div>
             <div style={{ backgroundColor: '', padding: 2, display: 'flex', gap: 5, flexDirection: 'column', marginTop: 2 }}>
-              <p><strong>Title:</strong> {selectedEvent.title}</p>
+              <p style={{fontFamily: 'Arial'}}><strong>Title:</strong> {selectedEvent.title}</p>
               <p className="event-description"><strong>Description:</strong> {selectedEvent.description}</p>
             </div>
-          </Card>
+          </div>
         ) : (
           <p>No event for this date.</p>
         )}

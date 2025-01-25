@@ -9,7 +9,7 @@ import CourseCreate from './CourseCreate';
 import { Course } from '../../../types/interface';
 
 interface AdminCourseProps {
-  setTotalCourses: (total: number) => void; 
+  setTotalCourses: (total: number) => void; // Prop to update the total courses count in the parent
 }
 
 const AdminCourse: React.FC<AdminCourseProps> = ({ setTotalCourses }) => {
@@ -21,8 +21,8 @@ const AdminCourse: React.FC<AdminCourseProps> = ({ setTotalCourses }) => {
 
   const fetchCourses = async () => {
     const access_token = localStorage.getItem('access_token');
-    const partnerId = localStorage.getItem('partner_id');
-    const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/courses`, {
+    // const partnerId = localStorage.getItem('partner_id');
+    const response = await fetch(`http://localhost:8000/api/courses`, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const data = await response.json();
