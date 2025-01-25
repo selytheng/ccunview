@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
-import NavbarHomePage from "../../components/Navbar_HomePage";
-import Sidebar from "../../components/Sidebar";
-import AdminEditInfo from "./AdminEditInfo";
-import AdminEditPassword from "./AdminEditPassword";
+import NavbarHomePage from "../../../components/Navbar_HomePage.tsx";
+import Sidebar from "../../../components/Sidebar.tsx";
+import AdminEditInfo from "./AdminEditInfo.tsx";
+import AdminEditPassword from "./AdminEditPassword.tsx";
+import AdminEditContact from "./AdminEditContact.tsx"; // Add import for AdminEditContact
 import { Link, useNavigate } from "react-router-dom";
 
 const AdminProfile = () => {
   const [profile, setProfile] = useState(null);
   const [partnerName, setPartnerName] = useState("");
   const [roleName, setRoleName] = useState("");
+  const [contactInfo, setContactInfo] = useState(null);
   const [isEditInfoOpen, setEditInfoOpen] = useState(false);
   const [isEditPasswordOpen, setEditPasswordOpen] = useState(false);
+  const [isEditContactOpen, setEditContactOpen] = useState(false); // For contact info edit dialog
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,6 +59,18 @@ const AdminProfile = () => {
         } else if (data.role_id === 2) {
           setRoleName("Partner");
         }
+
+        // Fetch contact info
+        const contactResponse = await fetch(
+          `http://localhost:8000/api/contacts/partner/${data.partner_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+          }
+        );
+        const contactData = await contactResponse.json();
+        setContactInfo(contactData);
       } catch (error) {
         console.error("Error fetching profile data:", error);
       }
@@ -137,16 +152,72 @@ const AdminProfile = () => {
             ) : (
               <p className="text-center text-gray-500">Loading profile...</p>
             )}
+
+            {/* Contact Info Section */}
+            {contactInfo && (
+              <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg mt-6">
+                <div className="p-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold">Contact Info</h2>
+                    <button
+                      onClick={() => setEditContactOpen(true)}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-full"
+                    >
+                      Edit Contact
+                    </button>
+                  </div>
+                  <div className="space-y-4">
+                    <p>
+                      <strong>Phone Numbers:</strong>
+                      <ul className="list-disc pl-6">
+                        {contactInfo.phone_number.map((number, index) => (
+                            <li key={index}>{number}</li>
+                        ))}
+                      </ul>
+                    </p>
+                    <p>
+                      <strong>Emails:</strong>
+                      <ul className="list-disc pl-6">
+                        {contactInfo.email.map((email, index) => (
+                            <li key={index}>{email}</li>
+                        ))}
+                      </ul>
+                    </p>
+                    <p>
+                      <strong>Location Map:</strong>
+                    </p>
+                    <div className="w-full h-64">
+                      <iframe
+                          src={contactInfo.location_link} // Ensure this is a valid URL
+                          className="w-full h-full rounded shadow-lg"
+                          allowFullScreen
+                          loading="lazy"
+                      ></iframe>
+                    </div>
+                    <p>
+                      <strong>Address:</strong> {contactInfo.address}
+                    </p>
+                    <p>
+                      <strong>Website:</strong> {contactInfo.website}
+                    </p>
+                    <p>
+                      <strong>Moodle Link:</strong> {contactInfo.moodle_link}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
       </div>
 
       {/* Dialog Components */}
       {profile && (
-        <AdminEditInfo
-          isOpen={isEditInfoOpen}
-          onClose={() => setEditInfoOpen(false)}
-          onSave={() => window.location.reload()} // Reload the page to reflect changes
+          <AdminEditInfo
+              isOpen={isEditInfoOpen}
+              onClose={() => setEditInfoOpen(false)}
+              onSave={() => window.location.reload()} // Reload the page to reflect changes
           name={profile.name || ""}
           email={profile.email || ""}
         />
@@ -156,6 +227,15 @@ const AdminProfile = () => {
         isOpen={isEditPasswordOpen}
         onClose={() => setEditPasswordOpen(false)}
       />
+
+      {contactInfo && (
+        <AdminEditContact
+          isOpen={isEditContactOpen}
+          onClose={() => setEditContactOpen(false)}
+          onSave={() => window.location.reload()} // Reload the page to reflect changes
+          contact={contactInfo}
+        />
+      )}
     </div>
   );
 };
