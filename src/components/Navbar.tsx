@@ -4,7 +4,6 @@ import {
     BiChat,
     BiGroup,
     BiHome, BiImage,
-    BiLogIn,
     BiLogoMicrosoftTeams,
     BiNews,
     BiSolidContact
@@ -13,7 +12,6 @@ import '../assets/css/admin.css';
 import {useState} from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
-import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import {Link} from "react-router-dom";
 import {HiOutlineBars3} from "react-icons/hi2";
 import Drawer from "@mui/material/Drawer";
@@ -47,8 +45,8 @@ const Navbar = () => {
             icon: <BiBookOpen />,
             to: "#", // Placeholder for dropdown
             dropdown: [
-                { text: "Courses", to: "/user/courses" },
-                { text: "Majors", to: "/user/major" },
+                { text: "Courses", to: "/course" },
+                { text: "Majors", to: "/major" },
             ],
         },
         {

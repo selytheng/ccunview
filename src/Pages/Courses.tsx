@@ -1,6 +1,7 @@
 import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import "../assets/css/content.css"
+import Navbar from "../components/Navbar.tsx";
 
 const courses = [
     {
@@ -44,7 +45,8 @@ const courses = [
 const Course = () => {
     return (
         <div>
-            <section className="">
+            <Navbar/>
+            <section className="mt-[130px]">
                 <div className="mb-3 px-4 sm:px-8">
                     <div className="container mx-auto">
                         <div
