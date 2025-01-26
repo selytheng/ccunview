@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import NavbarLink from "../components/NavbarLink";
 import FooterComponent from "../components/HomeComponent/FooterComponent";
 
 const Feedback: React.FC = () => {

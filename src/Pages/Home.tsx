@@ -13,7 +13,7 @@ const Home: React.FC = () => {
     return (
         <div className='home-container'>
             <Navbar />
-            <div className="pt-[50px]"><Carousel /></div>
+            <div className="pt-[110px]"><Carousel /></div>
             <section className='course-section p-4' id="course">
                 <div className="flex items-center justify-between gap-3 mt-6 mb-4 ml-5 ">
                     <div className='course-container text-2xl font-semibold pr-10'>
