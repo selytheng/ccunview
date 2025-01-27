@@ -29,21 +29,21 @@ const Course = () => {
     return (
         <div>
             <Navbar />
-            <section className="mt-[130px]">
+            <section className="mt-[130px] ">
                 <div className="mb-3 px-4 sm:px-8">
                     <div className="container mx-auto">
                         <div className="flex flex-col sm:flex-row justify-start rounded-xl border border-white bg-white shadow-black/5 saturate-200">
-                            <div className="dashboard">
-                                <div className="dashboard-content-home">
+                            <div className="dashboard ">
+                                <div className="dashboard-content-home ">
                                     {loading ? (
-                                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+                                        <div className="" style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
                                             <CircularProgress />
                                         </div>
                                     ) : (
-                                        <Grid container spacing={3}>
+                                        <Grid container spacing={0} className="">
                                             {courses.map((course) => (
                                                 <Grid item xs={12} sm={6} md={3} key={course.id}>
-                                                    <Card className="w-[330px] mr-[120px]"
+                                                    <Card className="w-[330px] bg-amber-500 mr-[500px] mb-[30px] "
                                                           sx={{
                                                               maxWidth: 345,
                                                               transition: 'transform 0.3s, box-shadow 0.3s',
