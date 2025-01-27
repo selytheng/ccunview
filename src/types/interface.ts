@@ -17,6 +17,7 @@ export interface Major {
   id: number;
   name: string;
   description: string;
+  logo: string;
 }
 export interface Event {
   id: number;
