@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import "../../../assets/css/admin.css";
 import NavbarHomePage from "../../../components/Navbar_HomePage";
 import Sidebar from "../../../components/Sidebar";
-import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Dialog, DialogActions, DialogTitle, Chip } from "@mui/material";
+import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Dialog, DialogActions, DialogTitle, DialogContent, Chip } from "@mui/material";
 import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } from "react-icons/bi";
 import AdminEventEdit from "./AdminEventEdit";
 import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
@@ -19,6 +19,10 @@ const AdminEventDetail: React.FC = () => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openEditGalleryDialog, setOpenEditGalleryDialog] = useState(false);
   const [openAddGalleryDialog, setOpenAddGalleryDialog] = useState(false);
+
+  const [openImageModal, setOpenImageModal] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [openAllImagesModal, setOpenAllImagesModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,6 +99,41 @@ const AdminEventDetail: React.FC = () => {
     }
   };
 
+  const handleImageClick = (index: number) => {
+    setCurrentImageIndex(index);
+    setOpenImageModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenImageModal(false);
+  };
+
+  const handleNextImage = () => {
+    if (currentImageIndex < event.gallery.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+    }
+  };
+
+  const handlePrevImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+    }
+  };
+
+  const handleViewAllImagesClick = () => {
+    setOpenAllImagesModal(true);
+  };
+
+  const handleCloseAllImagesModal = () => {
+    setOpenAllImagesModal(false);
+  };
+
+  const handleAllImageClick = (index: number) => {
+    setCurrentImageIndex(index);
+    setOpenImageModal(true);
+    setOpenAllImagesModal(false);
+  };
+
   if (loading) {
     return (
       <div>
@@ -137,8 +176,7 @@ const AdminEventDetail: React.FC = () => {
           >
             <div style={{ display: "flex", backgroundColor: "" }}>
               <Link to="/admin/events" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
-                <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }}
-                />{" "}
+                <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} />
                 Events
               </Link>{" "}
               {" /  "}
@@ -186,7 +224,7 @@ const AdminEventDetail: React.FC = () => {
           </div>
 
           <Card
-            sx={{ display: "flex", justifyContent: "space-between", gap: 3, padding: "0px 0 0 8px" }}>
+            sx={{ display: "flex", justifyContent: "space-between", gap: 3, padding: "0px 0 0 8px" }} >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <CardContent>
                 <div style={{ display: "flex", gap: 10 }}>
@@ -214,7 +252,7 @@ const AdminEventDetail: React.FC = () => {
                   <BiCalendar style={{ marginTop: 3, marginRight: 5 }} />
                   Date: {formatEventDate(event.start_date, event.end_date)}
                 </p>
-                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex",}}>
+                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
                   <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />Host: {event.partner.name}
                 </p>
               </CardContent>
@@ -230,40 +268,76 @@ const AdminEventDetail: React.FC = () => {
             )}
           </Card>
 
+          <div
+            style={{ display: "flex", justifyContent: "flex-start", marginTop: 20 }}
+          >
+            <Button variant="text" onClick={handleViewAllImagesClick} style={{ color: "#007bff" }}>
+              View All Images
+            </Button>
+          </div>
+
           {event.gallery && (
             <div
-              style={{ display: "flex", overflowX: "scroll", padding: "10px 0", }}>
+              style={{ display: "flex", overflowX: "scroll", padding: "10px 0", marginTop: '-20px' }}>
               {event.gallery.map((image: string, index: number) => (
                 <img
                   key={index}
                   src={`http://localhost:8000/${image}`}
                   alt={`gallery-image-${index}`}
-                  style={{ width: 150, height: 100, marginRight: 10 }}
+                  style={{ width: 150, height: 100, marginRight: 10, cursor: 'pointer' }}
+                  onClick={() => handleImageClick(index)} // Open modal when image is clicked
                 />
               ))}
             </div>
           )}
 
-          <Dialog
-            open={openDeleteDialog}
-            onClose={() => setOpenDeleteDialog(false)}
-          >
-            <DialogTitle>
-              Are you sure you want to delete this event?
-            </DialogTitle>
-            <DialogActions>
-              <Button
-                onClick={() => setOpenDeleteDialog(false)}
-                color="secondary"
-              >
-                Cancel
+          {/* All Images Modal */}
+          <Dialog open={openAllImagesModal} onClose={handleCloseAllImagesModal} maxWidth="md" fullWidth>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <DialogTitle>All Images</DialogTitle>
+              <DialogActions>
+              <Button onClick={handleCloseAllImagesModal} color="secondary">
+                Close
               </Button>
-              <Button
-                onClick={handleDelete}
-                sx={{ backgroundColor: "rgb(220, 38, 38)" }}
-                variant="contained"
-              >
-                Delete
+            </DialogActions>
+            </div>
+            <DialogContent>
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
+                {event.gallery.map((image: string, index: number) => (
+                  <img
+                    key={index}
+                    src={`http://localhost:8000/${image}`}
+                    alt={`gallery-image-${index}`}
+                    style={{ width: 150, height: 100, margin: 10, cursor: 'pointer' }}
+                    onClick={() => handleAllImageClick(index)} // View detail when image clicked
+                  />
+                ))}
+              </div>
+            </DialogContent>
+            
+          </Dialog>
+
+          {/* Image Preview Modal */}
+          <Dialog open={openImageModal} onClose={handleCloseModal} maxWidth="md" fullWidth>
+            <DialogTitle>Image Preview</DialogTitle>
+            <DialogContent>
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <img
+                  src={`http://localhost:8000/${event.gallery[currentImageIndex]}`}
+                  alt={`gallery-image-${currentImageIndex}`}
+                  style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain" }}
+                />
+              </div>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handlePrevImage} disabled={currentImageIndex === 0}>
+                Previous
+              </Button>
+              <Button onClick={handleNextImage} disabled={currentImageIndex === event.gallery.length - 1}>
+                Next
+              </Button>
+              <Button onClick={handleCloseModal} color="secondary">
+                Close
               </Button>
             </DialogActions>
           </Dialog>

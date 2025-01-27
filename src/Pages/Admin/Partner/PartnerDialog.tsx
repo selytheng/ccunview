@@ -30,7 +30,7 @@ const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreat
     if (logo) formData.append('logo', logo);
 
     if (partner) {
-      formData.append('_method', 'PATCH');
+      formData.append('_method', 'PUT');
     }
 
     const response = await fetch(url, {
