@@ -50,7 +50,7 @@ const AdminFeedback = () => {
         <Sidebar />
         <div className="flex-1 p-6">
           <ContentHeader />
-          <h2 className="text-2xl font-bold mb-4">Feedback</h2>
+          {/* <h2 className="text-2xl font-bold mb-4">Feedback</h2> */}
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white shadow-md rounded-md overflow-hidden">
               <thead className="bg-gray-800 text-white">

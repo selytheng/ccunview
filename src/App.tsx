@@ -10,7 +10,7 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminCourse from "./Pages/Admin/Course/AdminCourse";
 import CourseEdit from "./Pages/Admin/Course/CourseEdit";
 // import CourseCreate from "./Pages/Admin/Course/CourseCreate";
-import AdminTraining from "./Pages/Admin/AdminTraining";
+import AdminTraining from "./Pages/Admin/Trainings/AdminTraining.tsx";
 import AdminWorkshop from "./Pages/Admin/AdminWorkshop";
 import AdminEvent from "./Pages/Admin/Event/AdminEvent";
 import AdminEventDetail from "./Pages/Admin/Event/AdminEventDetail";

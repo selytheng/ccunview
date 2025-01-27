@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../assets/css/admin.css";
 import {
-  BiStats,
   BiBookOpen,
   BiClipboard,
   BiCategory,
@@ -10,6 +9,7 @@ import {
   BiGroup,
   BiSidebar,
   BiCommentDetail,
+  BiDesktop,
 } from "react-icons/bi";
 import { PiUserList } from "react-icons/pi"; // Correct import for PiUserList
 
@@ -72,7 +72,7 @@ const Sidebar = () => {
           to="/admin/training"
           className={({ isActive }) => (isActive ? "item active" : "item")}
         >
-          <BiStats className="icon" />
+          <BiDesktop className="icon" />
           Trainings
         </NavLink>
         <NavLink
