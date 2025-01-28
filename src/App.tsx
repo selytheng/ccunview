@@ -27,6 +27,7 @@ import Training from "./Pages/Training";
 import CourseCreate from "./Pages/Admin/Course/CourseCreate";
 import SuperAdminRoute from "../src/components/SuperAdminRoute";
 import Major from "./Pages/Major.tsx";
+import CourseDetailUser from "./Pages/User/Course/CourseDetail.tsx";
 
 const App = () => {
   return (
@@ -43,7 +44,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/major" element={<Major />} />
           <Route path="/feedback" element={<Feedback />} />
-          <Route path="/user/course" element={<CourseDetail />} />
+          <Route path="user/course/:id" element={<CourseDetailUser />} />
           <Route path="/login" element={<Login />} />
 
 
