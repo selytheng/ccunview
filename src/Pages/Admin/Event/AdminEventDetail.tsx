@@ -5,7 +5,8 @@ import NavbarHomePage from "../../../components/Navbar_HomePage";
 import Sidebar from "../../../components/Sidebar";
 import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Dialog, DialogActions, DialogTitle, DialogContent, Chip } from "@mui/material";
 import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } from "react-icons/bi";
-import AdminEventEdit from "./AdminEventEdit";
+
+
 import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
 import AdminEventAddGallery from "./AdminEventAddGallery";
 import moment from "moment";  
@@ -15,7 +16,7 @@ const AdminEventDetail: React.FC = () => {
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [setOpenDeleteDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openEditGalleryDialog, setOpenEditGalleryDialog] = useState(false);
   const [openAddGalleryDialog, setOpenAddGalleryDialog] = useState(false);

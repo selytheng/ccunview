@@ -5,9 +5,9 @@ import YearBtn from "../components/Buttons/YearBtn.tsx";
 import Carousel from "../components/SliderImage.tsx";
 import Course from "../components/HomeComponent/CourseComponent.tsx";
 import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
-import WorkshopComponent from "../components/HomeComponent/WorkshopComponent.tsx";
 import TeamComponent from "../components/HomeComponent/TeamComponent.tsx";
 import "../assets/css/HomePage.css";
+import Events from "./Events.tsx";
 
 const Home: React.FC = () => {
     return (
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
                 <TeamComponent />
             </section>
             <section className='work-container'>
-                <WorkshopComponent />
+                <Events/>
             </section>
             <section className='footer-container'>
                 <FooterComponent />
