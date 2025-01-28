@@ -7,11 +7,11 @@ import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia
 import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } from "react-icons/bi";
 
 
-import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
-import AdminEventAddGallery from "./AdminEventAddGallery";
+import AdminEventDeleteGallery from "../../Admin/Event/AdminEventDeleteGallery.tsx";
+import AdminEventAddGallery from "../../Admin/Event/AdminEventDeleteGallery.tsx";
 import moment from "moment";
 
-const AdminEventDetail: React.FC = () => {
+const AdminEventDetailUser: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [event, setEvent] = useState<any>(null);
     const [loading, setLoading] = useState(true);
@@ -383,4 +383,4 @@ const AdminEventDetail: React.FC = () => {
     );
 };
 
-export default AdminEventDetail;
+export default AdminEventDetailUser;
