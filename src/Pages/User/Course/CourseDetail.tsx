@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import '../../../assets/css/admin.css';
-import NavbarHomePage from '../../../components/Navbar_HomePage.tsx';
 import {CircularProgress, Box, Card, CardContent, Typography, CardMedia} from '@mui/material';
 import { BiBookOpen,BiSolidMapPin} from 'react-icons/bi';
 import Navbar from "../../../components/Navbar.tsx";
@@ -12,7 +11,6 @@ const CourseDetailUser: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [majors, setMajors] = useState<any[]>([]);
-    const [setSuccessAlertVisible] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -66,21 +64,10 @@ const CourseDetailUser: React.FC = () => {
         return yearMapping[yearId] || 'Unknown Year';
     };
 
-    const handleCourseUpdate = () => {
-        setTimeout(() => {
-            window.location.reload();
-        }, 500);
-
-        setSuccessAlertVisible(true);
-        setTimeout(() => {
-            setSuccessAlertVisible(false);
-        }, 2000);
-    };
-
     if (loading) {
         return (
             <div>
-                <NavbarHomePage />
+                <Navbar />
                 <div className="dashboard">
                     <div className="dashboard-content">
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px' }}>
@@ -95,7 +82,7 @@ const CourseDetailUser: React.FC = () => {
     if (error) {
         return (
             <div>
-                <NavbarHomePage />
+                <Navbar />
                 <div className="dashboard">
                     <div className="dashboard-content">
                         <p>Error: {error}</p>
