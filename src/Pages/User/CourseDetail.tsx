@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import '../../../assets/css/admin.css';
-import NavbarHomePage from '../../../components/Navbar_HomePage';
-import Sidebar from '../../../components/Sidebar';
+import NavbarHomePage from '../../components/Navbar_HomePage.tsx';
+import Sidebar from '../../components/Sidebar';
 import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Alert, Dialog, DialogActions, DialogTitle } from '@mui/material';
-import CourseEdit from './CourseEdit';
+import CourseEdit from '../../Pages/Admin/Course/CourseEdit.tsx';
 import { BiBookOpen, BiPencil, BiSolidMapPin, BiTrash } from 'react-icons/bi';
 
 const CourseDetail: React.FC = () => {

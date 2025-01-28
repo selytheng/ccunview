@@ -43,7 +43,9 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/major" element={<Major />} />
           <Route path="/feedback" element={<Feedback />} />
+          <Route path="/user/course" element={<CourseDetail />} />
           <Route path="/login" element={<Login />} />
+
 
           {/* SuperAdmin Routes */}
           <Route

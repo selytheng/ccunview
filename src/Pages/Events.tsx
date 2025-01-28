@@ -76,7 +76,7 @@ const Events: React.FC = () => {
                                                                         )}
                                                                         <CardContent>
                                                                             <Typography gutterBottom variant="h6" component="div">
-                                                                                <Link to={`/api/events/${event.id}`} // Update the link to point to events
+                                                                                <Link to={`/user/events/${event.id}`} // Update the link to point to events
                                                                                       style={{
                                                                                           textDecoration: 'none',
                                                                                           color: '#000'
