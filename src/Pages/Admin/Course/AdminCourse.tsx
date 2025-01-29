@@ -21,8 +21,8 @@ const AdminCourse: React.FC<AdminCourseProps> = ({ setTotalCourses }) => {
 
   const fetchCourses = async () => {
     const access_token = localStorage.getItem('access_token');
-    // const partnerId = localStorage.getItem('partner_id');
-    const response = await fetch(`http://localhost:8000/api/courses`, {
+    const partnerId = localStorage.getItem('partner_id');
+    const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/courses`, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const data = await response.json();

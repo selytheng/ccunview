@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import backgroundImage from "../assets/images/background.png";
-import NavbarHomePage from "../components/Navbar_HomePage";
+import Navbar from "../components/Navbar.tsx";
 import { IoArrowBack, IoEye, IoEyeOff } from "react-icons/io5"; // Import eye icons
 import { Link } from "react-router-dom";
 
@@ -89,7 +89,7 @@ const Login = () => {
               backgroundColor: "rgba(0, 0, 0, 1)",
             }}
         >
-          <NavbarHomePage />
+          <Navbar />
           <div className="flex min-h-full flex-1 flex-col justify-center mb-28 px-6 py-12 lg:px-8">
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
               <form
