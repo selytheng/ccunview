@@ -10,7 +10,7 @@ import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } f
 import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
 import AdminEventAddGallery from "./AdminEventAddGallery";
 <<<<<<< HEAD
-import AdminEventEdit from "./AdminEventEdit.tsx";
+import AdminEventEdit from "./AdminEventEdit";
 =======
 import AdminEventEdit from "./AdminEventEdit";
 >>>>>>> 52f726d335d5f4e40b79a98c6249191a16e502d1
