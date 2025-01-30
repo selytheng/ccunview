@@ -8,17 +8,17 @@ import {
   Box,
 } from "@mui/material";
 
-interface AdminEventEditGalleryProps {
+interface AdminTrainingEditGalleryProps {
   open: boolean;
   onClose: () => void;
   onSubmit: () => void;
-  eventId: number; // Pass the event ID from AdminEventDetail
+  trainingId: number; // Pass the training ID from AdminTrainingDetail
 }
 
-const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
+const AdminTrainingDeleteGallery: React.FC<AdminTrainingEditGalleryProps> = ({
   open,
   onClose,
-  eventId,
+  trainingId,
   onSubmit,
 }) => {
   const [gallery, setGallery] = useState<string[]>([]);
@@ -26,10 +26,10 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
 
   // Fetch gallery data from API
   useEffect(() => {
-    if (eventId) {
+    if (trainingId) {
       const accessToken = localStorage.getItem("access_token"); // Retrieve the token from local storage
       if (accessToken) {
-        fetch(`http://localhost:8000/api/events/${eventId}`, {
+        fetch(`http://localhost:8000/api/trainings/${trainingId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${accessToken}`, // Include the token in the headers
@@ -40,13 +40,13 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
             setGallery(data.gallery || []);
           })
           .catch((error) => {
-            console.error("Error fetching event data:", error);
+            console.error("Error fetching training data:", error);
           });
       } else {
         console.error("Access token not found in local storage.");
       }
     }
-  }, [eventId]);
+  }, [trainingId]);
 
   // Toggle the selected image index
   const handleSelectImage = (index: number) => {
@@ -63,7 +63,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
   const handleDelete = () => {
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
-      fetch(`http://localhost:8000/api/events/${eventId}/deletegallery`, {
+      fetch(`http://localhost:8000/api/trainings/${trainingId}/deletegallery`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
         .then(() => {
           // Re-fetch the updated gallery after deletion
           fetchGallery();
-          onSubmit(); // Trigger event list refresh (parent component)
+          onSubmit(); // Trigger training list refresh (parent component)
           onClose(); // Close the modal
         })
         .catch((error) => {
@@ -93,7 +93,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
   const fetchGallery = () => {
     const accessToken = localStorage.getItem("access_token"); // Retrieve the token from local storage
     if (accessToken) {
-      fetch(`http://localhost:8000/api/events/${eventId}`, {
+      fetch(`http://localhost:8000/api/trainings/${trainingId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`, // Include the token in the headers
@@ -104,7 +104,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
           setGallery(data.gallery || []); // Update gallery state
         })
         .catch((error) => {
-          console.error("Error fetching updated event data:", error);
+          console.error("Error fetching updated training data:", error);
         });
     } else {
       console.error("Access token not found in local storage.");
@@ -113,7 +113,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Event Gallery</DialogTitle>
+      <DialogTitle>Training Gallery</DialogTitle>
       <Box p={2}>
         <Grid container spacing={2}>
           {gallery.map((image, index) => (
@@ -163,4 +163,4 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
   );
 };
 
-export default AdminEventDeleteGallery;
+export default AdminTrainingDeleteGallery;

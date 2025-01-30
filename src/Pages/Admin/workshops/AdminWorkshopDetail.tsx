@@ -7,12 +7,12 @@ import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia
 import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } from "react-icons/bi";
 
 
-import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
-import AdminEventAddGallery from "./AdminEventAddGallery";
-import AdminEventEdit from "./AdminEventEdit.tsx";
+// import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
+// import AdminEventAddGallery from "./AdminEventAddGallery";
+// import AdminEventEdit from "./AdminEventEdit.tsx";
 import moment from "moment";  
 
-const AdminEventDetail: React.FC = () => {
+const AdminWorkshopDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -72,6 +72,10 @@ const AdminEventDetail: React.FC = () => {
     } finally {
       setOpenDeleteDialog(false);
     }
+  };
+
+  const handleDeleteClick = () => {
+    setOpenDeleteDialog(true);
   };
 
   const handleEditClick = () => {
@@ -214,7 +218,7 @@ const AdminEventDetail: React.FC = () => {
                 style={{ backgroundColor: "rgb(220 38 38)" }}
                 startIcon={<BiTrash style={{ fontSize: 18 }} />}
                 className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
-                onClick={handleDelete}
+                onClick={handleDeleteClick}
               >
                 Delete
               </Button>
@@ -384,4 +388,4 @@ const AdminEventDetail: React.FC = () => {
   );
 };
 
-export default AdminEventDetail;
+export default AdminWorkshopDetail;

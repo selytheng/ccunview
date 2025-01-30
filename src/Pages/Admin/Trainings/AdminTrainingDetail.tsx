@@ -7,14 +7,14 @@ import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia
 import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } from "react-icons/bi";
 
 
-import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
-import AdminEventAddGallery from "./AdminEventAddGallery";
-import AdminEventEdit from "./AdminEventEdit.tsx";
+import AdminTrainingDeleteGallery from "./AdminTrainingDeleteGallery.tsx";
+import AdminTrainingAddGallery from "./AdminTrainingAddGallery";
+import AdminTrainingEdit from "./AdminTrainingEdit.tsx";
 import moment from "moment";  
 
-const AdminEventDetail: React.FC = () => {
+const AdminTrainingDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [event, setEvent] = useState<any>(null);
+  const [training, setTraining] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [setOpenDeleteDialog] = useState(false);
@@ -30,15 +30,15 @@ const AdminEventDetail: React.FC = () => {
     const fetchData = async () => {
       try {
         const access_token = localStorage.getItem("access_token");
-        const eventResponse = await fetch(`http://localhost:8000/api/events/${id}`, {
+        const trainingResponse = await fetch(`http://localhost:8000/api/trainings/${id}`, {
           headers: { Authorization: `Bearer ${access_token}` },
         });
 
-        if (!eventResponse.ok) {
-          throw new Error("Failed to fetch event details");
+        if (!trainingResponse.ok) {
+          throw new Error("Failed to fetch training details");
         }
-        const eventData = await eventResponse.json();
-        setEvent(eventData);
+        const trainingData = await trainingResponse.json();
+        setTraining(trainingData);
       } catch (err) {
         setError((err as Error).message);
       } finally {
@@ -52,7 +52,7 @@ const AdminEventDetail: React.FC = () => {
   const handleDelete = async () => {
     try {
       const access_token = localStorage.getItem("access_token");
-      const response = await fetch(`http://localhost:8000/api/events/${id}`, {
+      const response = await fetch(`http://localhost:8000/api/trainings/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -60,15 +60,15 @@ const AdminEventDetail: React.FC = () => {
       });
 
       if (response.ok) {
-        alert("Event deleted successfully!");
-        window.location.href = "/admin/events";
+        alert("training deleted successfully!");
+        window.location.href = "/admin/trainings";
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
       }
     } catch (error) {
-      console.error("Error occurred while deleting the event:", error);
-      alert("An error occurred while deleting the event.");
+      console.error("Error occurred while deleting the training:", error);
+      alert("An error occurred while deleting the training.");
     } finally {
       setOpenDeleteDialog(false);
     }
@@ -86,7 +86,7 @@ const AdminEventDetail: React.FC = () => {
     setOpenAddGalleryDialog(true);
   };
 
-  const formatEventDate = (startDate: string, endDate: string) => {
+  const formatTrainingDate = (startDate: string, endDate: string) => {
     const start = moment(startDate);
     const end = moment(endDate);
 
@@ -107,7 +107,7 @@ const AdminEventDetail: React.FC = () => {
   };
 
   const handleNextImage = () => {
-    if (currentImageIndex < event.gallery.length - 1) {
+    if (currentImageIndex < training.gallery.length - 1) {
       setCurrentImageIndex(currentImageIndex + 1);
     }
   };
@@ -173,12 +173,12 @@ const AdminEventDetail: React.FC = () => {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <div style={{ display: "flex", backgroundColor: "" }}>
-              <Link to="/admin/events" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
+              <Link to="/admin/trainings" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
                 <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} />
-                Events
+                Trainings
               </Link>{" "}
               {" /  "}
-              <span> {event.title}</span>
+              <span> {training.title}</span>
             </div>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -227,10 +227,10 @@ const AdminEventDetail: React.FC = () => {
               <CardContent>
                 <div style={{ display: "flex", gap: 10 }}>
                   <Typography component="div" variant="h5" style={{ marginBottom: 13 }}>
-                    {event.title}
+                    {training.title}
                   </Typography>
                   <Chip
-                    label={event.status}
+                    label={training.status}
                     style={{ fontSize: 14, backgroundColor: "#AAB7B7", marginTop: 3, display: "flex", padding: 2, }} />
                 </div>
 
@@ -239,28 +239,28 @@ const AdminEventDetail: React.FC = () => {
                   component="div"
                   sx={{ color: "text.secondary", marginBottom: 3 }}
                 >
-                  {event.description}
+                  {training.description}
                 </Typography>
                 <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
                   <BiSolidMapPin style={{ marginTop: 3, marginRight: 5 }} />
-                  Location: {event.location}
+                  Location: {training.location}
                 </p>
                 <p
                   style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181",  display: "flex", }}>
                   <BiCalendar style={{ marginTop: 3, marginRight: 5 }} />
-                  Date: {formatEventDate(event.start_date, event.end_date)}
+                  Date: {formatTrainingDate(training.start_date, training.end_date)}
                 </p>
                 <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
-                  <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />Host: {event.partner.name}
+                  <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />Host: {training.partner.name}
                 </p>
               </CardContent>
             </Box>
-            {event.image && (
+            {training.image && (
               <CardMedia
                 component="img"
                 height="140"
-                image={`http://localhost:8000/${event.image}`}
-                alt={event.title}
+                image={`http://localhost:8000/${training.image}`}
+                alt={training.title}
                 style={{ width: 500, height: 350 }}
               />
             )}
@@ -274,10 +274,10 @@ const AdminEventDetail: React.FC = () => {
             </Button>
           </div>
 
-          {event.gallery && (
+          {training.gallery && (
             <div
               style={{ display: "flex", overflowX: "scroll", padding: "10px 0", marginTop: '-20px' }}>
-              {event.gallery.map((image: string, index: number) => (
+              {training.gallery.map((image: string, index: number) => (
                 <img
                   key={index}
                   src={`http://localhost:8000/${image}`}
@@ -301,7 +301,7 @@ const AdminEventDetail: React.FC = () => {
             </div>
             <DialogContent>
               <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
-                {event.gallery.map((image: string, index: number) => (
+                {training.gallery.map((image: string, index: number) => (
                   <img
                     key={index}
                     src={`http://localhost:8000/${image}`}
@@ -321,7 +321,7 @@ const AdminEventDetail: React.FC = () => {
             <DialogContent>
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <img
-                  src={`http://localhost:8000/${event.gallery[currentImageIndex]}`}
+                  src={`http://localhost:8000/${training.gallery[currentImageIndex]}`}
                   alt={`gallery-image-${currentImageIndex}`}
                   style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain" }}
                 />
@@ -331,7 +331,7 @@ const AdminEventDetail: React.FC = () => {
               <Button onClick={handlePrevImage} disabled={currentImageIndex === 0}>
                 Previous
               </Button>
-              <Button onClick={handleNextImage} disabled={currentImageIndex === event.gallery.length - 1}>
+              <Button onClick={handleNextImage} disabled={currentImageIndex === training.gallery.length - 1}>
                 Next
               </Button>
               <Button onClick={handleCloseModal} color="secondary">
@@ -340,12 +340,12 @@ const AdminEventDetail: React.FC = () => {
             </DialogActions>
           </Dialog>
 
-          {event && (
-            <AdminEventEdit
+          {training && (
+            <AdminTrainingEdit
               open={openEditDialog}
               onClose={() => setOpenEditDialog(false)}
-              eventId={id}
-              eventData={event}
+              trainingId={id}
+              trainingData={training}
               onSubmit={() => {
                 setOpenEditDialog(false);
                 window.location.reload();
@@ -353,12 +353,12 @@ const AdminEventDetail: React.FC = () => {
             />
           )}
 
-          {event && (
-            <AdminEventDeleteGallery
+          {training && (
+            <AdminTrainingDeleteGallery
               open={openEditGalleryDialog}
               onClose={() => setOpenEditGalleryDialog(false)}
-              eventId={id}
-              eventData={event}
+              trainingId={id}
+              trainingData={training}
               onSubmit={() => {
                 setOpenAddGalleryDialog(false);
                 window.location.reload();
@@ -366,12 +366,12 @@ const AdminEventDetail: React.FC = () => {
             />
           )}
 
-          {event && (
-            <AdminEventAddGallery
+          {training && (
+            <AdminTrainingAddGallery
               open={openAddGalleryDialog}
               onClose={() => setOpenAddGalleryDialog(false)}
-              eventId={id}
-              eventData={event}
+              trainingId={id}
+              trainingData={training}
               onSubmit={() => {
                 setOpenAddGalleryDialog(false);
                 window.location.reload();
@@ -384,4 +384,4 @@ const AdminEventDetail: React.FC = () => {
   );
 };
 
-export default AdminEventDetail;
+export default AdminTrainingDetail;

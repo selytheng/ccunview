@@ -1,7 +1,7 @@
 import React from 'react'
-import NavbarHomePage from '../../components/Navbar_HomePage'
-import Sidebar from '../../components/Sidebar'
-import ContentHeader from './ContentHeader'
+import NavbarHomePage from '../../../components/Navbar_HomePage'
+import Sidebar from '../../../components/Sidebar'
+import ContentHeader from '../ContentHeader'
 
 const AdminWorkshop = () => {
   return (

@@ -69,14 +69,14 @@ const Sidebar = () => {
           Courses
         </NavLink>
         <NavLink
-          to="/admin/training"
+          to="/admin/trainings"
           className={({ isActive }) => (isActive ? "item active" : "item")}
         >
           <BiDesktop className="icon" />
           Trainings
         </NavLink>
         <NavLink
-          to="/admin/workshop"
+          to="/admin/workshops"
           className={({ isActive }) => (isActive ? "item active" : "item")}
         >
           <BiSidebar className="icon" />

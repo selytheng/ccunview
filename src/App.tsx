@@ -11,7 +11,9 @@ import AdminCourse from "./Pages/Admin/Course/AdminCourse";
 import CourseEdit from "./Pages/Admin/Course/CourseEdit";
 // import CourseCreate from "./Pages/Admin/Course/CourseCreate";
 import AdminTraining from "./Pages/Admin/Trainings/AdminTraining.tsx";
-import AdminWorkshop from "./Pages/Admin/AdminWorkshop";
+import AdminTrainingDetail from "./Pages/Admin/Trainings/AdminTrainingDetail";
+import AdminWorkshop from "./Pages/Admin/Workshops/AdminWorkshop.tsx";
+import AdminWorkshopDetail from "./Pages/Admin/Workshops/AdminWorkshopDetail.tsx";
 import AdminEvent from "./Pages/Admin/Event/AdminEvent";
 import AdminEventDetail from "./Pages/Admin/Event/AdminEventDetail";
 import AdminPartner from "./Pages/Admin/Partner/AdminPartner";
@@ -80,8 +82,11 @@ const App = () => {
                       </Routes>
                     }
                   />
-                  <Route path="training" element={<AdminTraining />} />
-                  <Route path="workshop" element={<AdminWorkshop />} />
+                  <Route path="trainings" element={<AdminTraining />} />
+                  <Route path="trainings/:id" element={<AdminTrainingDetail />} />
+                  <Route path="workshops" element={<AdminWorkshop />} />
+                  <Route path="workshops/:id" element={<AdminWorkshopDetail />} />
+                  <Route path="events/:id" element={<AdminEventDetail />} />
                   <Route path="events" element={<AdminEvent />} />
                   <Route path="events/:id" element={<AdminEventDetail />} />
                   <Route path="major" element={<AdminMajor />} />
