@@ -33,6 +33,8 @@ import AdminEventDetailUser from "./Pages/User/Event/EventsDetail.tsx";
 import CourseDetailUser from "./Pages/User/Course/CourseDetail.tsx";
 import EventDetailUser from "./Pages/User/Event/EventsDetail.tsx";
 import TrainingDetailUser from "./Pages/User/Training/TrainingDetail.tsx";
+import WorkshopDetailUser from "./Pages/User/Workshop/WorkshopDetail.tsx";
+import MajorDetailUser from "./Pages/User/Major/MajorDetail.tsx";
 
 const App = () => {
   return (
@@ -52,6 +54,8 @@ const App = () => {
           <Route path="/user/course/:id" element={<CourseDetailUser />} />
           <Route path="/user/events/:id" element={<EventDetailUser />} />
           <Route path="/user/trainings/:id" element={<TrainingDetailUser />} />
+          <Route path="/user/workshops/:id" element={<WorkshopDetailUser />} />
+          <Route path="/user/majors/:id" element={<MajorDetailUser />} />
           <Route path="/login" element={<Login />} />
 
 
