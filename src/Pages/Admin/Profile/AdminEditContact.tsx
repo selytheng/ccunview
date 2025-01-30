@@ -4,7 +4,18 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
 const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
-  const [formData, setFormData] = useState(contact);
+  // Initialize formData with default values for null fields
+  const [formData, setFormData] = useState({
+    ...contact,
+    phone_number: contact?.phone_number || [],
+    email: contact?.email || [],
+    location_link: contact?.location_link || "",
+    address: contact?.address || "",
+    website: contact?.website || "",
+    moodle_link: contact?.moodle_link || "",
+    partner_id: contact?.partner_id
+  });
+
   const [showMapModal, setShowMapModal] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [geolocationError, setGeolocationError] = useState(null);
@@ -19,6 +30,15 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
 
   const handleArrayChange = (e, field) => {
     const { value } = e.target;
+    // Handle empty input case
+    if (!value.trim()) {
+      setFormData((prev) => ({
+        ...prev,
+        [field]: [],
+      }));
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [field]: value.split(",").map((item) => item.trim()),
@@ -44,6 +64,7 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
       }
       const updatedContact = await response.json();
       onSave(updatedContact);
+      onClose();
     } catch (error) {
       console.error("Error updating contact:", error);
     }
@@ -76,18 +97,15 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
         (position) => {
           const { latitude, longitude } = position.coords;
 
-          // Center and zoom the map to the user's location
-          mapInstanceRef.current.setView([latitude, longitude], 13);
+          if (mapInstanceRef.current) {
+            mapInstanceRef.current.setView([latitude, longitude], 13);
+            markerRef.current.setLatLng([latitude, longitude]);
+            setSelectedLocation({ lat: latitude, lng: longitude });
+          }
 
-          // Place marker at user's location
-          markerRef.current.setLatLng([latitude, longitude]);
-          setSelectedLocation({ lat: latitude, lng: longitude });
-
-          // Clear any previous geolocation errors
           setGeolocationError(null);
         },
         (error) => {
-          // Handle geolocation errors
           switch (error.code) {
             case error.PERMISSION_DENIED:
               setGeolocationError(
@@ -112,20 +130,16 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
 
   useEffect(() => {
     if (showMapModal && mapRef.current && !mapInstanceRef.current) {
-      // Initialize Leaflet map
       mapInstanceRef.current = L.map(mapRef.current).setView([0, 0], 2);
 
-      // Add OpenStreetMap tiles
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
       }).addTo(mapInstanceRef.current);
 
-      // Create a marker
       markerRef.current = L.marker([0, 0], { draggable: true }).addTo(
         mapInstanceRef.current
       );
 
-      // Handle map click to place marker
       mapInstanceRef.current.on("click", (e) => {
         const { lat, lng } = e.latlng;
         markerRef.current.setLatLng([lat, lng]);
@@ -141,15 +155,6 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
     };
   }, [showMapModal]);
 
-  const openLink = (url) => {
-    // Ensure the URL starts with http:// or https://
-    const formattedUrl = url.startsWith('http://') || url.startsWith('https://')
-      ? url
-      : `https://${url}`;
-
-    window.open(formattedUrl, '_blank', 'noopener,noreferrer');
-  };
-
   if (!isOpen) return null;
 
   return (
@@ -160,7 +165,7 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">
-                Phone Numbers
+                Phone Numbers (separate by commas)
               </label>
               <input
                 type="text"
@@ -168,16 +173,20 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
                 value={formData.phone_number.join(", ")}
                 onChange={(e) => handleArrayChange(e, "phone_number")}
                 className="w-full border rounded-md p-2"
+                placeholder="Enter phone numbers separated by commas"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
+              <label className="block text-sm font-medium mb-1">
+                Email Addresses (separate by commas)
+              </label>
               <input
                 type="text"
                 name="email"
                 value={formData.email.join(", ")}
                 onChange={(e) => handleArrayChange(e, "email")}
                 className="w-full border rounded-md p-2"
+                placeholder="Enter email addresses separated by commas"
               />
             </div>
             <div>
@@ -192,6 +201,7 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
                   onChange={handleChange}
                   className="w-full border rounded-md p-2 pr-10"
                   placeholder="Google Maps link will appear here"
+                  readOnly
                 />
                 <button
                   type="button"
@@ -209,6 +219,7 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
                 value={formData.address}
                 onChange={handleChange}
                 className="w-full border rounded-md p-2"
+                placeholder="Enter address"
               />
             </div>
             <div>
@@ -219,6 +230,7 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
                 value={formData.website}
                 onChange={handleChange}
                 className="w-full border rounded-md p-2"
+                placeholder="Enter website URL"
               />
             </div>
             <div>
@@ -231,6 +243,7 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
                 value={formData.moodle_link}
                 onChange={handleChange}
                 className="w-full border rounded-md p-2"
+                placeholder="Enter Moodle link"
               />
             </div>
             <div className="flex justify-end gap-4">

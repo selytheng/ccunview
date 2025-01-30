@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar.tsx";
-import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
+import Navbar from "../components/Navbar";
+import FooterComponent from "../components/HomeComponent/FooterComponent";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -31,6 +31,62 @@ const ContactForm = () => {
       ...prevData,
       partnerId: value,
     }));
+  };
+
+  const renderPhoneNumbers = (phones) => {
+    if (!phones) return <p className="text-gray-500">No phone numbers available</p>;
+    if (typeof phones === 'string') return <p className="text-gray-900">{phones}</p>;
+    if (Array.isArray(phones) && phones.length > 0) {
+      return phones.map((phone, index) => (
+        <p key={index} className="text-gray-900">
+          {phone}
+        </p>
+      ));
+    }
+    return <p className="text-gray-500">No phone numbers available</p>;
+  };
+
+  const renderEmails = (emails) => {
+    if (!emails) return <p className="text-gray-500">No email addresses available</p>;
+    if (typeof emails === 'string') return <p className="text-gray-900 break-all">{emails}</p>;
+    if (Array.isArray(emails) && emails.length > 0) {
+      return emails.map((email, index) => (
+        <p key={index} className="text-gray-900 break-all">
+          {email}
+        </p>
+      ));
+    }
+    return <p className="text-gray-500">No email addresses available</p>;
+  };
+
+  const renderWebsiteLink = (website) => {
+    if (!website) return <p className="text-gray-500">No website available</p>;
+    const url = website.startsWith('http') ? website : `https://${website}`;
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block text-blue-600 hover:text-blue-800 transition-colors duration-200"
+      >
+        Website →
+      </a>
+    );
+  };
+
+  const renderMoodleLink = (moodleLink) => {
+    if (!moodleLink) return <p className="text-gray-500">No Moodle portal available</p>;
+    const url = moodleLink.startsWith('http') ? moodleLink : `https://${moodleLink}`;
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block text-blue-600 hover:text-blue-800 transition-colors duration-200"
+      >
+        Moodle Portal →
+      </a>
+    );
   };
 
   return (
@@ -75,25 +131,19 @@ const ContactForm = () => {
                 <div className="space-y-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="text-sm font-semibold text-gray-600 mb-2">Phone Numbers</h4>
-                    {contactPreview.phone_number.map((phone, index) => (
-                      <p key={index} className="text-gray-900">
-                        {phone}
-                      </p>
-                    ))}
+                    {renderPhoneNumbers(contactPreview.phone_number)}
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="text-sm font-semibold text-gray-600 mb-2">Email Addresses</h4>
-                    {contactPreview.email.map((email, index) => (
-                      <p key={index} className="text-gray-900 break-all">
-                        {email}
-                      </p>
-                    ))}
+                    {renderEmails(contactPreview.email)}
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="text-sm font-semibold text-gray-600 mb-2">Address</h4>
-                    <p className="text-gray-900">{contactPreview.address}</p>
+                    <p className="text-gray-900">
+                      {contactPreview.address || <span className="text-gray-500">No address available</span>}
+                    </p>
                   </div>
                 </div>
 
@@ -101,35 +151,27 @@ const ContactForm = () => {
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="text-sm font-semibold text-gray-600 mb-2">Links</h4>
                     <div className="space-y-2">
-                      <a
-                        href={`https://${contactPreview.website}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                      >
-                        Website →
-                      </a>
-                      <a
-                        href={`https://${contactPreview.moodle_link}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                      >
-                        Moodle Portal →
-                      </a>
+                      {renderWebsiteLink(contactPreview.website)}
+                      {renderMoodleLink(contactPreview.moodle_link)}
                     </div>
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="text-sm font-semibold text-gray-600 mb-2">Location</h4>
                     <div className="mt-2 rounded-lg overflow-hidden">
-                      <iframe
-                        src={contactPreview.location_link}
-                        title="Partner Location"
-                        className="w-full h-64 rounded-lg shadow-sm"
-                        frameBorder="0"
-                        allowFullScreen
-                      />
+                      {contactPreview.location_link ? (
+                        <iframe
+                          src={contactPreview.location_link}
+                          title="Partner Location"
+                          className="w-full h-64 rounded-lg shadow-sm"
+                          frameBorder="0"
+                          allowFullScreen
+                        />
+                      ) : (
+                        <div className="w-full h-64 rounded-lg bg-gray-100 flex items-center justify-center">
+                          <p className="text-gray-500">No location map available</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
