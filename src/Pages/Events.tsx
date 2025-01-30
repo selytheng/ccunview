@@ -39,9 +39,9 @@ const Events: React.FC = () => {
                     <div className="py-10 flex flex-col sm:flex-row justify-start items-center rounded-xl border border-white bg-white shadow-black/5 saturate-200">
                         <div className="flex flex-col justify-center w-full sm:w-auto">
                             {/* Card */}
-                            <div className="flex flex-col sm:flex-row justify-center items-center gap-8">
-                                <div className="mb-3 px-4 sm:px-8">
-                                    <div className="container mx-auto">
+                            <div className="flex flex-col sm:flex-row justify-center items-center gap-8 ">
+                                <div className="mb-3 px-4 sm:px-8 ">
+                                    <div className="container mx-auto ">
                                         <div className="flex flex-col sm:flex-row justify-start rounded-xl border border-white bg-white shadow-black/5 saturate-200">
                                             <div className="dashboard">
                                                 <div className="dashboard-content-home">
@@ -57,7 +57,7 @@ const Events: React.FC = () => {
                                                         <Grid container spacing={3}>
                                                             {events.map((event) => ( // Change 'courses' to 'events'
                                                                 <Grid item xs={12} sm={6} md={3} key={event.id}>
-                                                                    <Card className="w-[330px] mr-[120px]"
+                                                                    <Card className="w-[330px] mr-[500px]"
                                                                           sx={{
                                                                               maxWidth: 345,
                                                                               transition: 'transform 0.3s, box-shadow 0.3s',

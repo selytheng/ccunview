@@ -9,6 +9,7 @@ import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } f
 
 import AdminEventDeleteGallery from "./AdminEventDeleteGallery.tsx";
 import AdminEventAddGallery from "./AdminEventAddGallery";
+import AdminEventEdit from "./AdminEventEdit";
 import moment from "moment";  
 
 const AdminEventDetail: React.FC = () => {
