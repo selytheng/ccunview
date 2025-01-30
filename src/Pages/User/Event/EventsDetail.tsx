@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "../../../assets/css/admin.css";
-import NavbarHomePage from "../../../components/Navbar_HomePage";
-import Sidebar from "../../../components/Sidebar";
 import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Dialog, DialogActions, DialogTitle, DialogContent, Chip } from "@mui/material";
-import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } from "react-icons/bi";
-
-
-import AdminEventDeleteGallery from "../../Admin/Event/AdminEventDeleteGallery.tsx";
-import AdminEventAddGallery from "../../Admin/Event/AdminEventDeleteGallery.tsx";
+import { BiCalendar, BiSitemap, BiSolidMapPin } from "react-icons/bi";
 import moment from "moment";
-
-const AdminEventDetailUser: React.FC = () => {
+import Navbar from "../../../components/Navbar.tsx";
+const EventDetailUser: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [event, setEvent] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [setOpenDeleteDialog] = useState(false);
-    const [openEditDialog, setOpenEditDialog] = useState(false);
-    const [openEditGalleryDialog, setOpenEditGalleryDialog] = useState(false);
-    const [openAddGalleryDialog, setOpenAddGalleryDialog] = useState(false);
 
     const [openImageModal, setOpenImageModal] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -48,47 +38,6 @@ const AdminEventDetailUser: React.FC = () => {
         fetchData();
     }, [id]);
 
-    const handleDelete = async () => {
-        try {
-            const access_token = localStorage.getItem("access_token");
-            const response = await fetch(`http://localhost:8000/api/events/${id}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${access_token}`,
-                },
-            });
-
-            if (response.ok) {
-                alert("Event deleted successfully!");
-                window.location.href = "/admin/events";
-            } else {
-                const errorData = await response.json();
-                alert(`Error: ${errorData.message}`);
-            }
-        } catch (error) {
-            console.error("Error occurred while deleting the event:", error);
-            alert("An error occurred while deleting the event.");
-        } finally {
-            setOpenDeleteDialog(false);
-        }
-    };
-
-    const handleDeleteClick = () => {
-        setOpenDeleteDialog(true);
-    };
-
-    const handleEditClick = () => {
-        setOpenEditDialog(true);
-    };
-
-    const handleEditGalleryClick = () => {
-        setOpenEditGalleryDialog(true);
-    };
-
-    const handleAddGalleryClick = () => {
-        setOpenAddGalleryDialog(true);
-    };
-
     const formatEventDate = (startDate: string, endDate: string) => {
         const start = moment(startDate);
         const end = moment(endDate);
@@ -109,18 +58,6 @@ const AdminEventDetailUser: React.FC = () => {
         setOpenImageModal(false);
     };
 
-    const handleNextImage = () => {
-        if (currentImageIndex < event.gallery.length - 1) {
-            setCurrentImageIndex(currentImageIndex + 1);
-        }
-    };
-
-    const handlePrevImage = () => {
-        if (currentImageIndex > 0) {
-            setCurrentImageIndex(currentImageIndex - 1);
-        }
-    };
-
     const handleViewAllImagesClick = () => {
         setOpenAllImagesModal(true);
     };
@@ -138,9 +75,8 @@ const AdminEventDetailUser: React.FC = () => {
     if (loading) {
         return (
             <div>
-                <NavbarHomePage />
+                <Navbar />
                 <div className="dashboard">
-                    <Sidebar />
                     <div className="dashboard-content">
                         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "400px" }} >
                             <CircularProgress />
@@ -154,9 +90,8 @@ const AdminEventDetailUser: React.FC = () => {
     if (error) {
         return (
             <div>
-                <NavbarHomePage />
+                <Navbar />
                 <div className="dashboard">
-                    <Sidebar />
                     <div className="dashboard-content">
                         <p>Error: {error}</p>
                     </div>
@@ -167,60 +102,20 @@ const AdminEventDetailUser: React.FC = () => {
 
     return (
         <div>
-            <NavbarHomePage />
-            <div className="dashboard">
-                <Sidebar />
+            <Navbar />
+            <div className="dashboard mt-[110px]">
                 <div className="dashboard-content">
                     <div
                         className="breadcrumb"
                         style={{ display: "flex", justifyContent: "space-between" }}
                     >
                         <div style={{ display: "flex", backgroundColor: "" }}>
-                            <Link to="/admin/events" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
+                            <Link to="/" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
                                 <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} />
                                 Events
                             </Link>{" "}
                             {" /  "}
                             <span> {event.title}</span>
-                        </div>
-
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                            <Button
-                                variant="contained"
-                                startIcon={<BiPencil style={{ fontSize: 18 }} />}
-                                className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-400 rounded"
-                                style={{ marginRight: "10px" }}
-                                onClick={handleEditClick}
-                            >
-                                Edit
-                            </Button>
-                            <Button
-                                variant="contained"
-                                startIcon={<BiSitemap style={{ fontSize: 18 }} />}
-                                className="px-4 py-2 text-white bg-green-500 hover:bg-green-400 rounded"
-                                style={{ marginRight: "10px" }}
-                                onClick={handleEditGalleryClick}
-                            >
-                                Edit Gallery
-                            </Button>
-                            <Button
-                                variant="contained"
-                                startIcon={<BiImageAdd style={{ fontSize: 18 }} />}
-                                className="px-4 py-2 text-white bg-purple-500 hover:bg-purple-400 rounded"
-                                style={{ marginRight: "10px" }}
-                                onClick={handleAddGalleryClick}
-                            >
-                                Add Images
-                            </Button>
-                            <Button
-                                variant="contained"
-                                style={{ backgroundColor: "rgb(220 38 38)" }}
-                                startIcon={<BiTrash style={{ fontSize: 18 }} />}
-                                className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
-                                onClick={handleDeleteClick}
-                            >
-                                Delete
-                            </Button>
                         </div>
                     </div>
 
@@ -330,57 +225,11 @@ const AdminEventDetailUser: React.FC = () => {
                                 />
                             </div>
                         </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handlePrevImage} disabled={currentImageIndex === 0}>
-                                Previous
-                            </Button>
-                            <Button onClick={handleNextImage} disabled={currentImageIndex === event.gallery.length - 1}>
-                                Next
-                            </Button>
-                            <Button onClick={handleCloseModal} color="secondary">
-                                Close
-                            </Button>
-                        </DialogActions>
                     </Dialog>
-
-                    {event && (
-                        <AdminEventEdit
-                            open={openEditDialog}
-                            onClose={() => setOpenEditDialog(false)}
-                            eventId={id}
-                            eventData={event}
-                            onSubmit={() => {
-                                setOpenEditDialog(false);
-                                window.location.reload();
-                            }}
-                        />
-                    )}
-
-                    {event && (
-                        <AdminEventDeleteGallery
-                            open={openEditGalleryDialog}
-                            onClose={() => setOpenEditGalleryDialog(false)}
-                            eventId={id}
-                            eventData={event}
-                        />
-                    )}
-
-                    {event && (
-                        <AdminEventAddGallery
-                            open={openAddGalleryDialog}
-                            onClose={() => setOpenAddGalleryDialog(false)}
-                            eventId={id}
-                            eventData={event}
-                            onSubmit={() => {
-                                setOpenAddGalleryDialog(false);
-                                window.location.reload();
-                            }}
-                        />
-                    )}
                 </div>
             </div>
         </div>
     );
 };
 
-export default AdminEventDetailUser;
+export default EventDetailUser;

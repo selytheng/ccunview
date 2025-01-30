@@ -31,6 +31,7 @@ import SuperAdminRoute from "../src/components/SuperAdminRoute";
 import Major from "./Pages/Major.tsx";
 import CourseDetailUser from "./Pages/User/Course/CourseDetail.tsx";
 import AdminEventDetailUser from "./Pages/User/Event/EventsDetail.tsx";
+import EventDetailUser from "./Pages/User/Event/EventsDetail.tsx";
 
 const App = () => {
   return (
@@ -48,7 +49,7 @@ const App = () => {
           <Route path="/major" element={<Major />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/user/course/:id" element={<CourseDetailUser />} />
-          <Route path="/user/course/:id" element={<AdminEventDetailUser />} />
+          <Route path="/user/events/:id" element={<EventDetailUser />} />
           <Route path="/login" element={<Login />} />
 
 
