@@ -6,7 +6,7 @@ import AdminTrainingAdd from "../Pages/Admin/Trainings/AdminTrainingAdd";
 import Navbar from "../components/Navbar.tsx";
 import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
 
-const AdminTraining = () => {
+const Training = () => {
     const [trainings, setTrainings] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -110,7 +110,7 @@ const AdminTraining = () => {
                                             maxWidth: 345,
                                             transition: "transform 0.3s, box-shadow 0.3s",
                                             "&:hover": {
-                                                transform: "scale(1.01)",
+                                                transform: 'scale(1.11)',
                                                 boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
                                             },
                                         }}
@@ -163,7 +163,7 @@ const AdminTraining = () => {
     );
 };
 
-export default AdminTraining;
+export default Training;
 
 
 

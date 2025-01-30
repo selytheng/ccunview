@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from "../components/Navbar.tsx";
 import "../assets/css/content.css";
+import FooterComponent from '../components/HomeComponent/FooterComponent.tsx';
 
 const Course = () => {
     const [courses, setCourses] = useState([]);
@@ -29,7 +30,7 @@ const Course = () => {
     return (
         <div>
             <Navbar />
-            <section className="mt-[130px] ">
+            <section className="mt-[130px] mb-[70px]">
                 <div className="mb-3 px-4 sm:px-8">
                     <div
                         className="event-header"
@@ -56,7 +57,7 @@ const Course = () => {
                                                               maxWidth: 345,
                                                               transition: 'transform 0.3s, box-shadow 0.3s',
                                                               '&:hover': {
-                                                                  transform: 'scale(1.01)',
+                                                                  transform: 'scale(1.11)',
                                                                   boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
                                                               },
                                                           }}
@@ -106,6 +107,7 @@ const Course = () => {
                     </div>
                 </div>
             </section>
+            <FooterComponent/>
         </div>
     );
 };

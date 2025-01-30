@@ -81,7 +81,7 @@ const News: React.FC = () => {
                                                                                   maxWidth: 345,
                                                                                   transition: 'transform 0.3s, box-shadow 0.3s',
                                                                                   '&:hover': {
-                                                                                      transform: 'scale(1.01)',
+                                                                                      transform: 'scale(1.11)',
                                                                                       boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
                                                                                   },
                                                                               }}
