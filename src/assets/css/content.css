@@ -21,6 +21,7 @@
     border-radius: 5px;
     display: flex;
     align-items: center;
+    border: 1px solid gray;
     gap: 100px;
 }
 .search-box input {
