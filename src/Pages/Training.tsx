@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Grid, Card, CardContent, CardMedia, Typography, CircularProgress, Alert } from "@mui/material";
 import { BiArchive } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import AdminTrainingAdd from "../Pages/Admin/Trainings/AdminTrainingAdd";
 import Navbar from "../components/Navbar.tsx";
+import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
 
 const AdminTraining = () => {
     const [trainings, setTrainings] = useState<any[]>([]);
@@ -64,7 +65,7 @@ const AdminTraining = () => {
     return (
         <div>
             <Navbar />
-            <div className="dashboard mt-[110px]">
+            <div className="dashboard mt-[110px] mb-[70px]">
                 <div className="dashboard-content">
                     <div
                         className="event-header"
@@ -113,7 +114,7 @@ const AdminTraining = () => {
                                                 boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
                                             },
                                         }}
-                                        onClick={() => navigate(`/admin/trainings/${training.id}`)}
+                                        onClick={() => navigate(`/user/trainings/${training.id}`)}
                                     >
                                         {training.image && (
                                             <CardMedia
@@ -157,6 +158,7 @@ const AdminTraining = () => {
                     />
                 </div>
             </div>
+            <FooterComponent/>
         </div>
     );
 };
