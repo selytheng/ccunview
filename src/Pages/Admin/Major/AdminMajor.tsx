@@ -99,7 +99,7 @@ const AdminMajor = () => {
       <NavbarHomePage />
       <div className="dashboard">
         <Sidebar />
-        <div className="dashboard-content">
+        <div className="dashboard-content" style={{padding: '5px 0 0 5px', backgroundColor: '#F8FAFC'}}>
           <div className="major-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Majors</h1>
             <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>

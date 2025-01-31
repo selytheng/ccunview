@@ -66,7 +66,7 @@ const AdminEvent: React.FC = () => {
       <NavbarHomePage />
       <div className="dashboard">
         <Sidebar />
-        <div className="dashboard-content">
+        <div className="dashboard-content" style={{padding: '5px 0 0 5px', backgroundColor: '#F8FAFC'}}>
           <div className="event-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Events</h1>
             <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>
@@ -131,7 +131,7 @@ const AdminEvent: React.FC = () => {
                       />
                     )}
 
-                    <CardContent>
+                    <CardContent className="event-title">
                       <Typography gutterBottom variant="h6" component="div">
                         {event.title}
                       </Typography>
@@ -142,7 +142,7 @@ const AdminEvent: React.FC = () => {
                           display: "-webkit-box",
                           WebkitBoxOrient: "vertical",
                           overflow: "hidden",
-                          WebkitLineClamp: 2,
+                          WebkitLineClamp: 3,
                           textAlign: "justify",
                           minHeight: "3.2em",
                           lineHeight: "1.5em",
