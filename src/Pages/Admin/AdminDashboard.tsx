@@ -16,8 +16,9 @@ interface Partner {
 
 const AdminDashboard: React.FC = () => {
   const [totalCourses, setTotalCourses] = useState(0);
-  const [totalPartners, setTotalPartners] = useState(0);
-  const [totalMajors, setTotalMajors] = useState(0);
+  const [totalEvents, setTotalEvents] = useState(0);
+  const [totalTrainings, setTotalTrainings] = useState(0);
+  const [totalWorkshops, setTotalWorkshops] = useState(0);
   const [partnerData, setPartnerData] = useState<{ name: string; courseCount: number }[]>([]);
 
   // Fetch total courses data
@@ -31,26 +32,39 @@ const AdminDashboard: React.FC = () => {
     setTotalCourses(data.length);
   };
 
-  // Fetch total partners data
-  const fetchTotalPartners = async () => {
+  // Fetch total events data
+  const fetchTotalEvents = async () => {
+    const partnerId = localStorage.getItem('partner_id'); // Fixed: changed from `localStorage.get()`
     const access_token = localStorage.getItem('access_token');
-    const response = await fetch('http://localhost:8000/api/partners', {
+    const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/events`, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const data = await response.json();
-    setTotalPartners(data.length);
+    setTotalEvents(data.length);
   };
 
-  // Fetch total majors data
-  const fetchTotalMajors = async () => {
+  // Fetch total workshops data
+  const fetchTotalWorkshops = async () => {
     const access_token = localStorage.getItem('access_token');
     const partnerId = localStorage.getItem('partner_id');
-    const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/majors`, {
+    const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/workshops`, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const data = await response.json();
-    setTotalMajors(data.length);
+    setTotalWorkshops(data.length);
   };
+
+  const fetchTotalTrainings = async () => {
+    const access_token = localStorage.getItem('access_token');
+    const partnerId = localStorage.getItem('partner_id');
+    const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/trainings`, {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
+    const data = await response.json();
+    setTotalTrainings(data.length);
+  };
+
+  // Fetch partner courses data
   const fetchPartnerCoursesData = async () => {
     const access_token = localStorage.getItem('access_token');
     const response = await fetch('http://localhost:8000/api/partners', {
@@ -71,15 +85,16 @@ const AdminDashboard: React.FC = () => {
 
   useEffect(() => {
     fetchTotalCourses();
-    fetchTotalPartners();
-    fetchTotalMajors();
+    fetchTotalEvents();
+    fetchTotalWorkshops();
+    fetchTotalTrainings();
     fetchPartnerCoursesData();
   }, []);
 
   return (
     <div>
       <NavbarHomePage />
-      <div className="dashboard" style={{padding: '5px 0 0 0 '}}>
+      <div className="dashboard" style={{ padding: '5px 0 0 0 ' }}>
         <Sidebar />
         <div className="dashboard-content" style={{ padding: 2, backgroundColor: '#F8FAFC' }}>
           <ContentHeader />
@@ -88,13 +103,14 @@ const AdminDashboard: React.FC = () => {
               <div className="total-card">
                 <TotalCard 
                   totalCourses={totalCourses} 
-                  totalPartners={totalPartners} 
-                  totalMajors={totalMajors} 
+                  totalEvents={totalEvents} 
+                  totalWorkshops={totalWorkshops} 
+                  totalTrainings={totalTrainings} 
                 />
               </div>
               <div className="chart-box" style={{ display: 'flex', gap: '20px' }}>
                 <Barchart partnerData={partnerData} />
-                <Piechart totalCourses={totalCourses} totalPartners={totalPartners} totalMajors={totalMajors} />
+                <Piechart totalEvents={totalEvents} totalWorkshops={totalWorkshops} totalTrainings={totalTrainings} />
               </div>
             </div>
             <Card className="calendar-box">

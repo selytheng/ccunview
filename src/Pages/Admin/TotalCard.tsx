@@ -3,16 +3,17 @@ import { BiBook, BiBookOpen, BiSolidGroup, BiTask } from 'react-icons/bi';
 
 interface TotalCardProps {
   totalCourses: number;
-  totalPartners: number;
-  totalMajors: number; // Added totalMajors prop
+  totalEvents: number;
+  totalWorkshops: number; // Added totalMajors prop
+  totalTrainings: number;
 }
 
-const TotalCard: React.FC<TotalCardProps> = ({ totalCourses, totalPartners, totalMajors }) => {
+const TotalCard: React.FC<TotalCardProps> = ({ totalCourses, totalEvents, totalTrainings, totalWorkshops }) => {
   const cardData = [
     { title: 'Total Courses', icon: <BiBook size={30} style={{ color: '#0D6EFD' }} />, number: totalCourses, color: '#0C4CA3', bgColor: '#E6F0FF' },
-    { title: 'Total Majors', icon: <BiBookOpen size={30} style={{ color: '#02C27A' }} />, number: totalMajors, color: '#0C4CA3', bgColor: '#E5F9F1' }, // Updated to use totalMajors
-    { title: 'Total Training', icon: <BiTask size={30} style={{ color: '#FC185A' }} />, number: 12, color: '#0C4CA3', bgColor: '#FFE7EE' },
-    { title: 'Total Partners', icon: <BiSolidGroup size={30} style={{ color: '#FFE45C' }} />, number: totalPartners, color: '#0C4CA3', bgColor: '#FDFFE7' },
+    { title: 'Total Events', icon: <BiBookOpen size={30} style={{ color: '#02C27A' }} />, number: totalEvents, color: '#0C4CA3', bgColor: '#E5F9F1' }, // Updated to use totalMajors
+    { title: 'Total Training', icon: <BiTask size={30} style={{ color: '#FC185A' }} />, number: totalTrainings, color: '#0C4CA3', bgColor: '#FFE7EE' },
+    { title: 'Total Workshops', icon: <BiSolidGroup size={30} style={{ color: '#FFE45C' }} />, number: totalWorkshops, color: '#0C4CA3', bgColor: '#FDFFE7' },
   ];
 
   return (

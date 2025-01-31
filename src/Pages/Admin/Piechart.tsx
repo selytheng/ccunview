@@ -1,29 +1,29 @@
 import { Card } from '@mui/material';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
-import { ApexOptions } from 'apexcharts'; 
+import { ApexOptions } from 'apexcharts';
 
 interface PiechartProps {
-  totalCourses: number;
-  totalPartners: number;
-  totalMajors: number;
+  totalEvents: number;
+  totalWorkshops: number;
+  totalTrainings: number;
 }
 
-const Piechart: React.FC<PiechartProps> = ({ totalCourses, totalPartners, totalMajors }) => {
+const Piechart: React.FC<PiechartProps> = ({  totalEvents, totalTrainings, totalWorkshops }) => {
   const chartData = {
-    series: [totalCourses, totalPartners, totalMajors], 
+    series: [ totalEvents, totalTrainings, totalWorkshops],
     options: {
       chart: {
-        type: 'pie' as const, 
-        height: 250, 
+        type: 'pie' as const,
+        height: 250,
       },
-      labels: ['Total Courses', 'Total Partners', 'Total Majors'], 
+      labels: [ 'Total Events', 'Total Trainings', 'Total Workshops'],
       responsive: [
         {
           breakpoint: 480,
           options: {
             chart: {
-              width: 200,  
+              width: 200,
             },
             legend: {
               position: 'bottom',
@@ -32,15 +32,15 @@ const Piechart: React.FC<PiechartProps> = ({ totalCourses, totalPartners, totalM
         },
       ],
       legend: {
-        position: 'top', 
+        position: 'top',
         horizontalAlign: 'center',
       },
       tooltip: {
         y: {
-          formatter: (val: number) => `${val}`, 
+          formatter: (val: number) => `${val}`,
         },
       },
-    } as ApexOptions, 
+    } as ApexOptions,
   };
 
   return (
