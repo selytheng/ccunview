@@ -1,4 +1,3 @@
-import React from 'react';
 import { Partner } from '../../../types/interface';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, IconButton } from '@mui/material';
 import { BiSolidEditAlt, BiTrash } from 'react-icons/bi';

@@ -44,10 +44,10 @@ const News: React.FC = () => {
                         <h2 className="block antialiased tracking-normal font-sans font-semibold leading-[1.3] text-blue-950 mb-4 text-3xl lg:text-4xl">
                             News
                         </h2>
-                        <p className="block antialiased font-sans text-xl font-normal leading-relaxed text-blue-950 font-bold mb-9 opacity-70">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum
-                            mi nec, ultricies metus.
-                        </p>
+                        {/*<p className="block antialiased font-sans text-xl leading-relaxed text-blue-950 font-bold mb-9 opacity-70">*/}
+                        {/*    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum*/}
+                        {/*    mi nec, ultricies metus.*/}
+                        {/*</p>*/}
                     </div>
                 </div>
                 <div className="mt-20 mb-3 px-4 sm:px-8">

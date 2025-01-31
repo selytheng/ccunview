@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Alert, Dialog, DialogActions, DialogTitle, Typography } from '@mui/material';
 import PartnerTable from './PartnerTable';
 import PartnerDialog from './PartnerDialog';
