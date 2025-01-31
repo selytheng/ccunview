@@ -79,9 +79,9 @@ const AdminDashboard: React.FC = () => {
   return (
     <div>
       <NavbarHomePage />
-      <div className="dashboard">
+      <div className="dashboard" style={{padding: '5px 0 0 0 '}}>
         <Sidebar />
-        <div className="dashboard-content" style={{ padding: 2 }}>
+        <div className="dashboard-content" style={{ padding: 2, backgroundColor: '#F8FAFC' }}>
           <ContentHeader />
           <div className="box-container" style={{ padding: '2px 2px 2px 10px', marginTop: '-10px', backgroundColor: '' }}>
             <div className="total">
