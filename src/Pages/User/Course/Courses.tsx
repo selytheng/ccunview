@@ -16,6 +16,7 @@ import axios from "axios";
 import Navbar from "../../../components/Navbar.tsx";
 import "../../../assets/css/content.css";
 import FooterComponent from "../../../components/HomeComponent/FooterComponent.tsx";
+import { BiArchive } from "react-icons/bi"; // Add the BiArchive icon
 
 const Course = () => {
   const [courses, setCourses] = useState([]);
@@ -182,6 +183,24 @@ const Course = () => {
                 >
                   <CircularProgress />
                 </div>
+              ) : filteredCourses.length === 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    marginTop: "50px",
+                  }}
+                >
+                  <BiArchive size={50} />
+                  <Typography
+                    variant="h6"
+                    style={{ marginTop: "20px", textAlign: "center" }}
+                  >
+                    No Courses Available
+                  </Typography>
+                </div>
               ) : (
                 <Grid container spacing={2}>
                   {filteredCourses.map((course) => (
@@ -206,7 +225,7 @@ const Course = () => {
                         <CardContent>
                           <Typography gutterBottom variant="h6" component="div">
                             <Link
-                              to={`/user/course/${course.id}`}
+                              to={`/course/${course.id}`}
                               style={{ textDecoration: "none", color: "#000" }}
                             >
                               {course.name}

@@ -71,7 +71,7 @@ const Partner = () => {
                                                 )}
                                                 <CardContent className="flex-grow">
                                                     <Link
-                                                        to={`/user/partners/${partner.id}`}
+                                                        to={`/partner/${partner.id}`}
                                                         className="no-underline"
                                                     >
                                                         <Typography

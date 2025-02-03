@@ -46,8 +46,8 @@ const NavbarLink = () => {
             icon: <BiBookOpen />,
             to: "#", // Placeholder for dropdown
             dropdown: [
-                { text: "Courses", to: "/user/courses" },
-                { text: "Majors", to: "/user/major" },
+                { text: "Courses", to: "/course" },
+                { text: "Majors", to: "/major" },
             ],
         },
         {

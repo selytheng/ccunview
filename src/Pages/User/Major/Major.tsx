@@ -5,6 +5,7 @@ import axios from 'axios';
 import Navbar from "../../../components/Navbar.tsx";
 import "../../../assets/css/content.css";
 import FooterComponent from '../../../components/HomeComponent/FooterComponent.tsx';
+import { BiArchive } from 'react-icons/bi'; // Make sure to import BiArchive
 
 const Major = () => {
     const [majors, setMajors] = useState([]);
@@ -67,8 +68,30 @@ const Major = () => {
                             <div className="dashboard">
                                 <div className="dashboard-content-home">
                                     {loading ? (
-                                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                minHeight: '200px',  // Ensures vertical centering
+                                            }}
+                                        >
                                             <CircularProgress />
+                                        </div>
+                                    ) : filteredMajors.length === 0 ? (
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                flexDirection: "column",
+                                                marginTop: "50px",
+                                            }}
+                                        >
+                                            <BiArchive size={50} />
+                                            <Typography variant="h6" style={{ marginTop: "20px", textAlign: "center" }}>
+                                                No Majors Available
+                                            </Typography>
                                         </div>
                                     ) : (
                                         <Grid container spacing={2} className="mt-4">
@@ -93,7 +116,7 @@ const Major = () => {
                                                         )}
                                                         <CardContent>
                                                             <Typography gutterBottom variant="h6" component="div">
-                                                                <Link to={`/user/majors/${major.id}`}
+                                                                <Link to={`/major/${major.id}`}
                                                                       style={{ textDecoration: 'none', color: '#000' }}>
                                                                     <div className="major-title" style={{
                                                                         fontWeight: 'bold',

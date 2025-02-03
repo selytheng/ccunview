@@ -44,21 +44,21 @@ const App = () => {
         <Routes>
           <Route index element={<Home />} />
           <Route path="" element={<Home />} />
-          <Route path="/events" element={<Events />} />
+          <Route path="/event" element={<Events />} />
           <Route path="/workshop" element={<Workshop />} />
           <Route path="/training" element={<Training />} />
           <Route path="/course" element={<Courses />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/major" element={<Major />} />
-          <Route path="/user/major/:id" element={<MajorDetailUser />} />
-          <Route path="/user/partner/:id" element={<PartnerDetail />} />
+          <Route path="/major/:id" element={<MajorDetailUser />} />
+          <Route path="/partner/:id" element={<PartnerDetail />} />
           <Route path="/partner" element={<Partner />} />
           <Route path="/feedback" element={<Feedback />} />
-          <Route path="/user/course/:id" element={<CourseDetailUser />} />
-          <Route path="/user/events/:id" element={<EventDetailUser />} />
-          <Route path="/user/trainings/:id" element={<TrainingDetailUser />} />
-          <Route path="/user/workshops/:id" element={<WorkshopDetailUser />} />
+          <Route path="/course/:id" element={<CourseDetailUser />} />
+          <Route path="/event/:id" element={<EventDetailUser />} />
+          <Route path="/training/:id" element={<TrainingDetailUser />} />
+          <Route path="/workshop/:id" element={<WorkshopDetailUser />} />
           <Route path="/login" element={<Login />} />
 
           {/* SuperAdmin Routes */}

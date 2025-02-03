@@ -11,6 +11,7 @@ const MajorDetail = () => {
     const navigate = useNavigate();
     const [major, setMajor] = useState(null);
     const [partner, setPartner] = useState(null);
+    const [courses, setCourses] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -24,6 +25,9 @@ const MajorDetail = () => {
                     const partnerResponse = await axios.get(`http://localhost:8000/api/partners/${majorResponse.data.partner_id}`);
                     setPartner(partnerResponse.data);
                 }
+
+                const coursesResponse = await axios.get(`http://localhost:8000/api/majors/${id}/courses`);
+                setCourses(coursesResponse.data);
             } catch (err) {
                 setError('Failed to fetch details');
             } finally {
@@ -84,7 +88,7 @@ const MajorDetail = () => {
                                                 {major.name}
                                             </h1>
                                             {partner && (
-                                                <div className="flex items-center gap-2 text-gray-700 cursor-pointer" onClick={() => navigate(`/user/partner/${major.partner_id}`)}>
+                                                <div className="flex items-center gap-2 text-gray-700 cursor-pointer" onClick={() => navigate(`/partner/${major.partner_id}`)}>
                                                     <Building2 size={20} />
                                                     <span>{partner.name}</span>
                                                 </div>
@@ -93,7 +97,7 @@ const MajorDetail = () => {
 
                                         {/* Partner Logo */}
                                         {partner && partner.logo && (
-                                            <div className="bg-white p-2 rounded-lg shadow-md cursor-pointer" onClick={() => navigate(`/user/partner/${major.partner_id}`)}>
+                                            <div className="bg-white p-2 rounded-lg shadow-md cursor-pointer" onClick={() => navigate(`/partner/${major.partner_id}`)}>
                                                 <img
                                                     src={`http://localhost:8000/${partner.logo}`}
                                                     alt={partner.name}
@@ -111,6 +115,35 @@ const MajorDetail = () => {
                                         {major.description}
                                     </div>
                                 </div>
+
+                                {courses.length > 0 && (
+                                    <div className="mt-8 pt-8 border-t">
+                                        <h2 className="text-xl font-bold mb-4">Available Courses</h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {courses.map((course) => (
+                                                <Card
+                                                    key={course.id}
+                                                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                                                    onClick={() => navigate(`/course/${course.id}`)}
+                                                >
+                                                    <div className="flex items-start p-4">
+                                                        {course.image && (
+                                                            <img
+                                                                src={`http://localhost:8000/${course.image}`}
+                                                                alt={course.name}
+                                                                className="w-16 h-16 object-cover rounded"
+                                                            />
+                                                        )}
+                                                        <div className="ml-4">
+                                                            <h3 className="font-semibold text-lg">{course.name}</h3>
+                                                            <p className="text-gray-600 text-sm line-clamp-2">{course.description}</p>
+                                                        </div>
+                                                    </div>
+                                                </Card>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

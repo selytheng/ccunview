@@ -182,7 +182,7 @@ const Course = () => {
                                 component="div"
                               >
                                 <Link
-                                  to={`/user/course/${course.id}`}
+                                  to={`/course/${course.id}`}
                                   style={{
                                     textDecoration: "none",
                                     color: "#000",

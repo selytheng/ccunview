@@ -38,7 +38,7 @@ const Navbar = () => {
         {
             text: "Events",
             icon: <BiNews />,
-            to: "/events",
+            to: "/event",
         },
         {
             text: "Courses",
@@ -89,7 +89,7 @@ const Navbar = () => {
                       <div className="navbar-links-container flex items-center ">
                           <Link to="/" style={{color: '#fff'}} className="flex items-center gap-1"><BiHome
                               className='icon text-[18px] '/><p className="text-[13px]">Home</p></Link>
-                          <Link to="/events" style={{color: '#fff'}} className="flex items-center gap-1"><BiCalendar
+                          <Link to="/event" style={{color: '#fff'}} className="flex items-center gap-1"><BiCalendar
                               className='icon text-[18px]'/><p className="text-[13px]">Events</p></Link>
 
                           {/* Courses Dropdown */}

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../../../assets/css/admin.css';
-import {CircularProgress, Box, Card, CardContent, Typography, CardMedia} from '@mui/material';
-import { BiBookOpen,BiSolidMapPin} from 'react-icons/bi';
+import { CircularProgress, Box, Card, CardContent, Typography, CardMedia } from '@mui/material';
+import { BiBookOpen, BiSolidMapPin, BiLibrary } from 'react-icons/bi';
 import Navbar from "../../../components/Navbar.tsx";
 
 const CourseDetailUser: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const [course, setCourse] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [majors, setMajors] = useState<any[]>([]);
+    const [partner, setPartner] = useState<any>(null);
+    const [major, setMajor] = useState<any>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,18 +27,21 @@ const CourseDetailUser: React.FC = () => {
                 }
                 const courseData = await courseResponse.json();
 
-                const partnerId = localStorage.getItem('partner_id');
-                const majorsResponse = await fetch(`http://localhost:8000/api/partners/${partnerId}/majors`, {
-                    headers: { Authorization: `Bearer ${access_token}` },
-                });
-
-                if (!majorsResponse.ok) {
-                    throw new Error('Failed to fetch majors');
+                const partnerResponse = await fetch(`http://localhost:8000/api/partners/${courseData.partner_id}`);
+                if (!partnerResponse.ok) {
+                    throw new Error('Failed to fetch partner');
                 }
-                const majorsData = await majorsResponse.json();
+                const partnerData = await partnerResponse.json();
+
+                const majorResponse = await fetch(`http://localhost:8000/api/majors/${courseData.major_id}`);
+                if (!majorResponse.ok) {
+                    throw new Error('Failed to fetch major');
+                }
+                const majorData = await majorResponse.json();
 
                 setCourse(courseData);
-                setMajors(majorsData);
+                setPartner(partnerData);
+                setMajor(majorData);
             } catch (err) {
                 setError((err as Error).message);
             } finally {
@@ -47,14 +52,8 @@ const CourseDetailUser: React.FC = () => {
         fetchData();
     }, [id]);
 
-
-    const getMajorName = (majorId: number) => {
-        const major = majors.find((m) => m.id === majorId);
-        return major ? major.name : 'Unknown Major';
-    };
-
     const getYearName = (yearId: number) => {
-        const yearMapping = {
+        const yearMapping: Record<number, string> = {
             1: 'Year 1',
             2: 'Year 2',
             3: 'Year 3',
@@ -98,7 +97,7 @@ const CourseDetailUser: React.FC = () => {
             <div className="dashboard mt-[110px]">
                 <div className="dashboard-content">
                     {/* Breadcrumb */}
-                    <div className="breadcrumb" style={{ display: 'flex', backgroundColor: '', justifyContent: 'space-between' }}>
+                    <div className="breadcrumb" style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div style={{ display: 'flex' }}>
                             <Link to="/course" style={{ textDecoration: 'none', color: '#526d82', fontWeight: 'bold', display: 'flex' }}>
                                 <BiBookOpen className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} /> Courses
@@ -107,8 +106,8 @@ const CourseDetailUser: React.FC = () => {
                     </div>
 
                     <Card sx={{ display: 'flex', justifyContent: 'space-between', gap: 3, padding: '0px 0 0 8px' }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: '' }}>
-                            <CardContent sx={{}}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <CardContent>
                                 <Typography component="div" variant="h5" style={{ marginBottom: 13 }}>
                                     {course.name}
                                 </Typography>
@@ -123,22 +122,36 @@ const CourseDetailUser: React.FC = () => {
                                             color: '#868181',
                                         }}
                                     >
-                                        <BiSolidMapPin style={{ marginTop: 3 }} /> {getYearName(course.year_id)}
+                                        <BiLibrary style={{ marginTop: 3 }} /> {getYearName(course.year_id)}
                                     </p>
 
-                                    <p style={{ marginBottom: 10, display: 'flex', gap: 5,
+                                    <p style={{
+                                        marginBottom: 10, display: 'flex', gap: 5,
                                         textTransform: 'uppercase',
                                         fontFamily: 'Arial',
                                         fontSize: 15,
                                         color: '#868181',
+                                        cursor: "pointer",
                                     }}
+                                       onClick={() => navigate(`/partner/${course.partner_id}`)}
                                     >
-                                        <BiBookOpen style={{ marginTop: 3 }} /> {getMajorName(course.major_id)}
+                                        <BiSolidMapPin style={{ marginTop: 3 }} /> {partner ? partner.name : 'Unknown Partner'}
+                                    </p>
+                                    <p style={{
+                                        marginBottom: 10, display: 'flex', gap: 5,
+                                        textTransform: 'uppercase',
+                                        fontFamily: 'Arial',
+                                        fontSize: 15,
+                                        color: '#868181',
+                                        cursor: "pointer",
+                                    }}
+                                       onClick={() => navigate(`/major/${course.major_id}`)}
+                                    >
+                                        <BiBookOpen style={{ marginTop: 3 }} /> {major ? major.name : 'Unknown Major'}
                                     </p>
                                 </div>
                                 <Typography
                                     style={{
-                                        backgroundColor: '',
                                         width: 780,
                                         textAlign: 'justify',
                                         marginBottom: 13,

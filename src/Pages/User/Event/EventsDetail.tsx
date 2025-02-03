@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import "../../../assets/css/admin.css";
 import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Dialog, DialogActions, DialogTitle, DialogContent, Chip } from "@mui/material";
 import { BiCalendar, BiSitemap, BiSolidMapPin } from "react-icons/bi";
@@ -7,6 +7,7 @@ import moment from "moment";
 import Navbar from "../../../components/Navbar.tsx";
 const EventDetailUser: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const [event, setEvent] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -110,11 +111,11 @@ const EventDetailUser: React.FC = () => {
                         style={{ display: "flex", justifyContent: "space-between" }}
                     >
                         <div style={{ display: "flex", backgroundColor: "" }}>
-                            <Link to="/" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
+                            <Link to="/event" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
                                 <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} />
                                 Events
                             </Link>{" "}
-                            {" /  "}
+                            {"/"}
                             <span> {event.title}</span>
                         </div>
                     </div>
@@ -148,9 +149,21 @@ const EventDetailUser: React.FC = () => {
                                     <BiCalendar style={{ marginTop: 3, marginRight: 5 }} />
                                     Date: {formatEventDate(event.start_date, event.end_date)}
                                 </p>
-                                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
-                                    <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />Host: {event.partner.name}
+                                <p
+                                    style={{
+                                        marginBottom: 10,
+                                        fontFamily: "Arial",
+                                        fontSize: 15,
+                                        color: "#868181",
+                                        display: "flex",
+                                        cursor: "pointer"
+                                    }}
+                                    onClick={() => navigate(`/partner/${event.partner.id}`)}
+                                >
+                                    <BiSitemap style={{marginTop: 3, marginRight: 5}}/>
+                                    Host: {event.partner.name}
                                 </p>
+
                             </CardContent>
                         </Box>
                         {event.image && (

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Card, CardContent, Typography, CircularProgress, Chip } from '@mui/material';
-import { Building2, BookOpen, Globe, Mail } from 'lucide-react';
+import { Building2, BookOpen, Calendar, GraduationCap, Hammer,Book } from 'lucide-react';
 import Navbar from '../../../components/Navbar.tsx';
 import FooterComponent from '../../../components/HomeComponent/FooterComponent.tsx';
 
@@ -72,7 +72,7 @@ const PartnerDetail = () => {
                             {partner.logo && (
                                 <div className="relative flex flex-col md:flex-row">
                                     {/* Image on the left side */}
-                                    <div className="w-full md:w-1/2 relative">
+                                    <div className="w-full md:w-1/3 relative">
                                         <img
                                             src={`http://localhost:8000/${partner.logo}`}
                                             alt={partner.name}
@@ -80,7 +80,7 @@ const PartnerDetail = () => {
                                         />
                                     </div>
                                     {/* Content on the right */}
-                                    <div className="w-full md:w-1/2 p-6">
+                                    <div className="w-full md:w-2/3 p-6">
                                         <h1 className="text-3xl font-bold mb-2">{partner.name}</h1>
                                         <div className="flex items-center gap-2">
                                             <Building2 size={20} />
@@ -102,31 +102,31 @@ const PartnerDetail = () => {
                                     </div>
                                     <div className="bg-blue-50 p-4 rounded-lg">
                                         <div className="flex items-center gap-2 text-green-600 mb-2">
-                                            <BookOpen size={24} />
+                                            <Book size={24} />
                                             <h3 className="font-semibold">Courses</h3>
                                         </div>
-                                        <p className="text-gray-600">{courses.length} Programs</p>
+                                        <p className="text-gray-600">{courses.length} Courses</p>
                                     </div>
                                     <div className="bg-blue-50 p-4 rounded-lg">
                                         <div className="flex items-center gap-2 text-purple-600 mb-2">
-                                            <BookOpen size={24} />
+                                            <Calendar size={24} />
                                             <h3 className="font-semibold">Events</h3>
                                         </div>
-                                        <p className="text-gray-600">{events.length} Programs</p>
+                                        <p className="text-gray-600">{events.length} Events</p>
                                     </div>
                                     <div className="bg-blue-50 p-4 rounded-lg">
                                         <div className="flex items-center gap-2 text-orange-600 mb-2">
-                                            <BookOpen size={24} />
+                                            <Hammer size={24} />
                                             <h3 className="font-semibold">Workshops</h3>
                                         </div>
-                                        <p className="text-gray-600">{workshops.length} Programs</p>
+                                        <p className="text-gray-600">{workshops.length} Workshops</p>
                                     </div>
                                     <div className="bg-blue-50 p-4 rounded-lg">
                                         <div className="flex items-center gap-2 text-red-600 mb-2">
-                                            <BookOpen size={24} />
+                                            <GraduationCap size={24} />
                                             <h3 className="font-semibold">Trainings</h3>
                                         </div>
-                                        <p className="text-gray-600">{trainings.length} Programs</p>
+                                        <p className="text-gray-600">{trainings.length} Trainings</p>
                                     </div>
                                 </div>
 
@@ -147,7 +147,7 @@ const PartnerDetail = () => {
                                                 <Card
                                                     key={major.id}
                                                     className="hover:shadow-lg transition-shadow cursor-pointer"
-                                                    onClick={() => navigate(`/user/major/${major.id}`)}
+                                                    onClick={() => navigate(`/major/${major.id}`)}
                                                 >
                                                     <div className="flex items-start p-4">
                                                         {major.logo && (
