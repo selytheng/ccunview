@@ -58,7 +58,6 @@ const App = () => {
           <Route path="/user/majors/:id" element={<MajorDetailUser />} />
           <Route path="/login" element={<Login />} />
 
-
           {/* SuperAdmin Routes */}
           <Route
             path="superadmin/*"
@@ -90,9 +89,15 @@ const App = () => {
                     }
                   />
                   <Route path="trainings" element={<AdminTraining />} />
-                  <Route path="trainings/:id" element={<AdminTrainingDetail />} />
+                  <Route
+                    path="trainings/:id"
+                    element={<AdminTrainingDetail />}
+                  />
                   <Route path="workshops" element={<AdminWorkshop />} />
-                  <Route path="workshops/:id" element={<AdminWorkshopDetail />} />
+                  <Route
+                    path="workshops/:id"
+                    element={<AdminWorkshopDetail />}
+                  />
                   <Route path="events/:id" element={<AdminEventDetail />} />
                   <Route path="events" element={<AdminEvent />} />
                   <Route path="events/:id" element={<AdminEventDetail />} />
