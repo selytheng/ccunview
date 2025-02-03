@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 import {
   Dialog,
   DialogTitle,
@@ -25,7 +26,9 @@ const AdminTrainingEdit: React.FC<AdminTrainingEditProps> = ({
   onSubmit,
 }) => {
   const [title, setTitle] = useState(trainingData.title || "");
-  const [description, setDescription] = useState(trainingData.description || "");
+  const [description, setDescription] = useState(
+    trainingData.description || ""
+  );
   const [location, setLocation] = useState(trainingData.location || "");
   const [status, setStatus] = useState(trainingData.status || "");
   const [startDate, setStartDate] = useState(trainingData.start_date || "");
@@ -52,7 +55,7 @@ const AdminTrainingEdit: React.FC<AdminTrainingEditProps> = ({
     try {
       const access_token = localStorage.getItem("access_token");
       const response = await fetch(
-        `http://localhost:8000/api/trainings/${trainingId}`,
+        `${API_BASE_URL}/api/trainings/${trainingId}`,
         {
           method: "POST",
           headers: {

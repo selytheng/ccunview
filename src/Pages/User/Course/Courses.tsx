@@ -17,6 +17,7 @@ import Navbar from "../../../components/Navbar.tsx";
 import "../../../assets/css/content.css";
 import FooterComponent from "../../../components/HomeComponent/FooterComponent.tsx";
 import { BiArchive } from "react-icons/bi"; // Add the BiArchive icon
+import API_BASE_URL from "../../../components/API_BASE_URL.tsx";
 
 const Course = () => {
   const [courses, setCourses] = useState([]);
@@ -34,7 +35,7 @@ const Course = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/courses/all"
+          `${API_BASE_URL}/api/courses/all`
         );
         setCourses(response.data);
         setFilteredCourses(response.data);
@@ -48,7 +49,7 @@ const Course = () => {
 
     const fetchPartners = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/partners");
+        const response = await axios.get(`${API_BASE_URL}/api/partners`);
         setPartners(response.data);
       } catch (error) {
         console.error("Error fetching partners:", error);
@@ -67,7 +68,7 @@ const Course = () => {
       }
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/partners/${partnerId}/majors`
+          `${API_BASE_URL}/api/partners/${partnerId}/majors`
         );
         setMajors(response.data);
       } catch (error) {
@@ -218,7 +219,7 @@ const Course = () => {
                         {course.image && (
                           <CardMedia
                             sx={{ height: 170 }}
-                            image={`http://localhost:8000/${course.image}`}
+                            image={`${API_BASE_URL}/${course.image}`}
                             title={course.name}
                           />
                         )}

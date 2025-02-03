@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import FooterComponent from "../components/HomeComponent/FooterComponent";
+import API_BASE_URL from "../components/API_BASE_URL";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ const ContactForm = () => {
   const [contactPreview, setContactPreview] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/partners")
+    fetch(`${API_BASE_URL}/api/partners`)
       .then((response) => response.json())
       .then((data) => setPartners(data))
       .catch((error) => console.error("Error fetching partners:", error));
@@ -18,10 +19,12 @@ const ContactForm = () => {
 
   useEffect(() => {
     if (formData.partnerId) {
-      fetch(`http://localhost:8000/api/contacts/partner/${formData.partnerId}`)
+      fetch(`${API_BASE_URL}/api/contacts/partner/${formData.partnerId}`)
         .then((response) => response.json())
         .then((data) => setContactPreview(data))
-        .catch((error) => console.error("Error fetching contact preview:", error));
+        .catch((error) =>
+          console.error("Error fetching contact preview:", error)
+        );
     }
   }, [formData.partnerId]);
 
@@ -34,42 +37,60 @@ const ContactForm = () => {
   };
 
   const renderPhoneNumbers = (phones) => {
-      if (!phones) return <p className="text-gray-500">No phone numbers available</p>;
-      if (typeof phones === 'string') return (
-          <p className="text-gray-900">
-              <a href={`tel:${phones.replace(/\D/g, '')}`} className="hover:text-blue-600">{phones}</a>
-          </p>
-      );
-      if (Array.isArray(phones) && phones.length > 0) {
-          return phones.map((phone, index) => (
-              <p key={index} className="text-gray-900">
-                  <a href={`tel:${phone.replace(/\D/g, '')}`} className="hover:text-blue-600">{phone}</a>
-              </p>
-          ));
-      }
+    if (!phones)
       return <p className="text-gray-500">No phone numbers available</p>;
+    if (typeof phones === "string")
+      return (
+        <p className="text-gray-900">
+          <a
+            href={`tel:${phones.replace(/\D/g, "")}`}
+            className="hover:text-blue-600"
+          >
+            {phones}
+          </a>
+        </p>
+      );
+    if (Array.isArray(phones) && phones.length > 0) {
+      return phones.map((phone, index) => (
+        <p key={index} className="text-gray-900">
+          <a
+            href={`tel:${phone.replace(/\D/g, "")}`}
+            className="hover:text-blue-600"
+          >
+            {phone}
+          </a>
+        </p>
+      ));
+    }
+    return <p className="text-gray-500">No phone numbers available</p>;
   };
 
   const renderEmails = (emails) => {
-      if (!emails) return <p className="text-gray-500">No email addresses available</p>;
-      if (typeof emails === 'string') return (
-          <p className="text-gray-900 break-all">
-              <a href={`mailto:${emails}`} className="hover:text-blue-600">{emails}</a>
-          </p>
-      );
-      if (Array.isArray(emails) && emails.length > 0) {
-          return emails.map((email, index) => (
-              <p key={index} className="text-gray-900 break-all">
-                  <a href={`mailto:${email}`} className="hover:text-blue-600">{email}</a>
-              </p>
-          ));
-      }
+    if (!emails)
       return <p className="text-gray-500">No email addresses available</p>;
+    if (typeof emails === "string")
+      return (
+        <p className="text-gray-900 break-all">
+          <a href={`mailto:${emails}`} className="hover:text-blue-600">
+            {emails}
+          </a>
+        </p>
+      );
+    if (Array.isArray(emails) && emails.length > 0) {
+      return emails.map((email, index) => (
+        <p key={index} className="text-gray-900 break-all">
+          <a href={`mailto:${email}`} className="hover:text-blue-600">
+            {email}
+          </a>
+        </p>
+      ));
+    }
+    return <p className="text-gray-500">No email addresses available</p>;
   };
 
   const renderWebsiteLink = (website) => {
     if (!website) return <p className="text-gray-500">No website available</p>;
-    const url = website.startsWith('http') ? website : `https://${website}`;
+    const url = website.startsWith("http") ? website : `https://${website}`;
     return (
       <a
         href={url}
@@ -83,8 +104,11 @@ const ContactForm = () => {
   };
 
   const renderMoodleLink = (moodleLink) => {
-    if (!moodleLink) return <p className="text-gray-500">No Moodle portal available</p>;
-    const url = moodleLink.startsWith('http') ? moodleLink : `https://${moodleLink}`;
+    if (!moodleLink)
+      return <p className="text-gray-500">No Moodle portal available</p>;
+    const url = moodleLink.startsWith("http")
+      ? moodleLink
+      : `https://${moodleLink}`;
     return (
       <a
         href={url}
@@ -103,14 +127,19 @@ const ContactForm = () => {
       <main className="mt-[100px] flex-grow container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Partner Contact Information</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Partner Contact Information
+            </h2>
             <p className="text-lg text-gray-600">
               Select a partner from the list below to view their contact details
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <label htmlFor="partner" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="partner"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Select Partner
             </label>
             <select
@@ -133,31 +162,45 @@ const ContactForm = () => {
 
           {contactPreview && (
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Details</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                Contact Details
+              </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Phone Numbers</h4>
+                    <h4 className="text-sm font-semibold text-gray-600 mb-2">
+                      Phone Numbers
+                    </h4>
                     {renderPhoneNumbers(contactPreview.phone_number)}
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Email Addresses</h4>
+                    <h4 className="text-sm font-semibold text-gray-600 mb-2">
+                      Email Addresses
+                    </h4>
                     {renderEmails(contactPreview.email)}
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Address</h4>
+                    <h4 className="text-sm font-semibold text-gray-600 mb-2">
+                      Address
+                    </h4>
                     <p className="text-gray-900">
-                      {contactPreview.address || <span className="text-gray-500">No address available</span>}
+                      {contactPreview.address || (
+                        <span className="text-gray-500">
+                          No address available
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>
 
                 <div className="space-y-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Links</h4>
+                    <h4 className="text-sm font-semibold text-gray-600 mb-2">
+                      Links
+                    </h4>
                     <div className="space-y-2">
                       {renderWebsiteLink(contactPreview.website)}
                       {renderMoodleLink(contactPreview.moodle_link)}
@@ -165,7 +208,9 @@ const ContactForm = () => {
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Location</h4>
+                    <h4 className="text-sm font-semibold text-gray-600 mb-2">
+                      Location
+                    </h4>
                     <div className="mt-2 rounded-lg overflow-hidden">
                       {contactPreview.location_link ? (
                         <iframe
@@ -177,7 +222,9 @@ const ContactForm = () => {
                         />
                       ) : (
                         <div className="w-full h-64 rounded-lg bg-gray-100 flex items-center justify-center">
-                          <p className="text-gray-500">No location map available</p>
+                          <p className="text-gray-500">
+                            No location map available
+                          </p>
                         </div>
                       )}
                     </div>

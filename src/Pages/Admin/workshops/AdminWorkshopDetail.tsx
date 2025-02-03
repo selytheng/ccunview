@@ -3,8 +3,29 @@ import { useParams, Link } from "react-router-dom";
 import "../../../assets/css/admin.css";
 import NavbarHomePage from "../../../components/Navbar_HomePage";
 import Sidebar from "../../../components/Sidebar";
-import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Dialog, DialogActions, DialogTitle, DialogContent, Chip } from "@mui/material";
-import { BiCalendar, BiPencil, BiSitemap, BiSolidMapPin, BiTrash, BiImageAdd } from "react-icons/bi";
+import API_BASE_URL from "../../../components/API_BASE_URL.tsx";
+import {
+  Button,
+  CircularProgress,
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  CardMedia,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  Chip,
+} from "@mui/material";
+import {
+  BiCalendar,
+  BiPencil,
+  BiSitemap,
+  BiSolidMapPin,
+  BiTrash,
+  BiImageAdd,
+} from "react-icons/bi";
 
 import AdminWorkshopDeleteGallery from "./AdminWorkshopDeleteGallery.tsx";
 import AdminWorkshopAddGallery from "./AdminWorkshopAddGallery";
@@ -29,9 +50,12 @@ const AdminWorkshopDetail: React.FC = () => {
     const fetchData = async () => {
       try {
         const access_token = localStorage.getItem("access_token");
-        const workshopResponse = await fetch(`http://localhost:8000/api/workshops/${id}`, {
-          headers: { Authorization: `Bearer ${access_token}` },
-        });
+        const workshopResponse = await fetch(
+          `${API_BASE_URL}/api/workshops/${id}`,
+          {
+            headers: { Authorization: `Bearer ${access_token}` },
+          }
+        );
 
         if (!workshopResponse.ok) {
           throw new Error("Failed to fetch workshop details");
@@ -51,7 +75,7 @@ const AdminWorkshopDetail: React.FC = () => {
   const handleDelete = async () => {
     try {
       const access_token = localStorage.getItem("access_token");
-      const response = await fetch(`http://localhost:8000/api/workshops/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/workshops/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -89,10 +113,12 @@ const AdminWorkshopDetail: React.FC = () => {
     const start = moment(startDate);
     const end = moment(endDate);
 
-    if (start.isSame(end, 'day')) {
+    if (start.isSame(end, "day")) {
       return `${start.format("MMM Do YYYY, h:mm A")} - ${end.format("h:mm A")}`;
     } else {
-      return `${start.format("MMM Do YYYY, h:mm A")} - ${end.format("MMM Do YYYY, h:mm A")}`;
+      return `${start.format("MMM Do YYYY, h:mm A")} - ${end.format(
+        "MMM Do YYYY, h:mm A"
+      )}`;
     }
   };
 
@@ -138,7 +164,14 @@ const AdminWorkshopDetail: React.FC = () => {
         <div className="dashboard">
           <Sidebar />
           <div className="dashboard-content">
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "400px" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "400px",
+              }}
+            >
               <CircularProgress />
             </Box>
           </div>
@@ -172,8 +205,19 @@ const AdminWorkshopDetail: React.FC = () => {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <div style={{ display: "flex", backgroundColor: "" }}>
-              <Link to="/admin/workshops" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
-                <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} />
+              <Link
+                to="/admin/workshops"
+                style={{
+                  textDecoration: "none",
+                  color: "#526d82",
+                  fontWeight: "bold",
+                  display: "flex",
+                }}
+              >
+                <BiCalendar
+                  className="icon"
+                  style={{ fontSize: 16, marginTop: 4, marginRight: 3 }}
+                />
                 Workshops
               </Link>{" "}
               {" /  "}
@@ -192,7 +236,10 @@ const AdminWorkshopDetail: React.FC = () => {
               </Button>
               <Button
                 variant="contained"
-                style={{ backgroundColor: "rgb(220 38 38)", marginRight: "10px" }}
+                style={{
+                  backgroundColor: "rgb(220 38 38)",
+                  marginRight: "10px",
+                }}
                 startIcon={<BiSitemap style={{ fontSize: 18 }} />}
                 className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
                 onClick={handleEditGalleryClick}
@@ -221,16 +268,33 @@ const AdminWorkshopDetail: React.FC = () => {
           </div>
 
           <Card
-            sx={{ display: "flex", justifyContent: "space-between", gap: 3, padding: "0px 0 0 8px" }} >
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: 3,
+              padding: "0px 0 0 8px",
+            }}
+          >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <CardContent>
                 <div style={{ display: "flex", gap: 10 }}>
-                  <Typography component="div" variant="h5" style={{ marginBottom: 13 }}>
+                  <Typography
+                    component="div"
+                    variant="h5"
+                    style={{ marginBottom: 13 }}
+                  >
                     {workshop.title}
                   </Typography>
                   <Chip
                     label={workshop.status}
-                    style={{ fontSize: 14, backgroundColor: "#AAB7B7", marginTop: 3, display: "flex", padding: 2 }} />
+                    style={{
+                      fontSize: 14,
+                      backgroundColor: "#AAB7B7",
+                      marginTop: 3,
+                      display: "flex",
+                      padding: 2,
+                    }}
+                  />
                 </div>
 
                 <Typography
@@ -240,48 +304,101 @@ const AdminWorkshopDetail: React.FC = () => {
                 >
                   {workshop.description}
                 </Typography>
-                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
+                <p
+                  style={{
+                    marginBottom: 10,
+                    fontFamily: "Arial",
+                    fontSize: 15,
+                    color: "#868181",
+                    display: "flex",
+                  }}
+                >
                   <BiSolidMapPin style={{ marginTop: 3, marginRight: 5 }} />
                   Location: {workshop.location}
                 </p>
                 <p
-                  style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181",  display: "flex", }}>
+                  style={{
+                    marginBottom: 10,
+                    fontFamily: "Arial",
+                    fontSize: 15,
+                    color: "#868181",
+                    display: "flex",
+                  }}
+                >
                   <BiCalendar style={{ marginTop: 3, marginRight: 5 }} />
-                  Date: {formatWorkshopDate(workshop.start_date, workshop.end_date)}
+                  Date:{" "}
+                  {formatWorkshopDate(workshop.start_date, workshop.end_date)}
                 </p>
-                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
-                  <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />Host: {workshop.partner.name}
+                <p
+                  style={{
+                    marginBottom: 10,
+                    fontFamily: "Arial",
+                    fontSize: 15,
+                    color: "#868181",
+                    display: "flex",
+                  }}
+                >
+                  <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />
+                  Host: {workshop.partner.name}
                 </p>
               </CardContent>
             </Box>
             {workshop.image && (
-              <CardMedia component="img" height="140" image={`http://localhost:8000/${workshop.image}`} alt={workshop.title} style={{ width: 500, height: 350 }} />
+              <CardMedia
+                component="img"
+                height="140"
+                image={`${API_BASE_URL}/${workshop.image}`}
+                alt={workshop.title}
+                style={{ width: 500, height: 350 }}
+              />
             )}
           </Card>
 
-          <div style={{ display: "flex", justifyContent: "flex-start", marginTop: 20 }} >
-            <Button variant="text" onClick={handleViewAllImagesClick} style={{ color: "#007bff" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              marginTop: 20,
+            }}
+          >
+            <Button
+              variant="text"
+              onClick={handleViewAllImagesClick}
+              style={{ color: "#007bff" }}
+            >
               View All Images
             </Button>
           </div>
 
           {workshop.gallery && (
-            <div style={{ display: "flex", overflowX: "scroll", padding: "10px 0", marginTop: '-20px' }}>
+            <div
+              style={{
+                display: "flex",
+                overflowX: "scroll",
+                padding: "10px 0",
+                marginTop: "-20px",
+              }}
+            >
               {workshop.gallery.map((image: string, index: number) => (
                 <img
                   key={index}
-                  src={`http://localhost:8000/${image}`}
+                  src={`${API_BASE_URL}/${image}`}
                   alt={`gallery-image-${index}`}
-                  style={{ height: 150, marginRight: 10, cursor: 'pointer' }}
-                  onClick={() => handleImageClick(index)} 
+                  style={{ height: 150, marginRight: 10, cursor: "pointer" }}
+                  onClick={() => handleImageClick(index)}
                 />
               ))}
             </div>
           )}
 
           {/* All Images Modal */}
-          <Dialog open={openAllImagesModal} onClose={handleCloseAllImagesModal} maxWidth="md" fullWidth>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Dialog
+            open={openAllImagesModal}
+            onClose={handleCloseAllImagesModal}
+            maxWidth="md"
+            fullWidth
+          >
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <DialogTitle>All Images</DialogTitle>
               <DialogActions>
                 <Button onClick={handleCloseAllImagesModal} color="secondary">
@@ -290,14 +407,20 @@ const AdminWorkshopDetail: React.FC = () => {
               </DialogActions>
             </div>
             <DialogContent>
-              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-around",
+                }}
+              >
                 {workshop.gallery.map((image: string, index: number) => (
                   <img
                     key={index}
-                    src={`http://localhost:8000/${image}`}
+                    src={`${API_BASE_URL}/${image}`}
                     alt={`gallery-image-${index}`}
-                    style={{ height: 100, margin: 10, cursor: 'pointer' }}
-                    onClick={() => handleAllImageClick(index)} 
+                    style={{ height: 100, margin: 10, cursor: "pointer" }}
+                    onClick={() => handleAllImageClick(index)}
                   />
                 ))}
               </div>
@@ -305,22 +428,43 @@ const AdminWorkshopDetail: React.FC = () => {
           </Dialog>
 
           {/* Image Preview Modal */}
-          <Dialog open={openImageModal} onClose={handleCloseModal} maxWidth="md" fullWidth>
+          <Dialog
+            open={openImageModal}
+            onClose={handleCloseModal}
+            maxWidth="md"
+            fullWidth
+          >
             <DialogTitle>Image Preview</DialogTitle>
             <DialogContent>
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <img
-                  src={`http://localhost:8000/${workshop.gallery[currentImageIndex]}`}
+                  src={`${API_BASE_URL}/${workshop.gallery[currentImageIndex]}`}
                   alt={`gallery-image-${currentImageIndex}`}
-                  style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain" }}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "80vh",
+                    objectFit: "contain",
+                  }}
                 />
               </div>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handlePrevImage} disabled={currentImageIndex === 0}>
+              <Button
+                onClick={handlePrevImage}
+                disabled={currentImageIndex === 0}
+              >
                 Previous
               </Button>
-              <Button onClick={handleNextImage} disabled={currentImageIndex === workshop.gallery.length - 1}>
+              <Button
+                onClick={handleNextImage}
+                disabled={currentImageIndex === workshop.gallery.length - 1}
+              >
                 Next
               </Button>
               <Button onClick={handleCloseModal} color="secondary">

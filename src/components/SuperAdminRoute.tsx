@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import API_BASE_URL from "./API_BASE_URL";
 
 interface SuperAdminRouteProps {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ const SuperAdminRoute: React.FC<SuperAdminRouteProps> = ({ children }) => {
           return;
         }
 
-        const response = await fetch("http://localhost:8000/api/auth/me", {
+        const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

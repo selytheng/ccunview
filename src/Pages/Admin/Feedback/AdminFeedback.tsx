@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import NavbarHomePage from '../../../components/Navbar_HomePage';
-import Sidebar from '../../../components/Sidebar.tsx';
-import ContentHeader from '../ContentHeader.tsx';
-import AdminFeedbackDetail from './AdminFeedbackDetail.tsx';
+import React, { useState, useEffect } from "react";
+import NavbarHomePage from "../../../components/Navbar_HomePage";
+import Sidebar from "../../../components/Sidebar.tsx";
+import ContentHeader from "../ContentHeader.tsx";
+import AdminFeedbackDetail from "./AdminFeedbackDetail.tsx";
+import API_BASE_URL from "../../../components/API_BASE_URL.tsx";
 
 const AdminFeedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -11,26 +12,26 @@ const AdminFeedback = () => {
 
   // Fetch feedbacks by partner ID with Authorization header
   useEffect(() => {
-    const partnerId = localStorage.getItem('partner_id'); // Replace with actual partner ID
-    const accessToken = localStorage.getItem('access_token'); // Get the access token
+    const partnerId = localStorage.getItem("partner_id"); // Replace with actual partner ID
+    const accessToken = localStorage.getItem("access_token"); // Get the access token
 
-    fetch(`http://localhost:8000/api/feedback/partner/${partnerId}`, {
-      method: 'GET',
+    fetch(`${API_BASE_URL}/api/feedback/partner/${partnerId}`, {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`, // Include the token in the Authorization header
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to fetch feedbacks');
+          throw new Error("Failed to fetch feedbacks");
         }
         return response.json();
       })
       .then((data) => {
         if (data.data) setFeedbacks(data.data);
       })
-      .catch((error) => console.error('Error fetching feedback:', error));
+      .catch((error) => console.error("Error fetching feedback:", error));
   }, []);
 
   const handleFeedbackClick = (feedback) => {
@@ -67,7 +68,9 @@ const AdminFeedback = () => {
                     onClick={() => handleFeedbackClick(feedback)}
                     className="border-b cursor-pointer hover:bg-gray-100 transition"
                   >
-                    <td className="py-2 px-4">{feedback.name || 'Anonymous'}</td>
+                    <td className="py-2 px-4">
+                      {feedback.name || "Anonymous"}
+                    </td>
                     <td className="py-2 px-4">
                       {feedback.message.substring(0, 50)}...
                     </td>

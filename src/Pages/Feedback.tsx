@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import FooterComponent from "../components/HomeComponent/FooterComponent";
+import API_BASE_URL from "../components/API_BASE_URL";
 
 const Feedback: React.FC = () => {
   const [partners, setPartners] = useState<{ id: number; name: string }[]>([]);
@@ -19,7 +20,7 @@ const Feedback: React.FC = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/partners");
+        const response = await fetch(`${API_BASE_URL}/api/partners`);
         if (response.ok) {
           const data = await response.json();
           setPartners(data);
@@ -35,7 +36,9 @@ const Feedback: React.FC = () => {
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFeedbackData({ ...feedbackData, [name]: value });
@@ -44,7 +47,7 @@ const Feedback: React.FC = () => {
   const submitFeedback = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/api/feedback", {
+      const response = await fetch(`${API_BASE_URL}/api/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,10 +93,16 @@ const Feedback: React.FC = () => {
             Your thoughts matter to us. Please provide your feedback below.
           </p>
         </div>
-        <form onSubmit={submitFeedback} className="mx-auto mt-16 max-w-xl sm:mt-20">
+        <form
+          onSubmit={submitFeedback}
+          className="mx-auto mt-16 max-w-xl sm:mt-20"
+        >
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="partner_id" className="block text-sm font-semibold leading-6 text-black">
+              <label
+                htmlFor="partner_id"
+                className="block text-sm font-semibold leading-6 text-black"
+              >
                 Partner
               </label>
               <div className="mt-2.5">
@@ -114,7 +123,10 @@ const Feedback: React.FC = () => {
               </div>
             </div>
             <div>
-              <label htmlFor="name" className="block text-sm font-semibold leading-6 text-black">
+              <label
+                htmlFor="name"
+                className="block text-sm font-semibold leading-6 text-black"
+              >
                 Name
               </label>
               <div className="mt-2.5">
@@ -130,7 +142,10 @@ const Feedback: React.FC = () => {
               </div>
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="company" className="block text-sm font-semibold leading-6 text-black">
+              <label
+                htmlFor="company"
+                className="block text-sm font-semibold leading-6 text-black"
+              >
                 Company
               </label>
               <div className="mt-2.5">
@@ -146,7 +161,10 @@ const Feedback: React.FC = () => {
               </div>
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="email" className="block text-sm font-semibold leading-6 text-black">
+              <label
+                htmlFor="email"
+                className="block text-sm font-semibold leading-6 text-black"
+              >
                 Email
               </label>
               <div className="mt-2.5">
@@ -162,7 +180,10 @@ const Feedback: React.FC = () => {
               </div>
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="phone_number" className="block text-sm font-semibold leading-6 text-black">
+              <label
+                htmlFor="phone_number"
+                className="block text-sm font-semibold leading-6 text-black"
+              >
                 Phone Number
               </label>
               <div className="mt-2.5">
@@ -178,7 +199,10 @@ const Feedback: React.FC = () => {
               </div>
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="message" className="block text-sm font-semibold leading-6 text-black">
+              <label
+                htmlFor="message"
+                className="block text-sm font-semibold leading-6 text-black"
+              >
                 Message
               </label>
               <div className="mt-2.5">
@@ -202,8 +226,14 @@ const Feedback: React.FC = () => {
             Submit Feedback
           </button>
         </form>
-        {successMessage && <div className="mt-4 text-center text-green-600">{successMessage}</div>}
-        {errorMessage && <div className="mt-4 text-center text-red-600">{errorMessage}</div>}
+        {successMessage && (
+          <div className="mt-4 text-center text-green-600">
+            {successMessage}
+          </div>
+        )}
+        {errorMessage && (
+          <div className="mt-4 text-center text-red-600">{errorMessage}</div>
+        )}
       </div>
       <FooterComponent />
     </div>

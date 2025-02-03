@@ -7,6 +7,7 @@ import {
   Button,
   TextField,
 } from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminTrainingAddGalleryProps {
   open: boolean;
@@ -33,46 +34,46 @@ const AdminTrainingAddGallery: React.FC<AdminTrainingAddGalleryProps> = ({
   };
 
   const handleSubmit = async () => {
-  const formData = new FormData();
+    const formData = new FormData();
 
-  // Add `_method` to FormData
-  formData.append("_method", "PUT");
+    // Add `_method` to FormData
+    formData.append("_method", "PUT");
 
-  // Add the selected files to FormData
-  addgalleries.forEach((file) => {
-    formData.append("addgalleries[]", file);
-  });
+    // Add the selected files to FormData
+    addgalleries.forEach((file) => {
+      formData.append("addgalleries[]", file);
+    });
 
-  // Log FormData to check its contents
-  for (let [key, value] of formData.entries()) {
-    console.log(key, value);
-  }
-
-  try {
-    const access_token = localStorage.getItem("access_token");
-    const response = await fetch(
-      `http://localhost:8000/api/trainings/${trainingId}/addgallery`,
-      {
-        method: "POST", // Keep as POST since `_method: PUT` is included
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        body: formData,
-      }
-    );
-
-    if (response.ok) {
-      onSubmit(); // Trigger training list refresh
-      onClose(); // Close modal after successful creation
-    } else {
-      const errorData = await response.json();
-      alert(`Error: ${errorData.message}`);
+    // Log FormData to check its contents
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
     }
-  } catch (error) {
-    console.error("Error occurred while creating the training:", error);
-    alert("An error occurred while creating the training.");
-  }
-};
+
+    try {
+      const access_token = localStorage.getItem("access_token");
+      const response = await fetch(
+        `${API_BASE_URL}/api/trainings/${trainingId}/addgallery`,
+        {
+          method: "POST", // Keep as POST since `_method: PUT` is included
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        onSubmit(); // Trigger training list refresh
+        onClose(); // Close modal after successful creation
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error("Error occurred while creating the training:", error);
+      alert("An error occurred while creating the training.");
+    }
+  };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>

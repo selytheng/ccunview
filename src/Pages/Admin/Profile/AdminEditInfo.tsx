@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 const AdminEditInfo = ({ isOpen, onClose, onSave, name, email }) => {
   const [formData, setFormData] = useState({
@@ -15,17 +16,14 @@ const AdminEditInfo = ({ isOpen, onClose, onSave, name, email }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "http://localhost:8000/api/auth/changeinfo",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/api/auth/changeinfo`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         onSave(); // Trigger the save action (reload or callback)

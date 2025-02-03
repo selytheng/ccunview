@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface PartnerDialogProps {
-  partner: { id: string | number; name: string; description?: string; logo?: string } | null;
+  partner: {
+    id: string | number;
+    name: string;
+    description?: string;
+    logo?: string;
+  } | null;
   onClose: () => void;
-  onCreateSuccess: (action: 'create' | 'update') => void;
+  onCreateSuccess: (action: "create" | "update") => void;
 }
 
-const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreateSuccess }) => {
-  const [name, setName] = useState(partner?.name || '');
-  const [description, setDescription] = useState(partner?.description || '');
+const PartnerDialog: React.FC<PartnerDialogProps> = ({
+  partner,
+  onClose,
+  onCreateSuccess,
+}) => {
+  const [name, setName] = useState(partner?.name || "");
+  const [description, setDescription] = useState(partner?.description || "");
   const [logo, setLogo] = useState<File | null>(null);
 
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,22 +29,22 @@ const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreat
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const access_token = localStorage.getItem('access_token');
+    const access_token = localStorage.getItem("access_token");
     const url = partner
-      ? `http://localhost:8000/api/partners/${partner.id}`
-      : `http://localhost:8000/api/partners`; 
+      ? `${API_BASE_URL}/api/partners/${partner.id}`
+      : `${API_BASE_URL}/api/partners`;
 
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('description', description);
-    if (logo) formData.append('logo', logo);
+    formData.append("name", name);
+    formData.append("description", description);
+    if (logo) formData.append("logo", logo);
 
     if (partner) {
-      formData.append('_method', 'PUT');
+      formData.append("_method", "PUT");
     }
 
     const response = await fetch(url, {
-      method: 'POST', 
+      method: "POST",
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
@@ -42,45 +52,76 @@ const PartnerDialog: React.FC<PartnerDialogProps> = ({ partner, onClose, onCreat
     });
 
     if (response.ok) {
-      onCreateSuccess(partner ? 'update' : 'create');
+      onCreateSuccess(partner ? "update" : "create");
       onClose();
     } else {
-      alert('Failed to create or update partner');
+      alert("Failed to create or update partner");
     }
   };
 
   useEffect(() => {
     if (partner) {
       setName(partner.name);
-      setDescription(partner.description || '');
+      setDescription(partner.description || "");
     }
   }, [partner]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white rounded-lg shadow-lg p-6 w-1/3">
-        <h2 className="text-xl font-bold mb-4">{partner ? 'Edit Partner' : 'Create Partner'}</h2>
+        <h2 className="text-xl font-bold mb-4">
+          {partner ? "Edit Partner" : "Create Partner"}
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">Name</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full border rounded px-3 py-2" required/>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full border rounded px-3 py-2"
+              required
+            />
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">Description</label>
-            <textarea value={description} onChange={(e) => setDescription(e.target.value)}  className="w-full border rounded px-3 py-2" required />
+            <label className="block text-gray-700 font-bold mb-2">
+              Description
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full border rounded px-3 py-2"
+              required
+            />
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">Logo</label>
-            <input type="file" accept="image/*" onChange={handleLogoChange} className="w-full border rounded px-3 py-2"/>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleLogoChange}
+              className="w-full border rounded px-3 py-2"
+            />
           </div>
 
           <div className="flex justify-end">
-            <button type="button" onClick={onClose} className="mr-2 px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded" > Cancel</button>
-            <button type="submit" className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded">Save</button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="mr-2 px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded"
+            >
+              {" "}
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded"
+            >
+              Save
+            </button>
           </div>
-
         </form>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { MapPin, LocateFixed } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
   // Initialize formData with default values for null fields
@@ -13,7 +14,7 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
     address: contact?.address || "",
     website: contact?.website || "",
     moodle_link: contact?.moodle_link || "",
-    partner_id: contact?.partner_id
+    partner_id: contact?.partner_id,
   });
 
   const [showMapModal, setShowMapModal] = useState(false);
@@ -49,7 +50,7 @@ const AdminEditContact = ({ isOpen, onClose, contact, onSave }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:8000/api/contacts/partner/${formData.partner_id}`,
+        `${API_BASE_URL}/api/contacts/partner/${formData.partner_id}`,
         {
           method: "PUT",
           headers: {

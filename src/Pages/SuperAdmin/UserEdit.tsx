@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API_BASE_URL from "../../components/API_BASE_URL";
 
 const UserEdit = ({ user, partners, closeModal, updateUser }) => {
   const [formData, setFormData] = useState({
@@ -25,17 +26,14 @@ const UserEdit = ({ user, partners, closeModal, updateUser }) => {
         bodyData.password_confirmation = formData.password_confirmation;
       }
 
-      const response = await fetch(
-        `http://localhost:8000/api/auth/${user.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`,
-          },
-          body: JSON.stringify(bodyData),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/api/auth/${user.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+        body: JSON.stringify(bodyData),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to edit user");

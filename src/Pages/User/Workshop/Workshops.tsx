@@ -12,6 +12,7 @@ import { BiArchive } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../../components/Navbar.tsx";
 import FooterComponent from "../../../components/HomeComponent/FooterComponent.tsx";
+import API_BASE_URL from "../../../components/API_BASE_URL.tsx";
 
 const Workshop = () => {
   const [workshops, setWorkshops] = useState<any[]>([]);
@@ -25,7 +26,7 @@ const Workshop = () => {
   const fetchWorkshops = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/workshops`, // Update the endpoint to fetch workshops
+        `${API_BASE_URL}/api/workshops`, // Update the endpoint to fetch workshops
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -126,7 +127,7 @@ const Workshop = () => {
                     {workshop.image && (
                       <CardMedia
                         sx={{ height: 170 }}
-                        image={`http://localhost:8000/${workshop.image}`}
+                        image={`${API_BASE_URL}/${workshop.image}`}
                         title={workshop.title}
                       />
                     )}

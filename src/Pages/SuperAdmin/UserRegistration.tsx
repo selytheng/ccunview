@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import API_BASE_URL from "../../components/API_BASE_URL";
 
 const UserRegistration = ({ closeModal }) => {
   const [partners, setPartners] = useState([]);
@@ -14,7 +15,7 @@ const UserRegistration = ({ closeModal }) => {
     const fetchPartners = async () => {
       const access_token = localStorage.getItem("access_token");
       try {
-        const response = await fetch("http://localhost:8000/api/partners", {
+        const response = await fetch(`${API_BASE_URL}/api/partners`, {
           headers: { Authorization: `Bearer ${access_token}` },
         });
         if (!response.ok) {
@@ -38,7 +39,7 @@ const UserRegistration = ({ closeModal }) => {
     e.preventDefault();
     const access_token = localStorage.getItem("access_token");
     try {
-      const response = await fetch("http://localhost:8000/api/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

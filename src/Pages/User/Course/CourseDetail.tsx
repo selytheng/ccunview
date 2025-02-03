@@ -4,6 +4,7 @@ import '../../../assets/css/admin.css';
 import { CircularProgress, Box, Card, CardContent, Typography, CardMedia } from '@mui/material';
 import { BiBookOpen, BiSolidMapPin, BiLibrary } from 'react-icons/bi';
 import Navbar from "../../../components/Navbar.tsx";
+import API_BASE_URL from "../../../components/API_BASE_URL.tsx";
 
 const CourseDetailUser: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -18,7 +19,7 @@ const CourseDetailUser: React.FC = () => {
         const fetchData = async () => {
             try {
                 const access_token = localStorage.getItem('access_token');
-                const courseResponse = await fetch(`http://localhost:8000/api/courses/${id}`, {
+                const courseResponse = await fetch(`${API_BASE_URL}/api/courses/${id}`, {
                     headers: { Authorization: `Bearer ${access_token}` },
                 });
 
@@ -27,13 +28,13 @@ const CourseDetailUser: React.FC = () => {
                 }
                 const courseData = await courseResponse.json();
 
-                const partnerResponse = await fetch(`http://localhost:8000/api/partners/${courseData.partner_id}`);
+                const partnerResponse = await fetch(`${API_BASE_URL}/api/partners/${courseData.partner_id}`);
                 if (!partnerResponse.ok) {
                     throw new Error('Failed to fetch partner');
                 }
                 const partnerData = await partnerResponse.json();
 
-                const majorResponse = await fetch(`http://localhost:8000/api/majors/${courseData.major_id}`);
+                const majorResponse = await fetch(`${API_BASE_URL}/api/majors/${courseData.major_id}`);
                 if (!majorResponse.ok) {
                     throw new Error('Failed to fetch major');
                 }
@@ -183,7 +184,7 @@ const CourseDetailUser: React.FC = () => {
                             <CardMedia
                                 component="img"
                                 height="140"
-                                image={`http://localhost:8000/${course.image}`}
+                                image={`${API_BASE_URL}/${course.image}`}
                                 alt={course.name}
                                 style={{ width: 500, height: 350 }}
                             />

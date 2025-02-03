@@ -8,6 +8,7 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminEventEditProps {
   open: boolean;
@@ -51,16 +52,13 @@ const AdminEventEdit: React.FC<AdminEventEditProps> = ({
 
     try {
       const access_token = localStorage.getItem("access_token");
-      const response = await fetch(
-        `http://localhost:8000/api/events/${eventId}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/api/events/${eventId}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        body: formData,
+      });
 
       if (response.ok) {
         onSubmit();

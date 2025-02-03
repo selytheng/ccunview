@@ -1,27 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { Dialog, DialogActions, DialogTitle, Button, Grid, Box } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Button,
+  Grid,
+  Box,
+} from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminWorkshopDeleteGalleryProps {
   open: boolean;
   onClose: () => void;
   onSubmit: () => void;
-  workshopId: string; 
+  workshopId: string;
 }
 
 const AdminWorkshopDeleteGallery: React.FC<AdminWorkshopDeleteGalleryProps> = ({
-  open, onClose, workshopId, onSubmit,
+  open,
+  onClose,
+  workshopId,
+  onSubmit,
 }) => {
   const [gallery, setGallery] = useState<string[]>([]);
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
 
   useEffect(() => {
     if (workshopId) {
-      const accessToken = localStorage.getItem("access_token"); 
+      const accessToken = localStorage.getItem("access_token");
       if (accessToken) {
-        fetch(`http://localhost:8000/api/workshops/${workshopId}`, {
+        fetch(`${API_BASE_URL}/api/workshops/${workshopId}`, {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${accessToken}`, 
+            Authorization: `Bearer ${accessToken}`,
           },
         })
           .then((response) => response.json())
@@ -40,9 +51,9 @@ const AdminWorkshopDeleteGallery: React.FC<AdminWorkshopDeleteGalleryProps> = ({
   const handleSelectImage = (index: number) => {
     setSelectedIndices((prevSelectedIndices) => {
       if (prevSelectedIndices.includes(index)) {
-        return prevSelectedIndices.filter((i) => i !== index); 
+        return prevSelectedIndices.filter((i) => i !== index);
       } else {
-        return [...prevSelectedIndices, index]; 
+        return [...prevSelectedIndices, index];
       }
     });
   };
@@ -50,22 +61,22 @@ const AdminWorkshopDeleteGallery: React.FC<AdminWorkshopDeleteGalleryProps> = ({
   const handleDelete = () => {
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
-      fetch(`http://localhost:8000/api/workshops/${workshopId}/deletegallery`, {
+      fetch(`${API_BASE_URL}/api/workshops/${workshopId}/deletegallery`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`, 
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          removegalleryindex: selectedIndices, 
-          _method: "PUT", 
+          removegalleryindex: selectedIndices,
+          _method: "PUT",
         }),
       })
         .then((response) => response.json())
         .then(() => {
           fetchGallery();
-          onSubmit(); 
-          onClose(); 
+          onSubmit();
+          onClose();
         })
         .catch((error) => {
           console.error("Error deleting selected images:", error);
@@ -76,17 +87,17 @@ const AdminWorkshopDeleteGallery: React.FC<AdminWorkshopDeleteGalleryProps> = ({
   };
 
   const fetchGallery = () => {
-    const accessToken = localStorage.getItem("access_token"); 
+    const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
-      fetch(`http://localhost:8000/api/workshops/${workshopId}`, {
+      fetch(`${API_BASE_URL}/api/workshops/${workshopId}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${accessToken}`, 
+          Authorization: `Bearer ${accessToken}`,
         },
       })
         .then((response) => response.json())
         .then((data) => {
-          setGallery(data.gallery || []); 
+          setGallery(data.gallery || []);
         })
         .catch((error) => {
           console.error("Error fetching updated workshop data:", error);
@@ -117,7 +128,7 @@ const AdminWorkshopDeleteGallery: React.FC<AdminWorkshopDeleteGalleryProps> = ({
                 }}
               >
                 <img
-                  src={`http://localhost:8000/${image}`}
+                  src={`${API_BASE_URL}/${image}`}
                   alt={`Gallery Image ${index}`}
                   style={{
                     width: "100%",
@@ -137,7 +148,7 @@ const AdminWorkshopDeleteGallery: React.FC<AdminWorkshopDeleteGalleryProps> = ({
         <Button
           onClick={() => {
             onClose();
-            fetchGallery(); 
+            fetchGallery();
           }}
           color="primary"
         >

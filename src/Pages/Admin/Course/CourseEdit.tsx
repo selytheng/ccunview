@@ -1,15 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+  MenuItem,
+} from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface CourseEditProps {
   open: boolean;
   onClose: () => void;
   courseId: string;
   courseData: any;
-  onSubmit: () => void; 
+  onSubmit: () => void;
 }
 
-const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, courseData, onSubmit }) => {
+const CourseEdit: React.FC<CourseEditProps> = ({
+  open,
+  onClose,
+  courseId,
+  courseData,
+  onSubmit,
+}) => {
   const [name, setName] = useState(courseData.name);
   const [majorId, setMajorId] = useState(courseData.major_id);
   const [yearId, setYearId] = useState(courseData.year_id);
@@ -21,20 +36,23 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
   useEffect(() => {
     const fetchMajors = async () => {
       try {
-        const access_token = localStorage.getItem('access_token');
-        const partnerId = localStorage.getItem('partner_id');
-        const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/majors`, {
-          headers: { Authorization: `Bearer ${access_token}` },
-        });
+        const access_token = localStorage.getItem("access_token");
+        const partnerId = localStorage.getItem("partner_id");
+        const response = await fetch(
+          `${API_BASE_URL}/api/partners/${partnerId}/majors`,
+          {
+            headers: { Authorization: `Bearer ${access_token}` },
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch majors');
+          throw new Error("Failed to fetch majors");
         }
 
         const data = await response.json();
         setMajors(data);
       } catch (error) {
-        console.error('Error fetching majors:', error);
+        console.error("Error fetching majors:", error);
       }
     };
 
@@ -49,39 +67,37 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
 
   const handleSubmit = async () => {
     const formData = new FormData();
-  
-    if (name) formData.append('name', name);
-    if (majorId) formData.append('major_id', majorId.toString());
-    if (yearId) formData.append('year_id', yearId.toString());
-    if (description) formData.append('description', description);
-    if (image) formData.append('image', image);
-    if (link) formData.append('link', link);
-    formData.append('_method', 'PUT');
-  
+
+    if (name) formData.append("name", name);
+    if (majorId) formData.append("major_id", majorId.toString());
+    if (yearId) formData.append("year_id", yearId.toString());
+    if (description) formData.append("description", description);
+    if (image) formData.append("image", image);
+    if (link) formData.append("link", link);
+    formData.append("_method", "PUT");
+
     try {
-      const access_token = localStorage.getItem('access_token');
-      const response = await fetch(`http://localhost:8000/api/courses/${courseId}`, {
-        method: 'POST',
+      const access_token = localStorage.getItem("access_token");
+      const response = await fetch(`${API_BASE_URL}/api/courses/${courseId}`, {
+        method: "POST",
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
         body: formData,
       });
-  
+
       if (response.ok) {
-        onSubmit();  
+        onSubmit();
         onClose();
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
       }
     } catch (error) {
-      console.error('Error occurred while updating the course:', error);
-      alert('An error occurred while updating the course.');
+      console.error("Error occurred while updating the course:", error);
+      alert("An error occurred while updating the course.");
     }
   };
-  
-
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -94,7 +110,8 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
           onChange={(e) => setName(e.target.value)}
           margin="dense"
         />
-        <TextField required
+        <TextField
+          required
           fullWidth
           select
           label="Major"
@@ -140,7 +157,8 @@ const CourseEdit: React.FC<CourseEditProps> = ({ open, onClose, courseId, course
             shrink: true,
           }}
         />
-        <TextField required
+        <TextField
+          required
           fullWidth
           label="Link"
           value={link}

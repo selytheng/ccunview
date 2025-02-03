@@ -5,6 +5,7 @@ import AdminEditInfo from "./AdminEditInfo";
 import AdminEditPassword from "./AdminEditPassword";
 import AdminEditContact from "./AdminEditContact";
 import { Link, useNavigate } from "react-router-dom";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 const AdminProfile = () => {
   const [profile, setProfile] = useState(null);
@@ -19,7 +20,7 @@ const AdminProfile = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/auth/me", {
+        const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -38,14 +39,11 @@ const AdminProfile = () => {
         const data = await response.json();
         setProfile(data);
 
-        const partnerResponse = await fetch(
-          "http://localhost:8000/api/partners",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-          }
-        );
+        const partnerResponse = await fetch(`${API_BASE_URL}/api/partners`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
         const partnersData = await partnerResponse.json();
         const partner = partnersData.find(
           (partner) => partner.id === data.partner_id
@@ -59,7 +57,7 @@ const AdminProfile = () => {
         }
 
         const contactResponse = await fetch(
-          `http://localhost:8000/api/contacts/partner/${data.partner_id}`,
+          `${API_BASE_URL}/api/contacts/partner/${data.partner_id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -78,7 +76,7 @@ const AdminProfile = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/auth/logout", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,8 +97,9 @@ const AdminProfile = () => {
 
   // Helper function to render contact list items
   const renderContactList = (items) => {
-    if (!items) return <li className="text-gray-500">No information available</li>;
-    if (typeof items === 'string') return <li>{items}</li>;
+    if (!items)
+      return <li className="text-gray-500">No information available</li>;
+    if (typeof items === "string") return <li>{items}</li>;
     if (Array.isArray(items) && items.length > 0) {
       return items.map((item, index) => <li key={index}>{item}</li>);
     }
@@ -203,7 +202,9 @@ const AdminProfile = () => {
                   <p>
                     <strong>Address:</strong>{" "}
                     {contactInfo?.address || (
-                      <span className="text-gray-500">No address available</span>
+                      <span className="text-gray-500">
+                        No address available
+                      </span>
                     )}
                   </p>
                   <p>
@@ -218,7 +219,9 @@ const AdminProfile = () => {
                         {contactInfo.website}
                       </a>
                     ) : (
-                      <span className="text-gray-500">No website available</span>
+                      <span className="text-gray-500">
+                        No website available
+                      </span>
                     )}
                   </p>
                   <p>
@@ -233,7 +236,9 @@ const AdminProfile = () => {
                         {contactInfo.moodle_link}
                       </a>
                     ) : (
-                      <span className="text-gray-500">No Moodle link available</span>
+                      <span className="text-gray-500">
+                        No Moodle link available
+                      </span>
                     )}
                   </p>
                 </div>

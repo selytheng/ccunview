@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+  MenuItem,
+} from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminWorkshopEditProps {
   open: boolean;
@@ -10,10 +19,16 @@ interface AdminWorkshopEditProps {
 }
 
 const AdminWorkshopEdit: React.FC<AdminWorkshopEditProps> = ({
-  open, onClose, workshopId, workshopData, onSubmit,
+  open,
+  onClose,
+  workshopId,
+  workshopData,
+  onSubmit,
 }) => {
   const [title, setTitle] = useState(workshopData.title || "");
-  const [description, setDescription] = useState(workshopData.description || "");
+  const [description, setDescription] = useState(
+    workshopData.description || ""
+  );
   const [location, setLocation] = useState(workshopData.location || "");
   const [status, setStatus] = useState(workshopData.status || "");
   const [startDate, setStartDate] = useState(workshopData.start_date || "");
@@ -41,7 +56,7 @@ const AdminWorkshopEdit: React.FC<AdminWorkshopEditProps> = ({
     try {
       const access_token = localStorage.getItem("access_token");
       const response = await fetch(
-        `http://localhost:8000/api/workshops/${workshopId}`,
+        `${API_BASE_URL}/api/workshops/${workshopId}`,
         {
           method: "POST", // POST because we're updating with PUT via _method
           headers: {

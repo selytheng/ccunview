@@ -8,6 +8,7 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminEventAddProps {
   open: boolean;
@@ -64,7 +65,7 @@ const AdminEventAdd: React.FC<AdminEventAddProps> = ({
 
     try {
       const access_token = localStorage.getItem("access_token");
-      const response = await fetch("http://localhost:8000/api/events", {
+      const response = await fetch(`${API_BASE_URL}/api/events`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -84,7 +85,6 @@ const AdminEventAdd: React.FC<AdminEventAddProps> = ({
       alert("An error occurred while creating the event.");
     }
   };
-
 
   return (
     <Dialog open={open} onClose={onClose}>

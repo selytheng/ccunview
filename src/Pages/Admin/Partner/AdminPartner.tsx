@@ -1,26 +1,34 @@
-import { useState, useEffect } from 'react';
-import { Button, Alert, Dialog, DialogActions, DialogTitle, Typography } from '@mui/material';
-import PartnerTable from './PartnerTable';
-import PartnerDialog from './PartnerDialog';
-import { BiSearch } from 'react-icons/bi';
-import { AddOutlined } from '@mui/icons-material';
-import '../../Admin/TotalCard';
-import '../../../types/interface';
-import { Partner } from '../../../types/interface';
-import NavbarHomePage from '../../../components/Navbar_HomePage';
-import Sidebar from '../../../components/Sidebar';
+import { useState, useEffect } from "react";
+import {
+  Button,
+  Alert,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
+import PartnerTable from "./PartnerTable";
+import PartnerDialog from "./PartnerDialog";
+import { BiSearch } from "react-icons/bi";
+import { AddOutlined } from "@mui/icons-material";
+import "../../Admin/TotalCard";
+import "../../../types/interface";
+import { Partner } from "../../../types/interface";
+import NavbarHomePage from "../../../components/Navbar_HomePage";
+import Sidebar from "../../../components/Sidebar";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 const AdminPartner = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const fetchPartners = async () => {
-    const access_token = localStorage.getItem('access_token');
-    const response = await fetch('http://localhost:8000/api/partners', {
+    const access_token = localStorage.getItem("access_token");
+    const response = await fetch(`${API_BASE_URL}/api/partners`, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const data = await response.json();
@@ -38,13 +46,13 @@ const AdminPartner = () => {
     fetchPartners();
   };
 
-  const handlePartnerCreationSuccess = (action: 'create' | 'update') => {
-    if (action === 'create') {
-      setSuccessMessage('Partner created successfully!');
-    } else if (action === 'update') {
-      setSuccessMessage('Partner updated successfully!');
+  const handlePartnerCreationSuccess = (action: "create" | "update") => {
+    if (action === "create") {
+      setSuccessMessage("Partner created successfully!");
+    } else if (action === "update") {
+      setSuccessMessage("Partner updated successfully!");
     }
-    setTimeout(() => setSuccessMessage(''), 3000);
+    setTimeout(() => setSuccessMessage(""), 3000);
   };
 
   const handleDeleteClick = (partner: Partner) => {
@@ -53,23 +61,26 @@ const AdminPartner = () => {
   };
 
   const handleDeleteConfirm = async () => {
-    const access_token = localStorage.getItem('access_token');
+    const access_token = localStorage.getItem("access_token");
     const partnerId = selectedPartner?.id;
 
     if (partnerId) {
-      const response = await fetch(`http://localhost:8000/api/partners/${partnerId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/api/partners/${partnerId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
 
       if (response.ok) {
-        setSuccessMessage('Partner deleted successfully!');
-        setTimeout(() => setSuccessMessage(''), 3000);
+        setSuccessMessage("Partner deleted successfully!");
+        setTimeout(() => setSuccessMessage(""), 3000);
         fetchPartners();
       } else {
-        alert('Failed to delete partner');
+        alert("Failed to delete partner");
       }
     }
 
@@ -84,9 +95,10 @@ const AdminPartner = () => {
     fetchPartners();
   }, []);
 
-  const filteredPartners = partners.filter(partner =>
-    partner.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    partner.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredPartners = partners.filter(
+    (partner) =>
+      partner.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      partner.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -94,20 +106,41 @@ const AdminPartner = () => {
       <NavbarHomePage />
       <div className="dashboard">
         <Sidebar />
-        <div className="dashboard-content" style={{padding: '5px 0 0 5px', backgroundColor: '#F8FAFC'}}>
-          <div className="course-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Partners</h1>
-            <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant="h6" sx={{ marginLeft: '15px', fontSize: '16px', color: '#526d82' }}>
+        <div
+          className="dashboard-content"
+          style={{ padding: "5px 0 0 5px", backgroundColor: "#F8FAFC" }}
+        >
+          <div
+            className="course-header"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <h1 style={{ fontWeight: "bold", fontSize: 20, color: "#526d82" }}>
+              Partners
+            </h1>
+            <div
+              className="header-activity"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ marginLeft: "15px", fontSize: "16px", color: "#526d82" }}
+              >
                 Total Partners: {filteredPartners.length}
               </Typography>
-              <div className="search-box" style={{ display: 'flex', alignItems: 'center' }}>
+              <div
+                className="search-box"
+                style={{ display: "flex", alignItems: "center" }}
+              >
                 <input
                   type="text"
                   placeholder="Search anything here...."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{ marginRight: '10px' }}
+                  style={{ marginRight: "10px" }}
                 />
                 <BiSearch className="icon" />
               </div>
@@ -143,7 +176,11 @@ const AdminPartner = () => {
           <Button onClick={handleDeleteCancel} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleDeleteConfirm} color="primary" variant="contained">
+          <Button
+            onClick={handleDeleteConfirm}
+            color="primary"
+            variant="contained"
+          >
             Delete
           </Button>
         </DialogActions>

@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import ContentHeader from "../Admin/ContentHeader";
 import UserRegistration from "./UserRegistration";
 import UserEdit from "./UserEdit";
+import API_BASE_URL from "../../components/API_BASE_URL";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -16,7 +17,7 @@ const Users = () => {
     const fetchUsers = async () => {
       const access_token = localStorage.getItem("access_token");
       try {
-        const response = await fetch("http://localhost:8000/api/auth/allUser", {
+        const response = await fetch(`${API_BASE_URL}/api/auth/allUser`, {
           method: "POST",
           headers: { Authorization: `Bearer ${access_token}` },
         });
@@ -33,7 +34,7 @@ const Users = () => {
     const fetchPartners = async () => {
       const access_token = localStorage.getItem("access_token");
       try {
-        const response = await fetch("http://localhost:8000/api/partners", {
+        const response = await fetch(`${API_BASE_URL}/api/partners`, {
           headers: { Authorization: `Bearer ${access_token}` },
         });
         if (!response.ok) {
@@ -59,7 +60,7 @@ const Users = () => {
     const access_token = localStorage.getItem("access_token");
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        const response = await fetch(`http://localhost:8000/api/auth/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/auth/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${access_token}` },
         });

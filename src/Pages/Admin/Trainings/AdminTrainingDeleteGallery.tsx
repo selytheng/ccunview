@@ -7,6 +7,7 @@ import {
   Grid,
   Box,
 } from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminTrainingEditGalleryProps {
   open: boolean;
@@ -29,7 +30,7 @@ const AdminTrainingDeleteGallery: React.FC<AdminTrainingEditGalleryProps> = ({
     if (trainingId) {
       const accessToken = localStorage.getItem("access_token"); // Retrieve the token from local storage
       if (accessToken) {
-        fetch(`http://localhost:8000/api/trainings/${trainingId}`, {
+        fetch(`${API_BASE_URL}/api/trainings/${trainingId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${accessToken}`, // Include the token in the headers
@@ -63,7 +64,7 @@ const AdminTrainingDeleteGallery: React.FC<AdminTrainingEditGalleryProps> = ({
   const handleDelete = () => {
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
-      fetch(`http://localhost:8000/api/trainings/${trainingId}/deletegallery`, {
+      fetch(`${API_BASE_URL}/api/trainings/${trainingId}/deletegallery`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +94,7 @@ const AdminTrainingDeleteGallery: React.FC<AdminTrainingEditGalleryProps> = ({
   const fetchGallery = () => {
     const accessToken = localStorage.getItem("access_token"); // Retrieve the token from local storage
     if (accessToken) {
-      fetch(`http://localhost:8000/api/trainings/${trainingId}`, {
+      fetch(`${API_BASE_URL}/api/trainings/${trainingId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`, // Include the token in the headers
@@ -132,7 +133,7 @@ const AdminTrainingDeleteGallery: React.FC<AdminTrainingEditGalleryProps> = ({
                 }}
               >
                 <img
-                  src={`http://localhost:8000/${image}`}
+                  src={`${API_BASE_URL}/${image}`}
                   alt={`Gallery Image ${index}`}
                   style={{
                     width: "100%",

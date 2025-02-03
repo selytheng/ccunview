@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminEditPasswordProps {
   isOpen: boolean;
@@ -21,17 +22,14 @@ const AdminEditPassword: React.FC<AdminEditPasswordProps> = ({
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8000/api/auth/changepassword",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/api/auth/changepassword`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         alert("Password updated successfully");

@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+} from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminWorkshopAddGalleryProps {
   open: boolean;
@@ -9,7 +17,10 @@ interface AdminWorkshopAddGalleryProps {
 }
 
 const AdminWorkshopAddGallery: React.FC<AdminWorkshopAddGalleryProps> = ({
-  open, onClose, workshopId, onSubmit,
+  open,
+  onClose,
+  workshopId,
+  onSubmit,
 }) => {
   const [addGalleries, setAddGalleries] = useState<File[]>([]);
 
@@ -37,9 +48,9 @@ const AdminWorkshopAddGallery: React.FC<AdminWorkshopAddGalleryProps> = ({
     try {
       const access_token = localStorage.getItem("access_token");
       const response = await fetch(
-        `http://localhost:8000/api/workshops/${workshopId}/addgallery`,
+        `${API_BASE_URL}/api/workshops/${workshopId}/addgallery`,
         {
-          method: "POST", 
+          method: "POST",
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
@@ -48,8 +59,8 @@ const AdminWorkshopAddGallery: React.FC<AdminWorkshopAddGalleryProps> = ({
       );
 
       if (response.ok) {
-        onSubmit(); 
-        onClose(); 
+        onSubmit();
+        onClose();
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);

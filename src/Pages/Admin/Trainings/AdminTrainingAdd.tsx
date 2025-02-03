@@ -8,11 +8,12 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminTrainingAddProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: () => void; 
+  onSubmit: () => void;
 }
 
 const AdminTrainingAdd: React.FC<AdminTrainingAddProps> = ({
@@ -64,7 +65,7 @@ const AdminTrainingAdd: React.FC<AdminTrainingAddProps> = ({
 
     try {
       const access_token = localStorage.getItem("access_token");
-      const response = await fetch("http://localhost:8000/api/trainings", {
+      const response = await fetch(`${API_BASE_URL}/api/trainings`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -73,8 +74,8 @@ const AdminTrainingAdd: React.FC<AdminTrainingAddProps> = ({
       });
 
       if (response.ok) {
-        onSubmit(); 
-        onClose(); 
+        onSubmit();
+        onClose();
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);

@@ -14,6 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../assets/css/content.css";
+import API_BASE_URL from "../API_BASE_URL";
 
 const Course = () => {
   const [courses, setCourses] = useState([]);
@@ -28,9 +29,7 @@ const Course = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/courses/all"
-        );
+        const response = await axios.get(`${API_BASE_URL}/api/courses/all`);
         setCourses(response.data);
         setFilteredCourses(response.data);
       } catch (error) {
@@ -43,7 +42,7 @@ const Course = () => {
 
     const fetchPartners = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/partners");
+        const response = await axios.get(`${API_BASE_URL}/api/partners`);
         setPartners(response.data);
       } catch (error) {
         console.error("Error fetching partners:", error);
@@ -57,7 +56,7 @@ const Course = () => {
   useEffect(() => {
     if (partnerId) {
       axios
-        .get(`http://localhost:8000/api/partners/${partnerId}/majors`)
+        .get(`${API_BASE_URL}/api/partners/${partnerId}/majors`)
         .then((response) => setMajors(response.data))
         .catch((error) => console.error("Error fetching majors:", error));
     } else {
@@ -171,7 +170,7 @@ const Course = () => {
                             {course.image && (
                               <CardMedia
                                 sx={{ height: 170 }}
-                                image={`http://localhost:8000/${course.image}`}
+                                image={`${API_BASE_URL}/${course.image}`}
                                 title={course.name}
                               />
                             )}

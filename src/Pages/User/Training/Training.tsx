@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import AdminTrainingAdd from "../../Admin/Trainings/AdminTrainingAdd.tsx";
 import Navbar from "../../../components/Navbar.tsx";
 import FooterComponent from "../../../components/HomeComponent/FooterComponent.tsx";
+import API_BASE_URL from "../../../components/API_BASE_URL.tsx";
 
 const Training = () => {
   const [trainings, setTrainings] = useState<any[]>([]);
@@ -26,7 +27,7 @@ const Training = () => {
 
   const fetchTrainings = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/trainings`, {
+      const response = await fetch(`${API_BASE_URL}/api/trainings`, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
@@ -138,7 +139,7 @@ const Training = () => {
                     {training.image && (
                       <CardMedia
                         sx={{ height: 170 }}
-                        image={`http://localhost:8000/${training.image}`}
+                        image={`${API_BASE_URL}/${training.image}`}
                         title={training.title}
                       />
                     )}

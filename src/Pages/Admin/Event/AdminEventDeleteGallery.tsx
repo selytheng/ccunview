@@ -7,6 +7,7 @@ import {
   Grid,
   Box,
 } from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminEventEditGalleryProps {
   open: boolean;
@@ -29,7 +30,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
     if (eventId) {
       const accessToken = localStorage.getItem("access_token"); // Retrieve the token from local storage
       if (accessToken) {
-        fetch(`http://localhost:8000/api/events/${eventId}`, {
+        fetch(`${API_BASE_URL}/api/events/${eventId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${accessToken}`, // Include the token in the headers
@@ -63,7 +64,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
   const handleDelete = () => {
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
-      fetch(`http://localhost:8000/api/events/${eventId}/deletegallery`, {
+      fetch(`${API_BASE_URL}/api/events/${eventId}/deletegallery`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +94,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
   const fetchGallery = () => {
     const accessToken = localStorage.getItem("access_token"); // Retrieve the token from local storage
     if (accessToken) {
-      fetch(`http://localhost:8000/api/events/${eventId}`, {
+      fetch(`${API_BASE_URL}/api/events/${eventId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`, // Include the token in the headers
@@ -132,7 +133,7 @@ const AdminEventDeleteGallery: React.FC<AdminEventEditGalleryProps> = ({
                 }}
               >
                 <img
-                  src={`http://localhost:8000/${image}`}
+                  src={`${API_BASE_URL}/${image}`}
                   alt={`Gallery Image ${index}`}
                   style={{
                     width: "100%",

@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+  MenuItem,
+} from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface AdminWorkshopAddProps {
   open: boolean;
@@ -8,7 +17,9 @@ interface AdminWorkshopAddProps {
 }
 
 const AdminWorkshopAdd: React.FC<AdminWorkshopAddProps> = ({
-  open, onClose, onSubmit,
+  open,
+  onClose,
+  onSubmit,
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -53,7 +64,7 @@ const AdminWorkshopAdd: React.FC<AdminWorkshopAddProps> = ({
 
     try {
       const access_token = localStorage.getItem("access_token");
-      const response = await fetch("http://localhost:8000/api/workshops", {
+      const response = await fetch(`${API_BASE_URL}/api/workshops`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -62,8 +73,8 @@ const AdminWorkshopAdd: React.FC<AdminWorkshopAddProps> = ({
       });
 
       if (response.ok) {
-        onSubmit(); 
-        onClose(); 
+        onSubmit();
+        onClose();
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
@@ -78,14 +89,54 @@ const AdminWorkshopAdd: React.FC<AdminWorkshopAddProps> = ({
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create New Workshop</DialogTitle>
       <DialogContent>
-        <TextField required fullWidth label="Workshop Title" value={title} onChange={(e) => setTitle(e.target.value)} margin="dense" />
-        <TextField required fullWidth label="Description" value={description} onChange={(e) => setDescription(e.target.value)} margin="dense" multiline rows={4} />
-        <TextField required fullWidth label="Location" value={location} onChange={(e) => setLocation(e.target.value)} margin="dense" />
-        <TextField required fullWidth label="Status" select value={status} onChange={(e) => setStatus(e.target.value)} margin="dense">
+        <TextField
+          required
+          fullWidth
+          label="Workshop Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          margin="dense"
+        />
+        <TextField
+          required
+          fullWidth
+          label="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          margin="dense"
+          multiline
+          rows={4}
+        />
+        <TextField
+          required
+          fullWidth
+          label="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          margin="dense"
+        />
+        <TextField
+          required
+          fullWidth
+          label="Status"
+          select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          margin="dense"
+        >
           <MenuItem value="active">Active</MenuItem>
           <MenuItem value="inactive">Inactive</MenuItem>
         </TextField>
-        <TextField required fullWidth type="datetime-local" label="Start Date" value={startDate} onChange={(e) => setStartDate(e.target.value)} margin="dense" InputLabelProps={{ shrink: true, }} />
+        <TextField
+          required
+          fullWidth
+          type="datetime-local"
+          label="Start Date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          margin="dense"
+          InputLabelProps={{ shrink: true }}
+        />
         <TextField
           required
           fullWidth

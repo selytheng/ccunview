@@ -4,6 +4,7 @@ import backgroundImage from "../assets/images/background.png";
 import Navbar from "../components/Navbar.tsx";
 import { IoArrowBack, IoEye, IoEyeOff } from "react-icons/io5"; // Import eye icons
 import { Link } from "react-router-dom";
+import API_BASE_URL from "../components/API_BASE_URL.tsx";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,16 +21,13 @@ const Login = () => {
     setSuccessMessage("");
 
     try {
-      const loginResponse = await fetch(
-          "http://localhost:8000/api/auth/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-          }
-      );
+      const loginResponse = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       const loginData = await loginResponse.json();
 
@@ -42,13 +40,13 @@ const Login = () => {
         // Fetch partner name using partner_id
         if (partner_id) {
           const partnerResponse = await fetch(
-              `http://localhost:8000/api/partners/${partner_id}`,
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
+            `${API_BASE_URL}/api/partners/${partner_id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
           );
 
           if (partnerResponse.ok) {
@@ -79,98 +77,99 @@ const Login = () => {
   };
 
   return (
-      <>
-        <div
-            className="flex min-h-screen flex-1 flex-col justify-center"
-            style={{
-              backgroundImage: `url(${backgroundImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundColor: "rgba(0, 0, 0, 1)",
-            }}
-        >
-          <Navbar />
-          <div className="flex min-h-full flex-1 flex-col justify-center mb-28 px-6 py-12 lg:px-8">
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
-              <form
-                  action="#"
-                  method="POST"
-                  className="space-y-6"
-                  onSubmit={handleSubmit}
-              >
-                {error && <div className="text-red-500 text-sm">{error}</div>}
-                {successMessage && (
-                    <div className="text-green-500 text-sm">{successMessage}</div>
-                )}
-                <div>
-                  <label
-                      htmlFor="email"
-                      className="block text-sm/6 font-bold text-gray-900"
-                  >
-                    Email
-                  </label>
-                  <div className="mt-2">
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        autoComplete="email"
-                        placeholder="Email"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
+    <>
+      <div
+        className="flex min-h-screen flex-1 flex-col justify-center"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundColor: "rgba(0, 0, 0, 1)",
+        }}
+      >
+        <Navbar />
+        <div className="flex min-h-full flex-1 flex-col justify-center mb-28 px-6 py-12 lg:px-8">
+          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-10 rounded-lg shadow-md bg-white bg-opacity-60">
+            <form
+              action="#"
+              method="POST"
+              className="space-y-6"
+              onSubmit={handleSubmit}
+            >
+              {error && <div className="text-red-500 text-sm">{error}</div>}
+              {successMessage && (
+                <div className="text-green-500 text-sm">{successMessage}</div>
+              )}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm/6 font-bold text-gray-900"
+                >
+                  Email
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    autoComplete="email"
+                    placeholder="Email"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
                 </div>
+              </div>
 
-                <div>
-                  <label
-                      htmlFor="password"
-                      className="block text-sm/6 font-bold text-gray-900"
-                  >
-                    Password
-                  </label>
-                  <div className="mt-2 relative">
-                    <input
-                        id="password"
-                        name="password"
-                        type={showPassword ? "text" : "password"} // Toggle between text and password
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        autoComplete="current-password"
-                        placeholder="Password"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                    <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
-                        className="absolute inset-y-0 right-0 flex items-center pr-3"
-                    >
-                      {showPassword ? <IoEye /> : <IoEyeOff />} {/* Show eye icon based on state */}
-                    </button>
-                  </div>
-                </div>
-                <div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm/6 font-bold text-gray-900"
+                >
+                  Password
+                </label>
+                <div className="mt-2 relative">
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"} // Toggle between text and password
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    autoComplete="current-password"
+                    placeholder="Password"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
                   <button
-                      type="submit"
-                      className="flex w-full justify-center mt-8 rounded-md bg-[#071952] px-3 py-1.5 mb-5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                    className="absolute inset-y-0 right-0 flex items-center pr-3"
                   >
-                    Log in
+                    {showPassword ? <IoEye /> : <IoEyeOff />}{" "}
+                    {/* Show eye icon based on state */}
                   </button>
-                  <Link to="/">
-                    <div className="flex items-center gap-2 mb-10">
-                      <IoArrowBack className="icon" />
-                      <div className="text-xs font-bold">Back home</div>
-                    </div>
-                  </Link>
                 </div>
-              </form>
-            </div>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center mt-8 rounded-md bg-[#071952] px-3 py-1.5 mb-5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Log in
+                </button>
+                <Link to="/">
+                  <div className="flex items-center gap-2 mb-10">
+                    <IoArrowBack className="icon" />
+                    <div className="text-xs font-bold">Back home</div>
+                  </div>
+                </Link>
+              </div>
+            </form>
           </div>
         </div>
-      </>
+      </div>
+    </>
   );
 };
 

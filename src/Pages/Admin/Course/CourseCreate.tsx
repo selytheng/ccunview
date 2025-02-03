@@ -1,5 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+  MenuItem,
+} from "@mui/material";
+import API_BASE_URL from "../../../components/API_BASE_URL";
 
 interface CourseCreateProps {
   open: boolean;
@@ -7,13 +16,17 @@ interface CourseCreateProps {
   onSubmit: () => void; // Callback to refresh the course list
 }
 
-const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) => {
-  const [name, setName] = useState('');
-  const [majorId, setMajorId] = useState('');
-  const [yearId, setYearId] = useState('');
-  const [description, setDescription] = useState('');
+const CourseCreate: React.FC<CourseCreateProps> = ({
+  open,
+  onClose,
+  onSubmit,
+}) => {
+  const [name, setName] = useState("");
+  const [majorId, setMajorId] = useState("");
+  const [yearId, setYearId] = useState("");
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState<File | null>(null);
-  const [link, setLink] = useState('');
+  const [link, setLink] = useState("");
   const [majors, setMajors] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
@@ -24,16 +37,19 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
 
   const fetchMajors = async () => {
     try {
-      const access_token = localStorage.getItem('access_token');
-      const partnerId = localStorage.getItem('partner_id');
-      const response = await fetch(`http://localhost:8000/api/partners/${partnerId}/majors`, {
-        headers: { Authorization: `Bearer ${access_token}` },
-      });
+      const access_token = localStorage.getItem("access_token");
+      const partnerId = localStorage.getItem("partner_id");
+      const response = await fetch(
+        `${API_BASE_URL}/api/partners/${partnerId}/majors`,
+        {
+          headers: { Authorization: `Bearer ${access_token}` },
+        }
+      );
       const data = await response.json();
       setMajors(data);
     } catch (error) {
-      console.error('Error fetching majors:', error);  
-      alert('Failed to fetch majors.');
+      console.error("Error fetching majors:", error);
+      alert("Failed to fetch majors.");
     }
   };
 
@@ -45,17 +61,17 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('major_id', majorId);
-    formData.append('year_id', yearId);
-    formData.append('description', description);
-    formData.append('image', image as File);
-    formData.append('link', link);
+    formData.append("name", name);
+    formData.append("major_id", majorId);
+    formData.append("year_id", yearId);
+    formData.append("description", description);
+    formData.append("image", image as File);
+    formData.append("link", link);
 
     try {
-      const access_token = localStorage.getItem('access_token');
-      const response = await fetch('http://localhost:8000/api/courses', {
-        method: 'POST',
+      const access_token = localStorage.getItem("access_token");
+      const response = await fetch(`${API_BASE_URL}/api/courses`, {
+        method: "POST",
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
@@ -64,14 +80,14 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
 
       if (response.ok) {
         onSubmit(); // Trigger course list refresh
-        onClose();  // Close modal after successful creation
+        onClose(); // Close modal after successful creation
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
       }
     } catch (error) {
-      console.error('Error occurred while creating the course:', error);
-      alert('An error occurred while creating the course.');
+      console.error("Error occurred while creating the course:", error);
+      alert("An error occurred while creating the course.");
     }
   };
 
@@ -79,14 +95,16 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a New Course</DialogTitle>
       <DialogContent>
-        <TextField required
+        <TextField
+          required
           fullWidth
           label="Course Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           margin="dense"
         />
-        <TextField required
+        <TextField
+          required
           fullWidth
           select
           label="Major"
@@ -100,7 +118,8 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
             </MenuItem>
           ))}
         </TextField>
-        <TextField required
+        <TextField
+          required
           fullWidth
           select
           label="Year"
@@ -114,7 +133,8 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
           <MenuItem value="4">Year 4</MenuItem>
           <MenuItem value="5">Year 5</MenuItem>
         </TextField>
-        <TextField required
+        <TextField
+          required
           fullWidth
           label="Description"
           value={description}
@@ -123,7 +143,8 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
           multiline
           rows={4}
         />
-        <TextField required
+        <TextField
+          required
           fullWidth
           type="file"
           margin="dense"
@@ -132,7 +153,8 @@ const CourseCreate: React.FC<CourseCreateProps> = ({ open, onClose, onSubmit }) 
             shrink: true,
           }}
         />
-        <TextField required
+        <TextField
+          required
           fullWidth
           label="Link"
           value={link}
