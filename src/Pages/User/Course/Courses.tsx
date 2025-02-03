@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Navbar from "../components/Navbar.tsx";
-import "../assets/css/content.css";
-import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
+import Navbar from "../../../components/Navbar.tsx";
+import "../../../assets/css/content.css";
+import FooterComponent from "../../../components/HomeComponent/FooterComponent.tsx";
 
 const Course = () => {
   const [courses, setCourses] = useState([]);

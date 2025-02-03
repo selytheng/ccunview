@@ -1,263 +1,124 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import "../../../assets/css/admin.css";
-import { Button, CircularProgress, Box, Card, CardContent, Typography, CardMedia, Dialog, DialogActions, DialogTitle, DialogContent, Chip } from "@mui/material";
-import { BiCalendar, BiSitemap, BiSolidMapPin } from "react-icons/bi";
-import moment from "moment";
-import Navbar from "../../../components/Navbar";
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Card, CardContent, CardMedia, Typography, CircularProgress, Chip } from '@mui/material';
+import { Building2, GraduationCap, Users, Link as LinkIcon } from 'lucide-react';
+import Navbar from '../../../components/Navbar.tsx';
+import FooterComponent from '../../../components/HomeComponent/FooterComponent.tsx';
 
-const MajorDetailUser:React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [major, setMajor] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const MajorDetail = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [major, setMajor] = useState(null);
+    const [partner, setPartner] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  const [openImageModal, setOpenImageModal] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [openAllImagesModal, setOpenAllImagesModal] = useState(false);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const majorResponse = await axios.get(`http://localhost:8000/api/majors/${id}`);
+                setMajor(majorResponse.data);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const access_token = localStorage.getItem("access_token");
-        const majorResponse = await fetch(`http://localhost:8000/api/majors/${id}`, {
-          headers: { Authorization: `Bearer ${access_token}` },
-        });
+                if (majorResponse.data.partner_id) {
+                    const partnerResponse = await axios.get(`http://localhost:8000/api/partners/${majorResponse.data.partner_id}`);
+                    setPartner(partnerResponse.data);
+                }
+            } catch (err) {
+                setError('Failed to fetch details');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        if (!majorResponse.ok) {
-          throw new Error("Failed to fetch major details");
-        }
-        const majorData = await majorResponse.json();
-        setMajor(majorData);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
+        fetchData();
+    }, [id]);
 
-    fetchData();
-  }, [id]);
-
-  const formatMajorDate = (startDate: string, endDate: string) => {
-    const start = moment(startDate);
-    const end = moment(endDate);
-
-    if (start.isSame(end, 'day')) {
-      return `${start.format("MMM Do YYYY, h:mm A")} - ${end.format("h:mm A")}`;
-    } else {
-      return `${start.format("MMM Do YYYY, h:mm A")} - ${end.format("MMM Do YYYY, h:mm A")}`;
-    }
-  };
-
-  const handleImageClick = (index: number) => {
-    setCurrentImageIndex(index);
-    setOpenImageModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenImageModal(false);
-  };
-
-  const handleNextImage = () => {
-    if (currentImageIndex < major.gallery.length - 1) {
-      setCurrentImageIndex(currentImageIndex + 1);
-    }
-  };
-
-  const handlePrevImage = () => {
-    if (currentImageIndex > 0) {
-      setCurrentImageIndex(currentImageIndex - 1);
-    }
-  };
-
-  const handleViewAllImagesClick = () => {
-    setOpenAllImagesModal(true);
-  };
-
-  const handleCloseAllImagesModal = () => {
-    setOpenAllImagesModal(false);
-  };
-
-  const handleAllImageClick = (index: number) => {
-    setCurrentImageIndex(index);
-    setOpenImageModal(true);
-    setOpenAllImagesModal(false);
-  };
-
-  if (loading) {
-    return (
-      <div>
-        <Navbar />
-        <div className="dashboard ">
-          <div className="dashboard-content">
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "400px" }}>
-              <CircularProgress />
-            </Box>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div>
-        <Navbar />
-        <div className="dashboard">
-          <div className="dashboard-content">
-            <p>Error: {error}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Check if major is defined before rendering
-  if (!major) {
-    return (
-      <div>
-        <Navbar />
-        <div className="dashboard">
-          <div className="dashboard-content">
-            <p>No major details available.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <Navbar />
-      <div className="dashboard mt-[110px]">
-        <div className="dashboard-content">
-          <div
-            className="breadcrumb"
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <div style={{ display: "flex", backgroundColor: "" }}>
-              <Link to="/major" style={{ textDecoration: "none", color: "#526d82", fontWeight: "bold", display: "flex" }}>
-                <BiCalendar className="icon" style={{ fontSize: 16, marginTop: 4, marginRight: 3 }} />
-                Majors
-              </Link>{" "}
-              {" /  "}
-              <span> {major.name}</span>
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <CircularProgress />
             </div>
-          </div>
+        );
+    }
 
-          <Card
-            sx={{ display: "flex", justifyContent: "space-between", gap: 3, padding: "0px 0 0 8px" }} >
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <CardContent>
-                <div style={{ display: "flex", gap: 10 }}>
-                  <Typography component="div" variant="h5" style={{ marginBottom: 13 }}>
-                    {major.name}
-                  </Typography>
-                  <Chip
-                    label={major.status}
-                    style={{ fontSize: 14, backgroundColor: "#AAB7B7", marginTop: 3, display: "flex", padding: 2 }} />
+    if (error) {
+        return (
+            <div className="min-h-screen flex items-center justify-center text-red-600">
+                {error}
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="mt-[110px] flex-grow py-16 bg-gray-50">
+                <div className="container mx-auto px-4">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+                            {/* Major Image */}
+                            {major.logo && (
+                                <div className="relative h-64 md:h-80">
+                                    <CardMedia
+                                        component="img"
+                                        className="w-full h-full object-cover"
+                                        image={`http://localhost:8000/${major.logo}`}
+                                        alt={major.name}
+                                    />
+                                </div>
+                            )}
+
+                            <div className="p-6">
+                                {/* Major and Partner Info in Blue Container */}
+                                <div className="mb-8 bg-blue-50 rounded-lg p-6">
+                                    <div className="flex items-center gap-2 text-blue-600 mb-4" >
+                                        <Building2 size={24} />
+                                        <h3 className="font-semibold text-lg">Major Detail</h3>
+                                    </div>
+
+                                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                                        {/* Major and Partner Names */}
+                                        <div className="flex-grow">
+                                            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                                                {major.name}
+                                            </h1>
+                                            {partner && (
+                                                <div className="flex items-center gap-2 text-gray-700 cursor-pointer" onClick={() => navigate(`/user/partner/${major.partner_id}`)}>
+                                                    <Building2 size={20} />
+                                                    <span>{partner.name}</span>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Partner Logo */}
+                                        {partner && partner.logo && (
+                                            <div className="bg-white p-2 rounded-lg shadow-md cursor-pointer" onClick={() => navigate(`/user/partner/${major.partner_id}`)}>
+                                                <img
+                                                    src={`http://localhost:8000/${partner.logo}`}
+                                                    alt={partner.name}
+                                                    className="w-20 h-20 object-contain rounded"
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Description */}
+                                <div className="prose max-w-none">
+                                    <h2 className="text-xl font-bold mb-4">About this Major</h2>
+                                    <div className="text-gray-600 leading-relaxed">
+                                        {major.description}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <Typography
-                  variant="subtitle1"
-                  component="div"
-                  sx={{ color: "text.secondary", marginBottom: 3 }}
-                >
-                  {major.description}
-                </Typography>
-                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
-                  <BiSolidMapPin style={{ marginTop: 3, marginRight: 5 }} />
-                  Location: {major.location}
-                </p>
-                <p
-                  style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181",  display: "flex", }}>
-                  <BiCalendar style={{ marginTop: 3, marginRight: 5 }} />
-                  Date: {formatMajorDate(major.start_date, major.end_date)}
-                </p>
-                <p style={{ marginBottom: 10, fontFamily: "Arial", fontSize: 15, color: "#868181", display: "flex", }}>
-                  <BiSitemap style={{ marginTop: 3, marginRight: 5 }} />Host: {major.partner?.name || "Unknown"}
-                </p>
-              </CardContent>
-            </Box>
-            {major.logo && (
-              <CardMedia component="img" height="140" image={`http://localhost:8000/${major.logo}`} alt={major.name} style={{ width: 500, height: 350 }} />
-            )}
-          </Card>
-
-          <div style={{ display: "flex", justifyContent: "flex-start", marginTop: 20 }} >
-            <Button variant="text" onClick={handleViewAllImagesClick} style={{ color: "#007bff" }}>
-              View All Images
-            </Button>
-          </div>
-
-          {major.gallery && (
-            <div style={{ display: "flex", overflowX: "scroll", padding: "10px 0", marginTop: '-20px' }}>
-              {major.gallery.map((logo: string, index: number) => (
-                <img
-                  key={index}
-                  src={`http://localhost:8000/${logo}`}
-                  alt={`gallery-image-${index}`}
-                  style={{ height: 150, marginRight: 10, cursor: 'pointer' }}
-                  onClick={() => handleImageClick(index)} 
-                />
-              ))}
-            </div>
-          )}
-
-          {/* All Images Modal */}
-          <Dialog open={openAllImagesModal} onClose={handleCloseAllImagesModal} maxWidth="md" fullWidth>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <DialogTitle>All Images</DialogTitle>
-              <DialogActions>
-                <Button onClick={handleCloseAllImagesModal} color="secondary">
-                  Close
-                </Button>
-              </DialogActions>
-            </div>
-            <DialogContent>
-              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
-                {major.gallery.map((image: string, index: number) => (
-                  <img
-                    key={index}
-                    src={`http://localhost:8000/${image}`} // Fixed variable name from logo to image
-                    alt={`gallery-image-${index}`}
-                    style={{ height: 100, margin: 10, cursor: 'pointer' }}
-                    onClick={() => handleAllImageClick(index)} 
-                  />
-                ))}
-              </div>
-            </DialogContent>
-          </Dialog>
-
-          {/* Image Preview Modal */}
-          <Dialog open={openImageModal} onClose={handleCloseModal} maxWidth="md" fullWidth>
-            <DialogTitle>Image Preview</DialogTitle>
-            <DialogContent>
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <img
-                  src={`http://localhost:8000/${major.gallery[currentImageIndex]}`}
-                  alt={`gallery-image-${currentImageIndex}`}
-                  style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain" }}
-                />
-              </div>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handlePrevImage} disabled={currentImageIndex === 0}>
-                Previous
-              </Button>
-              <Button onClick={handleNextImage} disabled={currentImageIndex === major.gallery.length - 1}>
-                Next
-              </Button>
-              <Button onClick={handleCloseModal} color="secondary">
-                Close
-              </Button>
-            </DialogActions>
-          </Dialog>
+            </main>
+            <FooterComponent />
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default MajorDetailUser ;
+export default MajorDetail;

@@ -27,7 +27,7 @@ const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const [openCourses, setOpenCourses] = useState(false);
     const [openAbout, setOpenAbout] = useState(false);
-    const [openEvents, setOpenEvents] = useState(false); // New state for Events dropdown
+    const [openNews, setOpenNews] = useState(false); // New state for EventComponent dropdown
 
     const menuOptions = [
         {
@@ -36,9 +36,9 @@ const Navbar = () => {
             to: "",
         },
         {
-            text: "News",
+            text: "Events",
             icon: <BiNews />,
-            to: "/news",
+            to: "/events",
         },
         {
             text: "Courses",
@@ -47,6 +47,7 @@ const Navbar = () => {
             dropdown: [
                 { text: "Courses", to: "/course" },
                 { text: "Majors", to: "/major" },
+                { text: "Partners", to: "/partner" },
             ],
         },
         {
@@ -62,7 +63,7 @@ const Navbar = () => {
             ],
         },
         {
-            text: "Events",
+            text: "News",
             icon: <BiNews />,
             to: "",
             dropdown: [
@@ -88,8 +89,8 @@ const Navbar = () => {
                       <div className="navbar-links-container flex items-center ">
                           <Link to="/" style={{color: '#fff'}} className="flex items-center gap-1"><BiHome
                               className='icon text-[18px] '/><p className="text-[13px]">Home</p></Link>
-                          <Link to="/news" style={{color: '#fff'}} className="flex items-center gap-1"><BiNews
-                              className='icon text-[18px]'/><p className="text-[13px]">News</p></Link>
+                          <Link to="/events" style={{color: '#fff'}} className="flex items-center gap-1"><BiCalendar
+                              className='icon text-[18px]'/><p className="text-[13px]">Events</p></Link>
 
                           {/* Courses Dropdown */}
                           <div
@@ -115,19 +116,18 @@ const Navbar = () => {
                               )}
                           </div>
 
-                          {/* Events Dropdown */}
                           <div
                               className="dropdown"
-                              onMouseEnter={() => setOpenEvents(true)} // Use openEvents state
-                              onMouseLeave={() => setOpenEvents(false)}
+                              onMouseEnter={() => setOpenNews(true)}
+                              onMouseLeave={() => setOpenNews(false)}
                               style={{position: 'relative'}}
                           >
                               <Link to="#" style={{color: '#fff'}} className="flex items-center gap-1">
-                                  <BiCalendar className='icon text-[18px]'/> <p className="text-[13px]">Events</p>
+                                  <BiNews className='icon text-[18px]'/> <p className="text-[13px]">News</p>
                                   <BiCaretDown
                                       className='icon'/>
                               </Link>
-                              {openEvents && ( // Check openEvents state
+                              {openNews && (
                                   <div className="dropdown-menu">
                                       {menuOptions[4].dropdown?.map((event) => ( // Reference the correct dropdown
                                           <Link key={event.text} to={event.to}
@@ -179,12 +179,12 @@ const Navbar = () => {
                                   <ListItem key={item.text} disablePadding>
                                       <ListItemButton component={Link} to={item.to} onClick={item.dropdown ? (e) => {
                                           e.preventDefault();
-                                          item.text === "Courses" ? setOpenCourses(!openCourses) : item.text === "Events" ? setOpenEvents(!openEvents) : setOpenAbout(!openAbout);
+                                          item.text === "Courses" ? setOpenCourses(!openCourses) : item.text === "Events" ? setOpenNews(!openNews) : setOpenAbout(!openAbout);
                                       } : undefined}>
                                           <ListItemIcon>{item.icon}</ListItemIcon>
                                           <ListItemText primary={item.text}/>
                                       </ListItemButton>
-                                      {item.dropdown && (openCourses || openAbout || openEvents) && (
+                                      {item.dropdown && (openCourses || openAbout || openNews) && (
                                           <div className="dropdown-menu" style={{paddingLeft: '20px'}}>
                                               {item.dropdown.map((subItem) => (
                                                   <ListItem key={subItem.text} disablePadding>
@@ -202,35 +202,8 @@ const Navbar = () => {
                       </Box>
                   </Drawer>
               </div>
-
-              {/*<div className="mr-8">*/}
-              {/*    <a href="/login" style={{color: '#fff'}}>*/}
-              {/*        <button*/}
-              {/*            className="primary-button flex items-center gap-2"*/}
-              {/*            // style={{*/}
-              {/*            //     margin: 0,*/}
-              {/*            //     height: '35px',*/}
-              {/*            //     width: '100px',*/}
-              {/*            //     textAlign: 'center',*/}
-              {/*            //     display: 'flex',*/}
-              {/*            //     alignItems: 'center',*/}
-              {/*            //     justifyContent: 'center',*/}
-              {/*            //     backgroundColor: 'white',*/}
-              {/*            //     color: '#071952',*/}
-              {/*            //     border: 'none',*/}
-              {/*            //     borderRadius: '40px',*/}
-              {/*            //     cursor: 'pointer',*/}
-              {/*            // }}*/}
-              {/*        >*/}
-              {/*            <BiLogIn className='icon text-[24px]'/>*/}
-              {/*            <p className="text-[16px] font-bold">Login</p>*/}
-              {/*        </button>*/}
-              {/*    </a>*/}
-              {/*</div>*/}
           </div>
-
       </nav>
-
   );
 };
 

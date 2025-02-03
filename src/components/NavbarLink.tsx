@@ -28,7 +28,7 @@ const NavbarLink = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const [openCourses, setOpenCourses] = useState(false);
     const [openAbout, setOpenAbout] = useState(false);
-    const [openEvents, setOpenEvents] = useState(false); // New state for Events dropdown
+    const [openEvents, setOpenEvents] = useState(false); // New state for EventComponent dropdown
 
     const menuOptions = [
         {
@@ -37,9 +37,9 @@ const NavbarLink = () => {
             to: "",
         },
         {
-            text: "News",
-            icon: <BiNews />,
-            to: "/news",
+            text: "Events",
+            icon: <PhoneRoundedIcon />,
+            to: "/events",
         },
         {
             text: "Courses",
@@ -62,8 +62,8 @@ const NavbarLink = () => {
             ],
         },
         {
-            text: "Events",
-            icon: <PhoneRoundedIcon />,
+            text: "News",
+            icon: <BiNews />,
             to: "",
             dropdown: [
                 { text: "Training", icon: <InfoIcon />, to: "/training" },
@@ -109,7 +109,7 @@ const NavbarLink = () => {
                         )}
                     </div>
 
-                    {/* Events Dropdown */}
+                    {/* EventComponent Dropdown */}
                     <div
                         className="dropdown"
                         onMouseEnter={() => setOpenEvents(true)} // Use openEvents state

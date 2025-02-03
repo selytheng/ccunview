@@ -5,7 +5,7 @@ import Course from "../components/HomeComponent/CourseComponent.tsx";
 import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
 import TeamComponent from "../components/HomeComponent/TeamComponent.tsx";
 import "../assets/css/HomePage.css";
-import Events from "./Events.tsx";
+import EventComponent from "../components/HomeComponent/EventComponent.tsx";
 
 const Home: React.FC = () => {
   return (
@@ -28,7 +28,7 @@ const Home: React.FC = () => {
         <TeamComponent />
       </section>
       <section className="work-container">
-        <Events />
+        <EventComponent />
       </section>
       <section className="footer-container">
         <FooterComponent />

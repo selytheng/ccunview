@@ -17,7 +17,7 @@ const Piechart: React.FC<PiechartProps> = ({  totalEvents, totalTrainings, total
         type: 'pie' as const,
         height: 250,
       },
-      labels: [ 'Total Events', 'Total Trainings', 'Total Workshops'],
+      labels: [ 'Total EventComponent', 'Total Trainings', 'Total Workshops'],
       responsive: [
         {
           breakpoint: 480,

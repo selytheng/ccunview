@@ -3,7 +3,7 @@ import { Card, CardContent, CardMedia, CircularProgress, Grid, Typography } from
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Events: React.FC = () => {
+const EventComponent: React.FC = () => {
     const [events, setEvents] = useState([]); // Change 'courses' to 'events'
     const [loading, setLoading] = useState(true);
 
@@ -123,4 +123,4 @@ const Events: React.FC = () => {
     );
 };
 
-export default Events;
+export default EventComponent;

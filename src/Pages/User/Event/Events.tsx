@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from "../components/Navbar.tsx";
-import FooterComponent from "../components/HomeComponent/FooterComponent.tsx";
+import Navbar from "../../../components/Navbar.tsx";
+import FooterComponent from "../../../components/HomeComponent/FooterComponent.tsx";
 import { Card, CardContent, CardMedia, CircularProgress, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -12,7 +12,7 @@ interface Event {
     image?: string;
 }
 
-const News: React.FC = () => {
+const Events: React.FC = () => {
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -42,7 +42,7 @@ const News: React.FC = () => {
                     <div className="absolute inset-0 h-96 w-full bg-gray-300"></div>
                     <div className="relative pt-28 text-center mt-[110px] ">
                         <h2 className="block antialiased tracking-normal font-sans font-semibold leading-[1.3] text-blue-950 mb-4 text-3xl lg:text-4xl">
-                            News
+                            Events
                         </h2>
                         {/*<p className="block antialiased font-sans text-xl leading-relaxed text-blue-950 font-bold mb-9 opacity-70">*/}
                         {/*    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum*/}
@@ -148,4 +148,4 @@ const News: React.FC = () => {
     );
 };
 
-export default News;
+export default Events;

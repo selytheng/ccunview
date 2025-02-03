@@ -11,7 +11,7 @@ interface TotalCardProps {
 const TotalCard: React.FC<TotalCardProps> = ({ totalCourses, totalEvents, totalTrainings, totalWorkshops }) => {
   const cardData = [
     { title: 'Total Courses', icon: <BiBook size={30} style={{ color: '#0D6EFD' }} />, number: totalCourses, color: '#0C4CA3', bgColor: '#E6F0FF' },
-    { title: 'Total Events', icon: <BiBookOpen size={30} style={{ color: '#02C27A' }} />, number: totalEvents, color: '#0C4CA3', bgColor: '#E5F9F1' }, // Updated to use totalMajors
+    { title: 'Total EventComponent', icon: <BiBookOpen size={30} style={{ color: '#02C27A' }} />, number: totalEvents, color: '#0C4CA3', bgColor: '#E5F9F1' }, // Updated to use totalMajors
     { title: 'Total Training', icon: <BiTask size={30} style={{ color: '#FC185A' }} />, number: totalTrainings, color: '#0C4CA3', bgColor: '#FFE7EE' },
     { title: 'Total Workshops', icon: <BiSolidGroup size={30} style={{ color: '#FFE45C' }} />, number: totalWorkshops, color: '#0C4CA3', bgColor: '#FDFFE7' },
   ];

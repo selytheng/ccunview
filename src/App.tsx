@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Home.tsx";
-import Courses from "./Pages/Courses.tsx";
+import Courses from "./Pages/User/Course/Courses.tsx";
 import Login from "./Pages/Login";
 import About from "./Pages/About.tsx";
 import Contact from "./Pages/Contact.tsx";
@@ -21,20 +21,21 @@ import AdminFeedback from "./Pages/Admin/Feedback/AdminFeedback.tsx";
 import CourseDetail from "./Pages/Admin/Course/CourseDetail";
 import AdminRoute from "../src/components/AdminRoute";
 import AdminProfile from "./Pages/Admin/Profile/AdminProfile";
-import News from "./Pages/News.tsx";
+import Events from "./Pages/User/Event/Events.tsx";
 import AdminMajor from "./Pages/Admin/Major/AdminMajor";
 import Users from "./Pages/SuperAdmin/Users";
-import Workshop from "./Pages/Workshops";
-import Training from "./Pages/Training";
+import Workshop from "./Pages/User/Workshop/Workshops.tsx";
+import Training from "./Pages/User/Training/Training.tsx";
 import CourseCreate from "./Pages/Admin/Course/CourseCreate";
 import SuperAdminRoute from "../src/components/SuperAdminRoute";
-import Major from "./Pages/Major.tsx";
+import Major from "./Pages/User/Major/Major.tsx";
 import CourseDetailUser from "./Pages/User/Course/CourseDetail.tsx";
 import EventDetailUser from "./Pages/User/Event/EventsDetail.tsx";
 import TrainingDetailUser from "./Pages/User/Training/TrainingDetail.tsx";
 import WorkshopDetailUser from "./Pages/User/Workshop/WorkshopDetail.tsx";
 import MajorDetailUser from "./Pages/User/Major/MajorDetail.tsx";
-import Partner from "./Pages/Partner.tsx";
+import Partner from "./Pages/User/Partner/Partner.tsx";
+import PartnerDetail from "./Pages/User/Partner/PartnerDetail.tsx";
 
 const App = () => {
   return (
@@ -43,20 +44,21 @@ const App = () => {
         <Routes>
           <Route index element={<Home />} />
           <Route path="" element={<Home />} />
-          <Route path="/news" element={<News />} />
+          <Route path="/events" element={<Events />} />
           <Route path="/workshop" element={<Workshop />} />
           <Route path="/training" element={<Training />} />
           <Route path="/course" element={<Courses />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/major" element={<Major />} />
+          <Route path="/user/major/:id" element={<MajorDetailUser />} />
+          <Route path="/user/partner/:id" element={<PartnerDetail />} />
           <Route path="/partner" element={<Partner />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/user/course/:id" element={<CourseDetailUser />} />
           <Route path="/user/events/:id" element={<EventDetailUser />} />
           <Route path="/user/trainings/:id" element={<TrainingDetailUser />} />
           <Route path="/user/workshops/:id" element={<WorkshopDetailUser />} />
-          <Route path="/user/majors/:id" element={<MajorDetailUser />} />
           <Route path="/login" element={<Login />} />
 
           {/* SuperAdmin Routes */}
