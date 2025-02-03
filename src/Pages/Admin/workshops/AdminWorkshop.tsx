@@ -65,9 +65,9 @@ const AdminWorkshop: React.FC = () => {
   return (
     <div>
       <NavbarHomePage />
-      <div className="dashboard">
+      <div className="dashboard" >
         <Sidebar />
-        <div className="dashboard-content">
+        <div className="dashboard-content" style={{padding: '5px 0 0 5px', backgroundColor: '#F8FAFC'}}>
           <div className="workshop-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Workshops</h1>
             <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';

@@ -29,12 +29,12 @@ import Training from "./Pages/Training";
 import CourseCreate from "./Pages/Admin/Course/CourseCreate";
 import SuperAdminRoute from "../src/components/SuperAdminRoute";
 import Major from "./Pages/Major.tsx";
-import AdminEventDetailUser from "./Pages/User/Event/EventsDetail.tsx";
 import CourseDetailUser from "./Pages/User/Course/CourseDetail.tsx";
 import EventDetailUser from "./Pages/User/Event/EventsDetail.tsx";
 import TrainingDetailUser from "./Pages/User/Training/TrainingDetail.tsx";
 import WorkshopDetailUser from "./Pages/User/Workshop/WorkshopDetail.tsx";
 import MajorDetailUser from "./Pages/User/Major/MajorDetail.tsx";
+import Partner from "./Pages/Partner.tsx";
 
 const App = () => {
   return (
@@ -50,6 +50,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/major" element={<Major />} />
+          <Route path="/partner" element={<Partner />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/user/course/:id" element={<CourseDetailUser />} />
           <Route path="/user/events/:id" element={<EventDetailUser />} />

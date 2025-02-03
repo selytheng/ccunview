@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Alert, Dialog, DialogActions, DialogTitle, Typography } from '@mui/material';
 import PartnerTable from './PartnerTable';
 import PartnerDialog from './PartnerDialog';
@@ -94,7 +94,7 @@ const AdminPartner = () => {
       <NavbarHomePage />
       <div className="dashboard">
         <Sidebar />
-        <div className="dashboard-content">
+        <div className="dashboard-content" style={{padding: '5px 0 0 5px', backgroundColor: '#F8FAFC'}}>
           <div className="course-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h1 style={{ fontWeight: 'bold', fontSize: 20, color: '#526d82' }}>Partners</h1>
             <div className="header-activity" style={{ display: 'flex', alignItems: 'center' }}>
