@@ -34,29 +34,37 @@ const ContactForm = () => {
   };
 
   const renderPhoneNumbers = (phones) => {
-    if (!phones) return <p className="text-gray-500">No phone numbers available</p>;
-    if (typeof phones === 'string') return <p className="text-gray-900">{phones}</p>;
-    if (Array.isArray(phones) && phones.length > 0) {
-      return phones.map((phone, index) => (
-        <p key={index} className="text-gray-900">
-          {phone}
-        </p>
-      ));
-    }
-    return <p className="text-gray-500">No phone numbers available</p>;
+      if (!phones) return <p className="text-gray-500">No phone numbers available</p>;
+      if (typeof phones === 'string') return (
+          <p className="text-gray-900">
+              <a href={`tel:${phones.replace(/\D/g, '')}`} className="hover:text-blue-600">{phones}</a>
+          </p>
+      );
+      if (Array.isArray(phones) && phones.length > 0) {
+          return phones.map((phone, index) => (
+              <p key={index} className="text-gray-900">
+                  <a href={`tel:${phone.replace(/\D/g, '')}`} className="hover:text-blue-600">{phone}</a>
+              </p>
+          ));
+      }
+      return <p className="text-gray-500">No phone numbers available</p>;
   };
 
   const renderEmails = (emails) => {
-    if (!emails) return <p className="text-gray-500">No email addresses available</p>;
-    if (typeof emails === 'string') return <p className="text-gray-900 break-all">{emails}</p>;
-    if (Array.isArray(emails) && emails.length > 0) {
-      return emails.map((email, index) => (
-        <p key={index} className="text-gray-900 break-all">
-          {email}
-        </p>
-      ));
-    }
-    return <p className="text-gray-500">No email addresses available</p>;
+      if (!emails) return <p className="text-gray-500">No email addresses available</p>;
+      if (typeof emails === 'string') return (
+          <p className="text-gray-900 break-all">
+              <a href={`mailto:${emails}`} className="hover:text-blue-600">{emails}</a>
+          </p>
+      );
+      if (Array.isArray(emails) && emails.length > 0) {
+          return emails.map((email, index) => (
+              <p key={index} className="text-gray-900 break-all">
+                  <a href={`mailto:${email}`} className="hover:text-blue-600">{email}</a>
+              </p>
+          ));
+      }
+      return <p className="text-gray-500">No email addresses available</p>;
   };
 
   const renderWebsiteLink = (website) => {
