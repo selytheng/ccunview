@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import image1 from "../../public/image1.jpg";
 import image2 from "../../public/image2.jpg";
 import image3 from "../../public/image3.jpg";
@@ -8,32 +8,20 @@ import image5 from "../../public/image5.jpg";
 const Carousel = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const images = [
-        {
-            src: image1,
-            alt: "First Slide",
-            label: "First Slide"
-        },
-        {
-            src: image2,
-            alt: "Second Slide",
-            label: "Second Slide"
-        },
-        {
-            src: image3,
-            alt: "Third Slide",
-            label: "Third Slide"
-        },
-        {
-            src: image4,
-            alt: "Fourth Slide",
-            label: "Fourth Slide"
-        },
-        {
-            src: image5,
-            alt: "Fifth Slide",
-            label: "Fifth Slide"
-        }
+        { src: image1, alt: "First Slide", label: "First Slide" },
+        { src: image2, alt: "Second Slide", label: "Second Slide" },
+        { src: image3, alt: "Third Slide", label: "Third Slide" },
+        { src: image4, alt: "Fourth Slide", label: "Fourth Slide" },
+        { src: image5, alt: "Fifth Slide", label: "Fifth Slide" }
     ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [images.length]);
 
     const nextSlide = () => {
         setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
